@@ -1,0 +1,39 @@
+const splashScreen = "assets/images/splashScreen.png";
+const bgimage = "assets/images/Background.png";
+const icfb = "assets/icons/fblogo.png";
+const icgoogle = "assets/icons/googlelogo.png";
+const vet = "assets/icons/vet.png";
+const grooming = "assets/icons/grooming.png";
+const petb = "assets/icons/petboarding.png";
+const adoption = "assets/icons/petadoption.png";
+const dogw = "assets/icons/dogwalking.png";
+const training = "assets/icons/pettraining.png";
+const pettaxi = "assets/icons/pettaxi.png";
+const petdate = "assets/icons/petdating.png";
+const other = "assets/icons/other.jpg";
+const search = "assets/icons/search.png";
+const explore = "assets/icons/explore.png";
+const appont = "assets/icons/appont.png";
+const person = "assets/icons/person.png";
+const dot = "assets/icons/dot.png";
+const close = "assets/icons/close.png";
+const map = "assets/icons/map.png";
+const mappin = "assets/icons/map pin.png";
+const step = "assets/icons/calendar.png";
+const filter = "assets/icons/filter.png";
+const walet = "assets/images/wallet.png";
+const img1 = "assets/images/image1.png";
+const star = "assets/images/stars.png";
+const doc = "assets/images/doctor.png";
+const rect = "assets/images/Rectangle.jpg";
+const img2 = "assets/images/img2.jpeg";
+const img3 = "assets/images/img3.jpeg";
+const fivestar = "assets/images/five_star.png";
+const edit = "assets/images/editpen.png";
+const dollar = "assets/images/dollar.png";
+
+
+const String onboardingImage1 = "assets/images/onboardingScreens/image1.png";
+const String onboardingImage2 = "assets/images/onboardingScreens/image2.png";
+const String onboardingImage3 = "assets/images/onboardingScreens/image3.png";
+

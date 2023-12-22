@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "983555933528",
+    "project_id": "fyp-project-c3434",
+    "storage_bucket": "fyp-project-c3434.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983555933528:android:64af88c706d18f254dd12d",
+        "android_client_info": {
+          "package_name": "com.example.pet_care_fyp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDABIsLPAcNDvw-iYhnymmxH_mGrYAwT-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
