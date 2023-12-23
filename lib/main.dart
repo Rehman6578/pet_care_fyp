@@ -9,6 +9,7 @@ import 'package:pet_care_fyp/views/Dashboard/Navbar_Screen/add_pet_detail.dart';
 import 'package:pet_care_fyp/views/Dashboard/PetBoarding.dart';
 import 'package:pet_care_fyp/views/Dashboard/PetDatingScreen.dart';
 import 'package:pet_care_fyp/views/OnboardingPages/onBoardingScreenWidget.dart';
+import 'package:pet_care_fyp/views/ProfileScreens/AddPetServices.dart';
 import 'package:pet_care_fyp/views/ProfileScreens/profile.dart';
 import 'package:pet_care_fyp/views/SearchScreens/nearme_veterinary_screen.dart';
 import 'package:pet_care_fyp/views/SearchScreens/veterinarydoctor_card_screen.dart';
@@ -59,6 +60,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/PetDatingScreen', page: () => PetDating(),
         ),
         GetPage(name: '/PetBoarding', page: () => PetBoardingScreen(),
+        ),
+        GetPage(name: '/AddPetServices', page: () =>  AddPetServices(),
         ),
       ],
     );

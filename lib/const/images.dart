@@ -33,7 +33,7 @@ const edit = "assets/images/editpen.png";
 const dollar = "assets/images/dollar.png";
 
 
-const String onboardingImage1 = "assets/images/onboardingScreens/image1.png";
-const String onboardingImage2 = "assets/images/onboardingScreens/image2.png";
-const String onboardingImage3 = "assets/images/onboardingScreens/image3.png";
+const String onboardingImage1 = "assets/images/OnboardingScreens/image1.png";
+const String onboardingImage2 = "assets/images/OnboardingScreens/image2.png";
+const String onboardingImage3 = "assets/images/OnboardingScreens/image3.png";
 

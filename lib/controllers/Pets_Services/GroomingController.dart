@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
-
 import '../../Utils/Models/Doctor.dart';
 import '../../Utils/Models/GroomingService.dart';
 import '../../views/AppointmentScreens/AppointmentScreen.dart';
@@ -12,8 +9,7 @@ class GroomingController extends GetxController {
   final RxList<GroomingService> services = RxList<GroomingService>();
 
   Future<void> fetchServices() async {
-    // Implement API call or local storage retrieval for grooming services
-    // Replace with your actual data fetching logic
+
     services.value = [
       GroomingService(
         name: "Basic Bath & Brush",

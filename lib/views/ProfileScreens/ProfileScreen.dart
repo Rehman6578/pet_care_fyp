@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pet_care_fyp/views/ProfileScreens/AddPetServices.dart';
 import 'package:pet_care_fyp/views/ProfileScreens/profile.dart';
 
 import '../../WidgetCommon/profile_listitems.dart';
@@ -163,8 +164,10 @@ class ProfileScreen extends StatelessWidget {
                 )),
             Padding(
                 padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
-                child: GestureDetector(
-                  onTap: () {},
+                child: InkWell(
+                  onTap: () {
+                    Get.to( AddPetServices());
+                  },
                   child: profile_list(
                     image: Image.asset('assets/images/medico.png'),
                     name: 'Add Pets Services',
