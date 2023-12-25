@@ -6,6 +6,7 @@ import 'package:pet_care_fyp/views/ProfileScreens/profile.dart';
 import '../../Utils/utils.dart';
 import '../../WidgetCommon/profile_listitems.dart';
 import '../auth_screens/LoginScreen.dart';
+import 'AddPetServices.dart';
 
 class ProfileScreen extends StatelessWidget {
    ProfileScreen({Key? key}) : super(key: key);
@@ -170,7 +171,7 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
                 child: profile_list(
                   onTap: () {
-                    // Get.to(MyBookings());
+                    Get.to(AddPetServices());
                   },
                   image: Image.asset('assets/images/medico.png'),
                   name: 'Add Pets Services',

@@ -9,6 +9,7 @@ import 'package:pet_care_fyp/views/Dashboard/Navbar_Screen/add_pet_detail.dart';
 import 'package:pet_care_fyp/views/Dashboard/PetBoarding.dart';
 import 'package:pet_care_fyp/views/Dashboard/PetDatingScreen.dart';
 import 'package:pet_care_fyp/views/OnboardingPages/onBoardingScreenWidget.dart';
+import 'package:pet_care_fyp/views/ProfileScreens/AddPetServices.dart';
 import 'package:pet_care_fyp/views/ProfileScreens/profile.dart';
 import 'package:pet_care_fyp/views/SearchScreens/nearme_veterinary_screen.dart';
 import 'package:pet_care_fyp/views/SearchScreens/veterinarydoctor_card_screen.dart';
@@ -36,29 +37,57 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/SplashScreen',
       getPages: [
-        GetPage(name: '/onboardingScreens', page: () => OnboardingScreen(),
+        GetPage(
+          name: '/onboardingScreens',
+          page: () => OnboardingScreen(),
         ),
-        GetPage(name: '/SplashScreen', page: () => SplashScreen(),
+        GetPage(
+          name: '/SplashScreen',
+          page: () => SplashScreen(),
         ),
-        GetPage(name: '/Dashboard', page: () => const Dashboard(),
+        GetPage(
+          name: '/Dashboard',
+          page: () => const Dashboard(),
         ),
-        GetPage(name: '/LoginScreen', page: () => const LoginScreen(),
+        GetPage(
+          name: '/LoginScreen',
+          page: () => const LoginScreen(),
         ),
-        GetPage(name: '/RegisterScreen', page: () => const RegisterScreen(),
+        GetPage(
+          name: '/RegisterScreen',
+          page: () => const RegisterScreen(),
         ),
-        GetPage(name: '/EditProfile', page: () => const EditProfile(),
+        GetPage(
+          name: '/EditProfile',
+          page: () => const EditProfile(),
         ),
-        GetPage(name: '/AddPetDetails', page: () => const AddPetDetail(),
+        GetPage(
+          name: '/AddPetDetails',
+          page: () => const AddPetDetail(),
         ),
-        GetPage(name: '/NearVeterinaryScreen', page: () => const NearVeterinaryScreen(),
+        GetPage(
+          name: '/NearVeterinaryScreen',
+          page: () => const NearVeterinaryScreen(),
         ),
-        GetPage(name: '/VeterinaryDocScreen', page: () => const VeterinaryDocScreen(),
+        GetPage(
+          name: '/VeterinaryDocScreen',
+          page: () => const VeterinaryDocScreen(),
         ),
-        GetPage(name: '/GroomingScreen', page: () => GroomingScreen(),
+        GetPage(
+          name: '/GroomingScreen',
+          page: () => GroomingScreen(),
         ),
-        GetPage(name: '/PetDatingScreen', page: () => PetDating(),
+        GetPage(
+          name: '/PetDatingScreen',
+          page: () => PetDating(),
         ),
-        GetPage(name: '/PetBoarding', page: () => PetBoardingScreen(),
+        GetPage(
+          name: '/PetBoarding',
+          page: () => PetBoardingScreen(),
+        ),
+        GetPage(
+          name: '/AddPetServices',
+          page: () => const AddPetServices(),
         ),
       ],
     );
