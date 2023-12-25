@@ -8,9 +8,14 @@ import '../../WidgetCommon/profile_listitems.dart';
 import '../auth_screens/LoginScreen.dart';
 import 'AddPetServices.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
    ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
