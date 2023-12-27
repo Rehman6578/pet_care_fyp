@@ -6,8 +6,8 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../controllers/views_Controllers/MainWrapperController.dart';
 import '../AppointmentScreens/AppointmentScreen.dart';
-import '../ProfileScreens/ProfileScreen.dart';
 import 'Navbar_Screen/HomeNavbar.dart';
+import 'ProfileScreens/ProfileScreen.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});

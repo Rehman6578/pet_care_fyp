@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../WidgetCommon/Button.dart';
-import '../../controllers/Image_Controller/ImageController.dart';
+import '../../../WidgetCommon/Button.dart';
+import '../../../controllers/Image_Controller/ImageController.dart';
+
 
 class EditProfile extends StatelessWidget {
   const EditProfile({Key? key}) : super(key: key);

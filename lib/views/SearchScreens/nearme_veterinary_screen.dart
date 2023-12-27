@@ -8,7 +8,7 @@ import 'package:pet_care_fyp/views/SearchScreens/veterinarydoctor_card_screen.da
 import '../../const/colors.dart';
 import '../../const/images.dart';
 import '../AppointmentScreens/AppointmentScreen.dart';
-import '../ProfileScreens/ProfileScreen.dart';
+import '../Dashboard/ProfileScreens/ProfileScreen.dart';
 
 class NearVeterinaryScreen extends StatefulWidget {
   const NearVeterinaryScreen({super.key});

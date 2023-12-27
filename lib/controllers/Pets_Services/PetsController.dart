@@ -5,6 +5,7 @@ import '../../Utils/Models/PetsModel.dart';
 
 class PetAppointmentController extends GetxController {
 
+
   // create doctor class object
   // final Rx<PetAppointment> appointment = Rx<PetAppointment>(
   //   PetAppointment(
@@ -35,5 +36,6 @@ class PetAppointmentController extends GetxController {
 //   );
 // }
 
-// Set selected doctor
+// add method to add pet to list of pets
+
 }

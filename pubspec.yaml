@@ -48,6 +48,10 @@ dependencies:
   cloud_firestore: ^4.13.5
   fk_toggle: ^0.1.4
   image_picker: ^1.0.4
+  multiselect_dropdown_flutter: ^0.0.7
+  multiselect: ^0.1.0
+#  google_maps_flutter: ^2.5.0
+#  flutter_map: ^5.0.0
 
 dev_dependencies:
   flutter_test:

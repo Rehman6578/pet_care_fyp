@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_care_fyp/views/ProfileScreens/profile.dart';
-
-import '../../Utils/utils.dart';
-import '../../WidgetCommon/profile_listitems.dart';
-import '../auth_screens/LoginScreen.dart';
+import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/profile.dart';
+import '../../../Utils/utils.dart';
+import '../../../WidgetCommon/profile_listitems.dart';
+import '../../auth_screens/LoginScreen.dart';
 import 'AddPetServices.dart';
 
 class ProfileScreen extends StatefulWidget {
