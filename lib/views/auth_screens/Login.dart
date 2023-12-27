@@ -283,7 +283,7 @@ class _LoginState extends State<Login> {
                                   const TextStyle(color: Colors.blueAccent),
                               labelText: 'Email ',
                               obscureText: false,
-                              icon: const Icon(
+                              suffixIcon: const Icon(
                                 Icons.email,
                                 color: Colors.grey,
                               )),
@@ -307,7 +307,7 @@ class _LoginState extends State<Login> {
                                     hintStyle:
                                     const TextStyle(color: Colors.blueAccent),
                                     obscureText: _toggle.value,
-                                    icon: const Icon(
+                                    suffixIcon: const Icon(
                                       Icons.lock,
                                       color: Colors.grey,
                                     ));

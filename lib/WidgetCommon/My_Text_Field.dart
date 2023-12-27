@@ -12,7 +12,7 @@ class MyTextFormField extends StatelessWidget {
     required this.hintText,
     required this.labelText,
     required this.obscureText,
-    this.icon = const Icon(Icons.visibility_off),
+    this.suffixIcon = const Icon(Icons.visibility_off),
     this.enable = true,
     this.autoFocus = false,
     required TextStyle hintStyle,
@@ -26,7 +26,7 @@ class MyTextFormField extends StatelessWidget {
   final FormFieldSetter onFieldSubmittedValue;
   final FormFieldValidator onValidator;
 
-  final Icon icon;
+  final Icon suffixIcon;
   final TextInputType keyBoardType;
   final String hintText;
   final String labelText;
