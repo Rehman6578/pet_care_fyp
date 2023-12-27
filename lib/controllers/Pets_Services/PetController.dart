@@ -39,7 +39,7 @@ class MultiSelectionController extends GetxController {
   List<String> petTrainingCourse = [
     'Basic Obedience training',
     'Behavioral Training',
-    'potty Training',
+    'puppy Training',
     'Therapy Dog Training',
     'Trick Training',
     'Potty Training',
@@ -48,4 +48,13 @@ class MultiSelectionController extends GetxController {
   RxList<String> selectedTrainingCourse = RxList<String>([]);
   var selectedTrainingCourseOption = ''.obs;
 
+  // create list of pet training classes course
+  List<String> petTrainingClasses = [
+    'Private dog training lessons',
+    'Group dog training lessons',
+    'Board and train programs',
+  ];
+
+  RxList<String> selectedTrainingClasses = RxList<String>([]);
+  var selectedTrainingClassesOption = ''.obs;
 }

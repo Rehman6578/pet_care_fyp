@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multiselect/multiselect.dart';
+import 'package:pet_care_fyp/WidgetCommon/Button.dart';
+import 'package:pet_care_fyp/controllers/Image_Controller/ImageController.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 
 class TrainingSerivce extends StatefulWidget {
@@ -12,8 +16,19 @@ class TrainingSerivce extends StatefulWidget {
 
 class _TrainingSerivceState extends State<TrainingSerivce> {
 
+  TextEditingController _preferredLocationController = TextEditingController();
+  TextEditingController _streetNameController = TextEditingController();
+  TextEditingController _cityController = TextEditingController();
+  TextEditingController _stateController = TextEditingController();
+  TextEditingController _postalCodeController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
+
   MultiSelectionController petController = MultiSelectionController();
-  String? selectedYear ;
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
+
+  String? selectedYear;
+  String? selectedTrainingpets;
 
   @override
   Widget build(BuildContext context) {
@@ -21,129 +36,479 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
       appBar: AppBar(
         title: const Text('Training Service'),
       ),
-      body: Column(
-        children: [
-
-          const Text(
-            'Add service name',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Enter service name',
-            ),
-          ),
-          const SizedBox(height: 10,),
-          const Text(
-            'Add service description',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 10,),
-          Card(
-            elevation: 5,
-            child: TextFormField(
-              maxLines: 5,
-              decoration: const InputDecoration(
-                hintText: 'Give an overview of the service you offer.'
-                    ' Tell us what a day look like and some fun things pets will get to do.',
-
+      body: Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 25),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // add text field for image
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: const Text(
+                  'Upload image of your lovely house/compound where pets will be trained.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: 10,),
-          const Text(
-            'What pets do you train?',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          // add multiselect dropdown
-          const SizedBox(height: 10,),
-          DropDownMultiSelect(
-            options: petController.allPetTypes,
-            whenEmpty: 'eg: Dog, Cat, Reptile',
-            onChanged: (value) {
-              petController.selectedPetTypes.value = value;
-              petController.selectedOption.value = "";
-
-              for (var value1 in petController.selectedPetTypes.value) {
-                petController.selectedOption.value =
-                    petController.selectedOption.value + "" + value1;
-              }
-            },
-            selectedValues: petController.selectedPetTypes.value,
-          ),
-          const SizedBox(height: 10,),
-          const Text(
-            'How many year have you been a trainer?',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          // add dropdown to select year
-          const SizedBox(height: 10,),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              border: Border.all(
-                color: Colors.grey,
-                width: 1,
+              SizedBox(
+                height: 20,
               ),
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: DropdownButton<String>(
-                hint: Text('Yes/No'),
-                isExpanded: true,
-                value: selectedYear,
-                menuMaxHeight: 100,
-                borderRadius: BorderRadius.circular(10.0),
-                items: petController.years.map((option) {
-                  return DropdownMenuItem<String>(
-                    value: option,
-                    child: Text(option),
-                  );
-                }).toList(),
+              Obx(
+                () => Center(
+                  child: Stack(
+                    children: [
+                      Card(
+                        elevation: 8.0,
+                        child: Container(
+                          height: Get.height * 0.3,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(15.0),
+                            image: imagePickerController.imagePath.value == ''
+                                ? const DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/trainingprofile.png'))
+                                : DecorationImage(
+                                    image: FileImage(File(imagePickerController
+                                        .imagePath.value
+                                        .toString())),
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: InkWell(
+                          onTap: () {
+                            imagePickerController.getImage();
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              const Text(
+                'Add service name',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter service name',
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                'Add service description',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Card(
+                elevation: 5,
+                child: TextFormField(
+                  maxLines: 5,
+                  decoration: const InputDecoration(
+                    hintText: 'Give an overview of the service you offer.'
+                        ' Tell us what a day look like and some fun things pets will get to do.',
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                'What results can the owner expect?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Card(
+                elevation: 5,
+                child: TextFormField(
+                  maxLines: 5,
+                  decoration: const InputDecoration(
+                    hintText:
+                        'Detial what type of results can the pet owner expect, eg: '
+                        'Sit, Stay, Come, Down, Heel, Leave it, etc.',
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'What pets do you train?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              // add multiselect dropdown
+              const SizedBox(
+                height: 10,
+              ),
+              DropDownMultiSelect(
+                options: petController.allPetTypes,
+                whenEmpty: 'eg: Dog, Cat, Reptile',
                 onChanged: (value) {
-                  setState(() {
-                    selectedYear = value!;
-                  });
+                  petController.selectedPetTypes.value = value;
+                  petController.selectedOption.value = "";
+
+                  for (var value1 in petController.selectedPetTypes.value) {
+                    petController.selectedOption.value =
+                        petController.selectedOption.value + "" + value1;
+                  }
                 },
+                selectedValues: petController.selectedPetTypes.value,
               ),
-            ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'How many year have you been a trainer?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              // add dropdown to select year
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: DropdownButton<String>(
+                    hint: Text(
+                      'Select year',
+                      style: TextStyle(fontWeight: FontWeight.normal),
+                    ),
+                    isExpanded: true,
+                    value: selectedYear,
+                    borderRadius: BorderRadius.circular(10.0),
+                    items: petController.years.map((option) {
+                      return DropdownMenuItem<String>(
+                        value: option,
+                        child: Text(option),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedYear = value!;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'What pet training course do you provide?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              DropDownMultiSelect(
+                  whenEmpty:
+                      'eg: Basic Obedience training, Behavioral Training',
+                  options: petController.petTrainingCourse,
+                  selectedValues: petController.selectedTrainingCourse,
+                  onChanged: (Value) {
+                    petController.selectedTrainingCourse.value = Value;
+                    petController.selectedTrainingCourseOption.value = "";
+
+                    for (var value1
+                        in petController.selectedTrainingCourse.value) {
+                      petController.selectedTrainingCourseOption.value =
+                          petController.selectedTrainingCourseOption.value +
+                              "" +
+                              value1;
+                    }
+                  }),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'How many pets can you train at one time?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: DropdownButton<String>(
+                    hint: Text(
+                      'eg: 1,5,9',
+                      style: TextStyle(fontWeight: FontWeight.normal),
+                    ),
+                    isExpanded: true,
+                    value: selectedTrainingpets,
+                    borderRadius: BorderRadius.circular(10.0),
+                    items: petController.years.map((option) {
+                      return DropdownMenuItem<String>(
+                        value: option,
+                        child: Text(option),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedTrainingpets = value!;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              const Text(
+                'What type fo classes do you offer?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              DropDownMultiSelect(
+                  whenEmpty: 'eg: Private/Group dog training lessons',
+                  options: petController.petTrainingClasses,
+                  selectedValues: petController.selectedTrainingClasses,
+                  onChanged: (Value) {
+                    petController.selectedTrainingClasses.value = Value;
+                    petController.selectedTrainingClassesOption.value = "";
+
+                    for (var value2
+                        in petController.selectedTrainingClasses.value) {
+                      petController.selectedTrainingClassesOption.value =
+                          petController.selectedTrainingClassesOption.value +
+                              "" +
+                              value2;
+                    }
+                  }),
+
+              // add textfield for price
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'What is your price per session?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                controller: _priceController,
+                decoration: const InputDecoration(
+                  hintText: 'Enter price',
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Preferred Search Location:',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      TextFormField(
+                        controller: _preferredLocationController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter preferred search location',
+                        ),
+                      ),
+                      // Input for Price
+                      SizedBox(height: 16.0),
+                      // Input for Street Name
+                      Text(
+                        'Street Name/No:',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      TextFormField(
+                        controller: _streetNameController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter street name/number',
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+
+                      // Input for City
+                      Text(
+                        'City:',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      TextFormField(
+                        controller: _cityController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter city',
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+
+                      // Input for State
+                      Text(
+                        'State:',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      TextFormField(
+                        controller: _stateController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter state',
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+
+                      // Input for Postal Code
+                      Text(
+                        'Postal Code:',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      TextFormField(
+                        controller: _postalCodeController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: 'Enter postal code',
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+
+                      // Map View
+                      Text(
+                        'Location on Map:',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 16.0),
+                      Container(
+                        height: Get.height * 0.4,
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+
+                      SizedBox(height: 32.0),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+
+              Center(
+                child: RoundedButton(
+                    text: 'Add Service',
+                    press: (){},
+                    color: Colors.blueAccent,
+                    textColor: Colors.white,
+                    width: Get.width * 0.9, ),
+              )
+            ],
           ),
-          const SizedBox(height: 10,),
-          const Text(
-            'What pet training course do you provide?',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          DropDownMultiSelect(
-              options: petController.petTrainingCourse,
-              selectedValues: petController.selectedTrainingCourse,
-              onChanged: (Value){
-                petController.selectedTrainingCourse.value = Value;
-                petController.selectedTrainingCourseOption.value = "";
-
-                for (var value1 in petController.selectedTrainingCourse.value) {
-                  petController.selectedTrainingCourseOption.value =
-                      petController.selectedTrainingCourseOption.value + "" + value1;
-                }
-              })
-
-
-        ],
+        ),
       ),
     );
   }

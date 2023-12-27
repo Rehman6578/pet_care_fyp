@@ -108,7 +108,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   subtitle: Text('Avaliable all the time'),
                   trailing:
                       InkWell(onTap: () {
-                        Get.to(TrainingSerivce());
+                        Get.to(()=>TrainingSerivce());
                       }, child: Icon(Icons.arrow_forward_ios)),
                 ),
               ),
