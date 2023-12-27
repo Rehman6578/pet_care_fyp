@@ -165,14 +165,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
                 padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
                 child: profile_list(
-                    onTap: () {
-                      // Get.to(MyPets());
-                    },
-                    image: Image.asset('assets/images/mypet.png'),
-                    name: 'My Pets')),
-            Padding(
-                padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
-                child: profile_list(
                   onTap: () {
                     // Get.to(MyBookings());
                   },
