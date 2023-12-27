@@ -162,7 +162,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     image: Image.asset('assets/images/mypet.png'),
                     name: 'My Pets')),
-
             Padding(
                 padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
                 child: profile_list(
