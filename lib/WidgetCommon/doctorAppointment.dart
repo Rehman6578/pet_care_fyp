@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Button.dart';
 import 'IconContainer.dart';
@@ -40,8 +41,8 @@ class _DocterAppointmentState extends State<DocterAppointment> {
     return Padding(
       padding:  EdgeInsets.all(15),
       child: Container(
-        width: double.infinity,
-        height: 330,
+        width: Get.width,
+        height: Get.height * 0.38,
         child: Column(
           children: [
             Row(
@@ -51,8 +52,8 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                 Padding(
                   padding: const EdgeInsets.only(left: 25, top: 25),
                   child: Container(
-                    height: 100,
-                    width: 100,
+                    height: Get.height * 0.11,
+                    width: Get.width  * 0.25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
@@ -149,8 +150,8 @@ class _DocterAppointmentState extends State<DocterAppointment> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                RoundedButton(text: 'Edit', press: (){}, color: Colors.blue, textColor: Colors.white, width: 150),
-                RoundedButton(text: 'Cancel', press: (){}, color: Colors.grey.withOpacity(0.2), textColor: Colors.black, width: 150),
+                RoundedButton(text: 'Edit', press: (){}, color: Colors.blue, textColor: Colors.white, width: Get.width * 0.4),
+                RoundedButton(text: 'Cancel', press: (){}, color: Colors.grey.withOpacity(0.2), textColor: Colors.black, width: Get.width * 0.4),
               ],
             ),
           ],

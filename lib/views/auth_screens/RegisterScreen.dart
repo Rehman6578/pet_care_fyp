@@ -189,6 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Expanded(
                 child: Container(
+                  width: Get.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white,
@@ -322,7 +323,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               color: Colors.blue,
                               textColor: Colors.white,
-                              width: 300,
+                              width: Get.width * 0.8,
                               height: 70),
                         ),
                       ],

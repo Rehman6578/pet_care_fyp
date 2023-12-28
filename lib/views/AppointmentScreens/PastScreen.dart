@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../WidgetCommon/Button.dart';
 
@@ -28,7 +29,7 @@ class _PastScreenState extends State<PastScreen> {
                     press: () {},
                     color: Colors.blueAccent,
                     textColor: Colors.white,
-                    width: 300)),
+                    width: Get.width * 0.8,)),
           ],
         ),
       ),

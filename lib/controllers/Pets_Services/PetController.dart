@@ -57,4 +57,43 @@ class MultiSelectionController extends GetxController {
 
   RxList<String> selectedTrainingClasses = RxList<String>([]);
   var selectedTrainingClassesOption = ''.obs;
+
+  // add list of walking services
+  List<String> walkingServices = [
+    '0',
+    '1',
+    '2',
+    '3+',
+  ];
+
+  RxList<String> selectedWalkingServices = RxList<String>([]);
+  var selectedWalkingServicesOption = ''.obs;
+
+  // add list of describe the home you live in
+  List<String> describeHome = [
+    'Apartment',
+    'House',
+    'Farm',
+    'Other',
+  ];
+
+  RxList<String> selectedDescribeHome = RxList<String>([]);
+  var selectedDescribeHomeOption = ''.obs;
+
+  // create pets sleeping at night
+  List<String> petsSleepingAtNight = [
+    'In my bed',
+    'In a crate',
+    'In a dog bed',
+    'In a dog house',
+    'In a kennel',
+    'In a cage',
+    'In a room',
+    'Other',
+  ];
+
+  RxList<String> selectedPetsSleepingAtNight = RxList<String>([]);
+  var selectedPetsSleepingAtNightOption = ''.obs;
+
+
 }

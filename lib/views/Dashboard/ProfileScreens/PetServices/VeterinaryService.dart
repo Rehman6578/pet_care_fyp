@@ -15,9 +15,8 @@ class AddVeterinaryService extends StatefulWidget {
 }
 
 class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
 
+  ImagePickerController imagePickerController = Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
 
   // TextEditingController for handling input
@@ -37,6 +36,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   TextEditingController _postalCodeController = TextEditingController();
 
   String? selectedOption;
+  RxString doctorimage = ''.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +59,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         elevation: 8.0,
 
                         child: Container(
-                          height: Get.height * 0.2,
-                          width: Get.width * 0.4,
+                          height: Get.height * 0.25,
+                          width: Get.width,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
                             border: Border.all(
@@ -68,12 +68,12 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(15.0),
-                            image: imagePickerController.imagePath.value == ''
+                            image: imagePickerController.doctorimagePath.value == ''
                                 ?const DecorationImage(
                                     image: AssetImage('assets/images/doctor.png'))
                                 : DecorationImage(
                                     image: FileImage(File(imagePickerController
-                                        .imagePath.value
+                                        .doctorimagePath.value
                                         .toString())),
                                     fit: BoxFit.cover,
                                   ),
@@ -85,7 +85,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         right: 10,
                         child: InkWell(
                           onTap: () {
-                            imagePickerController.getImage();
+                            imagePickerController.getDoctorImage();
                           },
                           child: Container(
                             height: 40,
@@ -136,7 +136,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               image: imagePickerController.imagePath.value == ''
                                   ?const DecorationImage(
                                       image:
-                                          AssetImage('assets/images/doctor.png'))
+                                          AssetImage('assets/images/petimage.png'))
                                   : DecorationImage(
                                       image: FileImage(File(imagePickerController
                                           .imagePath.value
@@ -151,7 +151,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             right: 5,
                             child: InkWell(
                               onTap: () {
-                                imagePickerController.getImage();
+                                imagePickerController.getPetsImage();
 
                               },
                               child: Container(
@@ -188,7 +188,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               image: imagePickerController.imagePath.value == ''
                                   ? const DecorationImage(
                                       image:
-                                          AssetImage('assets/images/doctor.png'))
+                                          AssetImage('assets/images/petimage.png'))
                                   : DecorationImage(
                                       image: FileImage(File(imagePickerController
                                           .imagePath.value
@@ -236,9 +236,9 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               ),
                               borderRadius: BorderRadius.circular(10.0),
                               image: imagePickerController.imagePath.value == ''
-                                  ? const DecorationImage(
+                                  ?  const DecorationImage(
                                       image:
-                                          AssetImage('assets/images/doctor.png'))
+                                          AssetImage('assets/images/petimage.png'))
                                   : DecorationImage(
                                       image: FileImage(File(imagePickerController
                                           .imagePath.value
@@ -362,7 +362,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
               SizedBox(height: 16.0),
 
               // Input for Accepted Pet Types
-              Text(
+              const Text(
                 'What pets do you accept?',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -386,13 +386,13 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 selectedValues: petController.selectedPetTypes.value,
               ),
 
-              SizedBox(height: 16.0),
-              Text(
+              const SizedBox(height: 16.0),
+              const Text(
                 'Size of pet you accept?',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
 
@@ -409,15 +409,15 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                           petController.SizesOptions.value + "" + value1;
                     }
                   }),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
 
-              Text(
+              const Text(
                 'Do you have transport for emergencies?',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
 
@@ -453,17 +453,17 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
-              Text(
+              const Text(
                 'Price:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _priceController,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter the price',
                 ),
               ),
@@ -483,63 +483,63 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Preferred Search Location:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _preferredLocationController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter preferred search location',
                         ),
                       ),
                       // Input for Price
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
                       // Input for Street Name
-                      Text(
+                      const Text(
                         'Street Name/No:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _streetNameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter street name/number',
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Input for City
-                      Text(
+                      const Text(
                         'City:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _cityController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter city',
                         ),
                       ),
                       SizedBox(height: 16.0),
 
                       // Input for State
-                      Text(
+                      const Text(
                         'State:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _stateController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter state',
                         ),
                       ),
                       SizedBox(height: 16.0),
 
                       // Input for Postal Code
-                      Text(
+                      const Text(
                         'Postal Code:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -547,14 +547,14 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       TextFormField(
                         controller: _postalCodeController,
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter postal code',
                         ),
                       ),
                       SizedBox(height: 16.0),
 
                       // Map View
-                      Text(
+                      const Text(
                         'Location on Map:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -573,14 +573,14 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         ),
                       ),
 
-                      SizedBox(height: 32.0),
+                      const SizedBox(height: 32.0),
                     ],
                   ),
                 ),
               ),
               // Input for Preferred Search Location
 
-              SizedBox(height: 30.0),
+              const SizedBox(height: 30.0),
               // Button to Add Service
               Center(
                   child: RoundedButton(

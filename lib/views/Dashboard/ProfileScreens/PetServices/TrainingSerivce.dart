@@ -15,7 +15,6 @@ class TrainingSerivce extends StatefulWidget {
 }
 
 class _TrainingSerivceState extends State<TrainingSerivce> {
-
   TextEditingController _preferredLocationController = TextEditingController();
   TextEditingController _streetNameController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
@@ -43,9 +42,9 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // add text field for image
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: const Text(
+              const Padding(
+                padding: EdgeInsets.only(left: 8, right: 8),
+                child: Text(
                   'Upload image of your lovely house/compound where pets will be trained.',
                   style: TextStyle(
                     fontSize: 16,
@@ -53,7 +52,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Obx(
@@ -63,7 +62,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                       Card(
                         elevation: 8.0,
                         child: Container(
-                          height: Get.height * 0.3,
+                          height: Get.height * 0.25,
                           width: Get.width,
                           decoration: BoxDecoration(
                             color: Colors.transparent,
@@ -99,7 +98,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                               color: Colors.blue,
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                             ),
@@ -110,9 +109,191 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 25,
+              const SizedBox(
+                height: 15,
               ),
+
+              const Text(
+                'Add lovely images of your pets',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(
+                height: 15,
+              ),
+
+              // add three container for image
+              Container(
+                height: Get.height * 0.1,
+                width: Get.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Obx(()=>
+                        Stack(
+                          children: [
+                            Container(
+                              height: Get.height * 0.2,
+                              width: Get.width * 0.2,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: imagePickerController.imagePath.value == ''
+                                    ?const DecorationImage(
+                                    image:
+                                    AssetImage('assets/images/petimage.png'))
+                                    : DecorationImage(
+                                  image: FileImage(File(imagePickerController
+                                      .imagePath.value
+                                      .toString())),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            // add shor addimage icon to add image of 20 * 20
+                            Positioned(
+                              bottom: 5,
+                              right: 5,
+                              child: InkWell(
+                                onTap: () {
+                                  imagePickerController.getPetsImage();
+
+                                },
+                                child: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                    ),
+                    Obx(()=> Stack(
+                      children: [
+                        Container(
+                          height: Get.height * 0.2,
+                          width: Get.width * 0.2,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                            image: imagePickerController.imagePath.value == ''
+                                ? const DecorationImage(
+                                image:
+                                AssetImage('assets/images/petimage.png'))
+                                : DecorationImage(
+                              image: FileImage(File(imagePickerController
+                                  .imagePath.value
+                                  .toString())),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 5,
+                          right: 5,
+                          child: InkWell(
+                            onTap: () {
+                              imagePickerController.getImage();
+                            },
+                            child: Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    ),
+                    Obx(()=>
+                        Stack(
+                          children: [
+                            Container(
+                              height: Get.height * 0.2,
+                              width: Get.width * 0.2,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: imagePickerController.imagePath.value == ''
+                                    ?  const DecorationImage(
+                                    image:
+                                    AssetImage('assets/images/petimage.png'))
+                                    : DecorationImage(
+                                  image: FileImage(File(imagePickerController
+                                      .imagePath.value
+                                      .toString())),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 5,
+                              right: 5,
+                              child: InkWell(
+                                onTap: () {
+                                  imagePickerController.getImage();
+                                },
+                                child: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                      size: 20,
+
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+
               const Text(
                 'Add service name',
                 style: TextStyle(
@@ -139,7 +320,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Card(
@@ -166,7 +347,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Card(
@@ -238,7 +419,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: DropdownButton<String>(
-                    hint: Text(
+                    hint: const Text(
                       'Select year',
                       style: TextStyle(fontWeight: FontWeight.normal),
                     ),
@@ -399,63 +580,63 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Preferred Search Location:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _preferredLocationController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter preferred search location',
                         ),
                       ),
                       // Input for Price
                       SizedBox(height: 16.0),
                       // Input for Street Name
-                      Text(
+                      const Text(
                         'Street Name/No:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _streetNameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter street name/number',
                         ),
                       ),
                       SizedBox(height: 16.0),
 
                       // Input for City
-                      Text(
+                      const Text(
                         'City:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _cityController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter city',
                         ),
                       ),
                       SizedBox(height: 16.0),
 
                       // Input for State
-                      Text(
+                      const Text(
                         'State:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextFormField(
                         controller: _stateController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter state',
                         ),
                       ),
                       SizedBox(height: 16.0),
 
                       // Input for Postal Code
-                      Text(
+                      const Text(
                         'Postal Code:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -500,11 +681,12 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
 
               Center(
                 child: RoundedButton(
-                    text: 'Add Service',
-                    press: (){},
-                    color: Colors.blueAccent,
-                    textColor: Colors.white,
-                    width: Get.width * 0.9, ),
+                  text: 'Add Service',
+                  press: () {},
+                  color: Colors.blueAccent,
+                  textColor: Colors.white,
+                  width: Get.width * 0.9,
+                ),
               )
             ],
           ),
