@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/BoardingSerivce.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/TrainingSerivce.dart';
-
-import '../../../Utils/Models/GroomingService.dart';
 import 'PetServices/GroomingServices.dart';
 import 'PetServices/VeterinaryService.dart';
 
