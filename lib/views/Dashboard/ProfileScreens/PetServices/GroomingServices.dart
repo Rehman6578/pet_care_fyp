@@ -38,7 +38,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Veterinary Service'),
+        title: const Text('Add Grooming Service'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
