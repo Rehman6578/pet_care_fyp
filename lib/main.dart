@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:pet_care_fyp/WidgetCommon/AddLocationScreen.dart';
 import 'package:pet_care_fyp/firebase_options.dart';
 import 'package:pet_care_fyp/views/Dashboard/GroomingScreen.dart';
@@ -16,7 +14,6 @@ import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/Training
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/VeterinaryService.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/profile.dart';
 import 'package:pet_care_fyp/views/OnboardingPages/onBoardingScreenWidget.dart';
-
 import 'package:pet_care_fyp/views/SearchScreens/nearme_veterinary_screen.dart';
 import 'package:pet_care_fyp/views/SearchScreens/veterinarydoctor_card_screen.dart';
 import 'package:pet_care_fyp/views/SplashScreen/SplashScreen.dart';
@@ -95,10 +92,11 @@ class MyApp extends StatelessWidget {
           name: '/AddPetServices',
           page: () => const AddPetServices(),
         ),
-        GetPage(name: '/AddVeterinaryService', page: () => AddVeterinaryService()),
-        GetPage(name: '/TrainingService', page: () => TrainingSerivce()),
-        GetPage(name: '/BoardingService', page: ()=>BoardingService()),
-        GetPage(name: '/AddLocation', page: ()=> AddLocation()),
+        GetPage(
+            name: '/AddVeterinaryService', page: () => AddVeterinaryService()),
+        GetPage(name: '/TrainingService', page: () => const TrainingSerivce()),
+        GetPage(name: '/BoardingService', page: () => const BoardingService()),
+        GetPage(name: '/AddLocation', page: () => const AddLocation()),
       ],
     );
   }

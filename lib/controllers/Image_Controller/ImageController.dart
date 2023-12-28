@@ -1,62 +1,49 @@
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-
-class ImagePickerController extends GetxController{
-
+class ImagePickerController extends GetxController {
   RxString imagePath = ''.obs;
   RxString doctorimagePath = ''.obs;
   RxString petsimagepath = ''.obs;
 
-  Future GetImage() async{
+  ImagePicker imagePicker = ImagePicker();
 
+  Future GetImage() async {
     final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
+    final image = await _picker.pickImage(source: ImageSource.gallery);
 
-    if(image != null){
+    if (image != null) {
       return image.path.toString();
     }
   }
 
-
-  Future getImage() async{
-
+  Future getImage() async {
     final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
+    final image = await _picker.pickImage(source: ImageSource.gallery);
 
-    if(image != null){
+    if (image != null) {
       imagePath.value = image.path.toString();
     }
-
   }
 
-  Future getDoctorImage() async{
-
+  Future getDoctorImage() async {
     final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
+    final image = await _picker.pickImage(source: ImageSource.gallery);
 
-    if(image != null){
+    if (image != null) {
       doctorimagePath.value = image.path.toString();
     }
-
   }
 
-  Future getPetsImage() async{
-
+  Future<String?> getPetsImage() async {
     final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
+    final image = await _picker.pickImage(source: ImageSource.gallery);
 
-    if(image != null){
+    if (image != null) {
       petsimagepath.value = image.path.toString();
     }
-
+    return null;
   }
 
   // create one component for image picker that can be used in all screens
-
-
-
-
 }
-
