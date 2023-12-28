@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/AddLocationScreen.dart';
@@ -24,6 +25,7 @@ String? selectedOption;
 String? selectedHome;
 
 String? img1, img2, img3;
+Uint8List? _img1, _img2, _img3;
 
 class _BoardingServiceState extends State<BoardingService> {
   @override
@@ -237,6 +239,10 @@ class _BoardingServiceState extends State<BoardingService> {
                                     image: FileImage(File(img3.toString())),
                                     fit: BoxFit.cover,
                                   ),
+                            //     DecorationImage(
+                            //   image: MemoryImage(_img3!),
+                            //   fit: BoxFit.cover,
+                            // ),
                           ),
                         ),
                         Positioned(
@@ -246,6 +252,8 @@ class _BoardingServiceState extends State<BoardingService> {
                             onTap: () async {
                               img3 = await imagePickerController.getPetsImage();
                               setState(() {});
+                              // _img3 = await imagePickerController
+                              //     .getMyImage(ImageSource.gallery);
                             },
                             child: Container(
                               height: 20,

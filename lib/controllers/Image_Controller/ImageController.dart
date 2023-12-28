@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -40,7 +42,17 @@ class ImagePickerController extends GetxController {
     final image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      petsimagepath.value = image.path.toString();
+      return image.path;
+    }
+    return null;
+  }
+
+  Future<Uint8List?> getMyImage(ImageSource source) async {
+    final ImagePicker _picker = ImagePicker();
+    final image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      return image.readAsBytes();
     }
     return null;
   }
