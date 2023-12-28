@@ -117,56 +117,6 @@ class EditProfile extends StatelessWidget {
                       ],
                     ),
                   ),),
-              // Center(
-              //   child: Stack(
-              //     children: [
-              //       Container(
-              //         height: 112,
-              //         width: 112,
-              //         decoration: BoxDecoration(
-              //           border: Border.all(
-              //             color: Colors.white,
-              //             width: 0,
-              //           ),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               spreadRadius: 2,
-              //               blurRadius: 10,
-              //               color: Colors.black.withOpacity(0.1),
-              //             ),
-              //           ],
-              //           shape: BoxShape.circle,
-              //           image: const DecorationImage(
-              //             image: AssetImage('assets/images/Ellipse.png'),
-              //             fit: BoxFit.cover,
-              //           ),
-              //         ),
-              //       ),
-              //       Positioned(
-              //         bottom: 10,
-              //         right: 0,
-              //         child: InkWell(
-              //           onTap: () {
-              //
-              //           },
-              //           child: Container(
-              //             width: 29,
-              //             height: 29,
-              //             decoration: const BoxDecoration(
-              //               shape: BoxShape.circle,
-              //               color: Colors.blue,
-              //             ),
-              //             child: const Icon(
-              //               Icons.add,
-              //               color: Colors.white,
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Full name
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(

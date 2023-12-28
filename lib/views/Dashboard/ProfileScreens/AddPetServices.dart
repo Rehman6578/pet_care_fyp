@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/TrainingSerivce.dart';
 
+import '../../../Utils/Models/GroomingService.dart';
+import 'PetServices/GroomingServices.dart';
 import 'PetServices/VeterinaryService.dart';
 
 class AddPetServices extends StatefulWidget {
@@ -51,7 +53,9 @@ class _AddPetServicesState extends State<AddPetServices> {
                   title: Text(' Grooming Service'),
                   subtitle: Text('Avaliable all the time'),
                   trailing:
-                      InkWell(onTap: () {}, child: Icon(Icons.arrow_forward_ios)),
+                      InkWell(onTap: () {
+                        Get.to( () => AddGroomingService());
+                      }, child: Icon(Icons.arrow_forward_ios)),
                 ),
               ),
             ),
