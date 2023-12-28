@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/BoardingSerivce.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/TrainingSerivce.dart';
+
+import '../../../Utils/Models/GroomingService.dart';
 import 'PetServices/GroomingServices.dart';
 import 'PetServices/VeterinaryService.dart';
 
@@ -36,9 +38,9 @@ class _AddPetServicesState extends State<AddPetServices> {
                   elevation: 4.0,
                   child: ListTile(
                     leading: Image.asset('assets/images/vet.png'),
-                    title: const Text(' Veterinary Service'),
-                    subtitle: const Text('Available all the time'),
-                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: Text(' Veterinary Service'),
+                    subtitle: Text('Avaliable all the time'),
+                    trailing: Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
@@ -56,9 +58,9 @@ class _AddPetServicesState extends State<AddPetServices> {
                   elevation: 4.0,
                   child: ListTile(
                     leading: Image.asset('assets/images/grooming.png'),
-                    title: const Text(' Grooming Service'),
-                    subtitle: const Text('Available all the time'),
-                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: Text(' Grooming Service'),
+                    subtitle: Text('Avaliable all the time'),
+                    trailing: Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
@@ -68,15 +70,15 @@ class _AddPetServicesState extends State<AddPetServices> {
               padding: const EdgeInsets.only(left: 8,right: 8,top: 5),
               child: InkWell(
                 onTap: () {
-                  Get.to(const BoardingService());
+                  // Get.to(AddBoardingService());
                 },
                 child: Card(
                   elevation: 4.0,
                   child: ListTile(
                     leading: Image.asset('assets/images/petboarding.png'),
-                    title: const Text(' Boarding Service'),
-                    subtitle: const Text('Available all the time'),
-                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: Text(' Boarding Service'),
+                    subtitle: Text('Avaliable all the time'),
+                    trailing: Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
