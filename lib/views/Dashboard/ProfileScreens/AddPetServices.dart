@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/BoardingSerivce.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/TrainingSerivce.dart';
 
 import 'PetServices/VeterinaryService.dart';
@@ -65,7 +66,9 @@ class _AddPetServicesState extends State<AddPetServices> {
                   title: Text(' Boarding Service'),
                   subtitle: Text('Avaliable all the time'),
                   trailing:
-                      InkWell(onTap: () {}, child: Icon(Icons.arrow_forward_ios)),
+                      InkWell(onTap: () {
+                        Get.to(BoardingService());
+                      }, child: Icon(Icons.arrow_forward_ios)),
                 ),
               ),
             ),

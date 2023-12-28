@@ -212,12 +212,103 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
               child: profile_list(
                 onTap: () {
-                  auth.signOut().then((value) {
-                    Get.offAll(LoginScreen());
-                    ToastMessage().showSnackBar('LogOut');
-                  }).catchError((e) {
-                    ToastMessage().showSnackBar(e.toString());
-                  });
+                  
+                  // show here logout dialog
+                  Dialog dialog = Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Container(
+                      height: Get.height * 0.3,
+                      child: Column(
+                        children: [
+
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Image.asset(
+                                'assets/images/love.png',
+                                height: Get.height * 0.1,
+                                width: Get.width * 0.2,
+                              ),
+                            )
+                          ),
+
+                          const Padding(
+                            padding: EdgeInsets.only(top: 15.0),
+                            child: Text(
+                              'Are you sure you want to logout?',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Encode Sans',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20.0),
+                            child: Text(
+                              'You will be returned to the login screen',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: 'Encode Sans',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'Cancel',
+                                    style:   TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontFamily: 'Encode Sans',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    auth.signOut().then((value) {
+                                      Get.offAll(LoginScreen());
+                                      ToastMessage().showSnackBar('LogOut');
+                                    }).catchError((e) {
+                                      ToastMessage().showSnackBar(e.toString());
+                                    });
+                                  },
+                                  child: const Text(
+                                    'Logout',
+                                    style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontFamily: 'Encode Sans',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => dialog,
+                  );
+
                 },
                 image: Image.asset('assets/images/logout1.png'),
                 name: 'LogOut',

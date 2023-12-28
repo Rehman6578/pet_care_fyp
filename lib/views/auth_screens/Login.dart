@@ -77,19 +77,7 @@ class _LoginState extends State<Login> {
               width: double.infinity,
               alignment: Alignment.center,
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 40.0, left: 10),
-            //   child: IconButton(
-            //     onPressed: () {
-            //       Get.to(const LoginScreen());
-            //     },
-            //     icon: const Icon(
-            //       Icons.arrow_back,
-            //       color: Colors.white,
-            //       size: 30,
-            //     ),
-            //   ),
-            // ),
+
             const Padding(
               padding: EdgeInsets.only(top: 100, left: 30),
               child: Text(
@@ -105,7 +93,7 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.only(top: 500),
               child: Container(
                 height: 500,
-                width: double.infinity,
+                width: Get.width,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
@@ -113,7 +101,7 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.only(top: 10),
                   child: Container(
                     height: 265,
-                    width: double.infinity,
+                    width: Get.width,
                     color: Colors.white,
                     child: Expanded(
                       child: Column(
@@ -336,7 +324,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 40),
                           RoundedButton(
                               text: "Sign in ",
                               isloading: _loading,
@@ -347,8 +335,8 @@ class _LoginState extends State<Login> {
                               },
                               color: Colors.blue,
                               textColor: Colors.white,
-                              height: 70,
-                              width: 300),
+                              height: Get.height * 0.08,
+                              width: Get.width * 0.8,),
                         ],
                       ),
                     ),
