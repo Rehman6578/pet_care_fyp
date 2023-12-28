@@ -20,6 +20,7 @@ class _AddPetServicesState extends State<AddPetServices> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Pet Services'),
+        centerTitle: true,
       ),
       body: Container(
         child: Column(
@@ -70,7 +71,7 @@ class _AddPetServicesState extends State<AddPetServices> {
               padding: const EdgeInsets.only(left: 8,right: 8,top: 5),
               child: InkWell(
                 onTap: () {
-                  Get.to(BoardingService());
+                  // Get.to(AddBoardingService());
                 },
                 child: Card(
                   elevation: 4.0,

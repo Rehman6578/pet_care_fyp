@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/AddLocationScreen.dart';
@@ -24,9 +23,6 @@ String? selectedWalkingServic;
 String? selectedOption;
 String? selectedHome;
 
-String? img1, img2, img3;
-Uint8List? _img1, _img2, _img3;
-
 class _BoardingServiceState extends State<BoardingService> {
   @override
   Widget build(BuildContext context) {
@@ -34,9 +30,9 @@ class _BoardingServiceState extends State<BoardingService> {
       appBar: AppBar(
         title: const Text('Boarding Service'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8, top: 15),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -117,153 +113,56 @@ class _BoardingServiceState extends State<BoardingService> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 10,
+              ),
               Container(
                 height: Get.height * 0.1,
                 width: Get.width,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: Get.height * 0.2,
-                          width: Get.width * 0.2,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                            image: img1 == null
-                                ? const DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/petimage.png'))
-                                : DecorationImage(
-                                    image: FileImage(File(img1.toString())),
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                        // add shor addimage icon to add image of 20 * 20
-                        Positioned(
-                          bottom: 5,
-                          right: 5,
-                          child: InkWell(
-                            onTap: () async {
-                              img1 = await imagePickerController.getPetsImage();
-                              setState(() {});
-                            },
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(20),
+                    Obx(
+                      () => Stack(
+                        children: [
+                          Container(
+                            height: Get.height * 0.2,
+                            width: Get.width * 0.2,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1,
                               ),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 20,
-                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                              image: imagePickerController.imagePath.value == ''
+                                  ? const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
+                                  : DecorationImage(
+                                      image: FileImage(File(
+                                          imagePickerController.imagePath.value
+                                              .toString())),
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        Container(
-                          height: Get.height * 0.2,
-                          width: Get.width * 0.2,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                            image: img2 == null
-                                ? const DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/petimage.png'))
-                                : DecorationImage(
-                                    image: FileImage(File(img2.toString())),
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 5,
-                          right: 5,
-                          child: InkWell(
-                            onTap: () async {
-                              img2 = await imagePickerController.getPetsImage();
-                              setState(() {});
-                            },
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        Container(
-                          height: Get.height * 0.2,
-                          width: Get.width * 0.2,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                            image: img3 == null
-                                ? const DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/petimage.png'))
-                                : DecorationImage(
-                                    image: FileImage(File(img3.toString())),
-                                    fit: BoxFit.cover,
-                                  ),
-                            //     DecorationImage(
-                            //   image: MemoryImage(_img3!),
-                            //   fit: BoxFit.cover,
-                            // ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 5,
-                          right: 5,
-                          child: InkWell(
-                            onTap: () async {
-                              img3 = await imagePickerController.getPetsImage();
-                              setState(() {});
-                              // _img3 = await imagePickerController
-                              //     .getMyImage(ImageSource.gallery);
-                            },
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Center(
-                                child: Icon(
+                          // add shor addimage icon to add image of 20 * 20
+                          Positioned(
+                            bottom: 5,
+                            right: 5,
+                            child: InkWell(
+                              onTap: () {
+                                imagePickerController.getPetsImage();
+                              },
+                              child: Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: const Icon(
                                   Icons.add,
                                   color: Colors.white,
                                   size: 20,
@@ -271,8 +170,110 @@ class _BoardingServiceState extends State<BoardingService> {
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                    ),
+                    Obx(
+                      () => Stack(
+                        children: [
+                          Container(
+                            height: Get.height * 0.2,
+                            width: Get.width * 0.2,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                              image: imagePickerController.imagePath.value == ''
+                                  ? const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
+                                  : DecorationImage(
+                                      image: FileImage(File(
+                                          imagePickerController.imagePath.value
+                                              .toString())),
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 5,
+                            right: 5,
+                            child: InkWell(
+                              onTap: () {
+                                imagePickerController.getImage();
+                              },
+                              child: Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Obx(
+                      () => Stack(
+                        children: [
+                          Container(
+                            height: Get.height * 0.2,
+                            width: Get.width * 0.2,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                              image: imagePickerController.imagePath.value == ''
+                                  ? const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
+                                  : DecorationImage(
+                                      image: FileImage(File(
+                                          imagePickerController.imagePath.value
+                                              .toString())),
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 5,
+                            right: 5,
+                            child: InkWell(
+                              onTap: () {
+                                imagePickerController.getImage();
+                              },
+                              child: Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -291,10 +292,7 @@ class _BoardingServiceState extends State<BoardingService> {
               TextFormField(
                 decoration: const InputDecoration(
                   hintText: 'Enter service name',
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
               const SizedBox(
@@ -311,24 +309,22 @@ class _BoardingServiceState extends State<BoardingService> {
                 height: 10,
               ),
               Card(
-                elevation: 5,
+                elevation: 4,
+                color: Colors.white,
                 child: TextFormField(
                   maxLines: 5,
                   decoration: const InputDecoration(
                     hintText: 'Give an overview of the service you offer.'
                         ' Tell us what a day look like and some fun things pets will get to do.',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 16),
               const Text(
-                'How many pets can you watch at yout home at one time?',
+                'How many pets can you watch at your home at one time?',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -352,7 +348,7 @@ class _BoardingServiceState extends State<BoardingService> {
                   child: DropdownButton<String>(
                     hint: const Text(
                       '5,8,10',
-                      style: TextStyle(fontWeight: FontWeight.normal),
+                      style: TextStyle(fontWeight: FontWeight.normal,color: Colors.grey),
                     ),
                     isExpanded: true,
                     value: selectedPets,
@@ -372,9 +368,7 @@ class _BoardingServiceState extends State<BoardingService> {
                 ),
               ),
 
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 16),
               const Text(
                 'What pets do you accept?',
                 style: TextStyle(
@@ -388,42 +382,40 @@ class _BoardingServiceState extends State<BoardingService> {
               ),
               DropDownMultiSelect(
                 options: petController.allPetTypes,
-                whenEmpty: 'eg: Dog, Cat, Reptile',
+                hint: const Text('eg: Dog, Cat, Reptile'),
+                hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
                 onChanged: (value) {
                   petController.selectedPetTypes.value = value;
                   petController.selectedOption.value = "";
 
                   for (var value1 in petController.selectedPetTypes.value) {
                     petController.selectedOption.value =
-                        petController.selectedOption.value + "" + value1;
+                        "${petController.selectedOption.value}$value1";
                   }
                 },
                 selectedValues: petController.selectedPetTypes.value,
               ),
 
-              SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 16),
               const Text(
                 'Size of pet you accept?',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
 
-              const SizedBox(
-                height: 16.0,
-              ),
+              const SizedBox(height: 16.0),
 
               DropDownMultiSelect(
                   options: petController.allPetSizes,
                   selectedValues: petController.selectedPetSizes.value,
-                  whenEmpty: 'eg: 1-5kg , 15-20kg',
+                  hint: const Text('eg: 1-5kg, 5-10kg, 10-15kg'),
+                  hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
                   onChanged: (value) {
                     petController.selectedPetSizes.value = value;
                     petController.SizesOptions.value = "";
 
                     for (var value1 in petController.selectedPetSizes.value) {
                       petController.SizesOptions.value =
-                          petController.SizesOptions.value + "" + value1;
+                          "${petController.SizesOptions.value}$value1";
                     }
                   }),
               const SizedBox(
@@ -495,7 +487,8 @@ class _BoardingServiceState extends State<BoardingService> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: DropdownButton<String>(
-                    hint: Text('Yes/No'),
+                    hint: const Text('Yes/No'),
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
                     isExpanded: true,
                     value: selectedOption,
                     menuMaxHeight: 100,
@@ -539,9 +532,8 @@ class _BoardingServiceState extends State<BoardingService> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: DropdownButton<String>(
-                    hint: Text(
-                      'eg: Apartment, House, Farm',
-                    ),
+                    hint: const Text('eg: Apartment, House, Farm'),
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
                     isExpanded: true,
                     value: selectedHome,
                     menuMaxHeight: 100,
@@ -575,10 +567,7 @@ class _BoardingServiceState extends State<BoardingService> {
               TextFormField(
                 decoration: const InputDecoration(
                   hintText: 'Enter price per night',
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
 
@@ -588,19 +577,18 @@ class _BoardingServiceState extends State<BoardingService> {
 
               Center(
                 child: RoundedButton(
-                  text: "Next",
-                  press: () {
-                    Get.to(AddLocation());
-                  },
-                  color: Colors.blueAccent,
-                  textColor: Colors.white,
-                  width: Get.width * 0.9,
-                  height: Get.height * 0.08,
+                    text: "Next",
+                    press: (){
+                      Get.to(AddLocation());
+                    },
+                    color: Colors.blueAccent,
+                    textColor: Colors.white,
+                    width: Get.width * 0.9,
+                    height: Get.height * 0.08,
                 ),
               ),
               SizedBox(
-                height: 50,
-              )
+                height: 50,)
             ],
           ),
         ),
