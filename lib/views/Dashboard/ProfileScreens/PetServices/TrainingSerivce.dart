@@ -295,7 +295,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
               ),
 
               const Text(
-                'Add service name',
+                'Add service name or title',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
