@@ -20,20 +20,20 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   MultiSelectionController petController = Get.put(MultiSelectionController());
 
   // TextEditingController for handling input
-  TextEditingController _doctorNameController = TextEditingController();
-  TextEditingController _experienceController = TextEditingController();
-  TextEditingController _specializationController = TextEditingController();
-  TextEditingController _personalInfoController = TextEditingController();
-  TextEditingController _educationController = TextEditingController();
-  TextEditingController _acceptedPetsController = TextEditingController();
-  TextEditingController _offeredServicesController = TextEditingController();
-  TextEditingController _acceptedPetTypesController = TextEditingController();
-  TextEditingController _preferredLocationController = TextEditingController();
-  TextEditingController _priceController = TextEditingController();
-  TextEditingController _streetNameController = TextEditingController();
-  TextEditingController _cityController = TextEditingController();
-  TextEditingController _stateController = TextEditingController();
-  TextEditingController _postalCodeController = TextEditingController();
+  final TextEditingController _doctorNameController = TextEditingController();
+  final TextEditingController _experienceController = TextEditingController();
+  final TextEditingController _specializationController = TextEditingController();
+  final TextEditingController _personalInfoController = TextEditingController();
+  final TextEditingController _educationController = TextEditingController();
+  final TextEditingController _acceptedPetsController = TextEditingController();
+  final TextEditingController _offeredServicesController = TextEditingController();
+  final TextEditingController _acceptedPetTypesController = TextEditingController();
+  final TextEditingController _preferredLocationController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _streetNameController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _postalCodeController = TextEditingController();
 
   String? selectedOption;
   RxString doctorimage = ''.obs;
@@ -42,7 +42,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Veterinary Service'),
+        title: const Text('Add Veterinary Service'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -94,7 +94,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               color: Colors.blue,
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                             ),
@@ -106,15 +106,15 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 ),
               ),
 
-              SizedBox(height: 36.0),
+              const SizedBox(height: 36.0),
 
-              Text(
+              const Text(
                 'Add lovely images of your pets:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               // add container to get three more images
-              Container(
+              SizedBox(
                 height: Get.height * 0.1,
                 width: Get.width,
                 child: Row(
@@ -161,7 +161,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.add,
                                   color: Colors.white,
                                   size: 20,
@@ -211,7 +211,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.add,
                                   color: Colors.white,
                                   size: 20,
@@ -261,7 +261,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Icon(
                                     Icons.add,
                                     color: Colors.white,
@@ -279,98 +279,101 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 ),
               ),
 
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               // Input for Doctor's Name
-              Text(
-                'Doctor\'s Name:',
+              const Text(
+                'Doctor\'s Name',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _doctorNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter doctor\'s name',
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               // Input for Professional Experience
-              Text(
-                'Professional Experience:',
+              const Text(
+                'Professional Experience',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _experienceController,
                 maxLines: 5,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter professional experience',
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               // Input for Specialization
-              Text(
-                'Specialization:',
+              const Text(
+                'Specialization',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _specializationController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter specialization',
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               // Input for Personal Information
-              Text(
-                'Personal Information:',
+              const Text(
+                'Personal Information',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _personalInfoController,
                 maxLines: 5,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter personal information',
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               // Input for Education
-              Text(
-                'Education:',
+              const Text(
+                'Education',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _educationController,
                 maxLines: 3,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter education details',
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               // Input for Offered Services
-              Text(
-                'Offered Services:',
+              const Text(
+                'Offered Services',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _offeredServicesController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter offered services',
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               // Input for Accepted Pet Types
               const Text(
                 'What pets do you accept?',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              // add multi select dropdown for pet selectio
 
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               DropDownMultiSelect(
                 options: petController.allPetTypes,
                 whenEmpty: 'eg: Dog, Cat, Reptile',
@@ -380,7 +383,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
                   for (var value1 in petController.selectedPetTypes.value) {
                     petController.selectedOption.value =
-                        petController.selectedOption.value + "" + value1;
+                        "${petController.selectedOption.value}$value1";
                   }
                 },
                 selectedValues: petController.selectedPetTypes.value,
@@ -406,7 +409,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
                     for (var value1 in petController.selectedPetSizes.value) {
                       petController.SizesOptions.value =
-                          petController.SizesOptions.value + "" + value1;
+                          "${petController.SizesOptions.value}$value1";
                     }
                   }),
               const SizedBox(
@@ -433,7 +436,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: DropdownButton<String>(
-                    hint: Text('Yes/No'),
+                    hint: const Text('Yes/No'),
                     isExpanded: true,
                     value: selectedOption,
                     menuMaxHeight: 100,
@@ -453,21 +456,20 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 ),
               ),
 
-              const SizedBox(
-                height: 16.0,
-              ),
+              const SizedBox(height: 16.0),
               const Text(
                 'Price:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               TextFormField(
                 controller: _priceController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 decoration: const InputDecoration(
                   hintText: 'Enter the price',
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              SizedBox(height: 40.0),
+              const SizedBox(height: 40.0),
 
               Container(
                 decoration: BoxDecoration(
@@ -484,7 +486,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Preferred Search Location:',
+                        'Preferred Search Location',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -492,13 +494,14 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         controller: _preferredLocationController,
                         decoration: const InputDecoration(
                           hintText: 'Enter preferred search location',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
                       // Input for Price
                       const SizedBox(height: 16.0),
                       // Input for Street Name
                       const Text(
-                        'Street Name/No:',
+                        'Street Name/No',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -506,13 +509,14 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         controller: _streetNameController,
                         decoration: const InputDecoration(
                           hintText: 'Enter street name/number',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
                       const SizedBox(height: 16.0),
 
                       // Input for City
                       const Text(
-                        'City:',
+                        'City',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -520,13 +524,14 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         controller: _cityController,
                         decoration: const InputDecoration(
                           hintText: 'Enter city',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Input for State
                       const Text(
-                        'State:',
+                        'State',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -534,13 +539,14 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         controller: _stateController,
                         decoration: const InputDecoration(
                           hintText: 'Enter state',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Input for Postal Code
                       const Text(
-                        'Postal Code:',
+                        'Postal Code',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -549,17 +555,18 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
                           hintText: 'Enter postal code',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Map View
                       const Text(
-                        'Location on Map:',
+                        'Location on Map',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
                       Container(
                         height: Get.height * 0.4,
                         width: Get.width,
@@ -591,7 +598,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 width: 380,
                 height: 70,
               )),
-              SizedBox(height: 30.0),
+              const SizedBox(height: 30.0),
             ],
           ),
         ),

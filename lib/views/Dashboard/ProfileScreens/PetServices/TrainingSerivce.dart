@@ -15,12 +15,12 @@ class TrainingSerivce extends StatefulWidget {
 }
 
 class _TrainingSerivceState extends State<TrainingSerivce> {
-  TextEditingController _preferredLocationController = TextEditingController();
-  TextEditingController _streetNameController = TextEditingController();
-  TextEditingController _cityController = TextEditingController();
-  TextEditingController _stateController = TextEditingController();
-  TextEditingController _postalCodeController = TextEditingController();
-  TextEditingController _priceController = TextEditingController();
+  final TextEditingController _preferredLocationController = TextEditingController();
+  final TextEditingController _streetNameController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _postalCodeController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
 
   MultiSelectionController petController = MultiSelectionController();
   ImagePickerController imagePickerController =
@@ -36,7 +36,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
         title: const Text('Training Service'),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 25),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +173,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                                     color: Colors.blue,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.add,
                                     color: Colors.white,
                                     size: 20,
@@ -223,7 +223,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                                 color: Colors.blue,
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.add,
                                 color: Colors.white,
                                 size: 20,
@@ -273,7 +273,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                                     color: Colors.blue,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Center(
+                                  child: const Center(
                                     child: Icon(
                                       Icons.add,
                                       color: Colors.white,
@@ -291,7 +291,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                 ),
               ),
               const SizedBox(
-                height: 15,
+                height: 16,
               ),
 
               const Text(
@@ -304,15 +304,10 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
               TextFormField(
                 decoration: const InputDecoration(
                   hintText: 'Enter service name',
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 16),
               const Text(
                 'Add service description',
                 style: TextStyle(
@@ -320,26 +315,25 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Card(
-                elevation: 5,
-                child: TextFormField(
-                  maxLines: 5,
-                  decoration: const InputDecoration(
-                    hintText: 'Give an overview of the service you offer.'
-                        ' Tell us what a day look like and some fun things pets will get to do.',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
+                elevation: 4,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    maxLines: 5,
+                    decoration: const InputDecoration(
+                      hintText: 'Give an overview of the service you offer.'
+                          ' Tell us what a day look like and some fun things pets will get to do.',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 16),
               const Text(
                 'What results can the owner expect?',
                 style: TextStyle(
@@ -351,22 +345,25 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                 height: 10,
               ),
               Card(
-                elevation: 5,
-                child: TextFormField(
-                  maxLines: 5,
-                  decoration: const InputDecoration(
-                    hintText:
-                        'Detial what type of results can the pet owner expect, eg: '
-                        'Sit, Stay, Come, Down, Heel, Leave it, etc.',
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
+                elevation: 4,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    maxLines: 5,
+                    decoration: const InputDecoration(
+                      hintText:
+                          'Detail what type of results can the pet owner expect, eg: '
+                          'Sit, Stay, Come, Down, Heel, Leave it, etc.',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
                     ),
                   ),
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 16,
               ),
               const Text(
                 'What pets do you train?',
@@ -388,7 +385,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
 
                   for (var value1 in petController.selectedPetTypes.value) {
                     petController.selectedOption.value =
-                        petController.selectedOption.value + "" + value1;
+                        "${petController.selectedOption.value}$value1";
                   }
                 },
                 selectedValues: petController.selectedPetTypes.value,
@@ -440,9 +437,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               const Text(
                 'What pet training course do you provide?',
                 style: TextStyle(
@@ -462,9 +457,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                     for (var value1
                         in petController.selectedTrainingCourse.value) {
                       petController.selectedTrainingCourseOption.value =
-                          petController.selectedTrainingCourseOption.value +
-                              "" +
-                              value1;
+                          "${petController.selectedTrainingCourseOption.value}$value1";
                     }
                   }),
               const SizedBox(
@@ -477,9 +470,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.transparent,
@@ -492,7 +483,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: DropdownButton<String>(
-                    hint: Text(
+                    hint: const Text(
                       'eg: 1,5,9',
                       style: TextStyle(fontWeight: FontWeight.normal),
                     ),
@@ -535,9 +526,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                     for (var value2
                         in petController.selectedTrainingClasses.value) {
                       petController.selectedTrainingClassesOption.value =
-                          petController.selectedTrainingClassesOption.value +
-                              "" +
-                              value2;
+                          "${petController.selectedTrainingClassesOption.value}$value2";
                     }
                   }),
 
@@ -557,10 +546,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                 controller: _priceController,
                 decoration: const InputDecoration(
                   hintText: 'Enter price',
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
               const SizedBox(
@@ -589,10 +575,11 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                         controller: _preferredLocationController,
                         decoration: const InputDecoration(
                           hintText: 'Enter preferred search location',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
                       // Input for Price
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
                       // Input for Street Name
                       const Text(
                         'Street Name/No:',
@@ -603,9 +590,10 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                         controller: _streetNameController,
                         decoration: const InputDecoration(
                           hintText: 'Enter street name/number',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Input for City
                       const Text(
@@ -617,9 +605,10 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                         controller: _cityController,
                         decoration: const InputDecoration(
                           hintText: 'Enter city',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Input for State
                       const Text(
@@ -631,9 +620,10 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                         controller: _stateController,
                         decoration: const InputDecoration(
                           hintText: 'Enter state',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Input for Postal Code
                       const Text(
@@ -644,19 +634,20 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                       TextFormField(
                         controller: _postalCodeController,
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Enter postal code',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
 
                       // Map View
-                      Text(
+                      const Text(
                         'Location on Map:',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
                       Container(
                         height: Get.height * 0.4,
                         width: Get.width,
@@ -670,14 +661,12 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                         ),
                       ),
 
-                      SizedBox(height: 32.0),
+                      const SizedBox(height: 32.0),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: 40,
-              ),
+              const SizedBox(height: 40),
 
               Center(
                 child: RoundedButton(

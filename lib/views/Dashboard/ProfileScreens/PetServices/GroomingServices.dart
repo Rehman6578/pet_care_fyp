@@ -202,7 +202,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                       decoration: const InputDecoration(
                         label: Text('Services Type'),
                         hintText: 'Pet Grooming ',
-                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.black),
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
                       ),
@@ -225,8 +225,8 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                       keyboardType: const TextInputType.numberWithOptions(
                           decimal: true),
                       decoration: const InputDecoration(
-                        prefixText: 'USD',
-                        prefixStyle: TextStyle(color: Colors.black, wordSpacing: 10),
+                        prefixText: 'Usd',
+                        prefixStyle: TextStyle(color: Colors.black),
                         suffixText: '/session',
                         suffixStyle: TextStyle(color: Colors.black,wordSpacing: 10),
                         hintText: 'Your Price',
