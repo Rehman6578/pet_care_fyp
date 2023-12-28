@@ -17,8 +17,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
-
   final MainWrapperController controller = Get.put(MainWrapperController());
 
   final List<Widget> _children = [
@@ -30,40 +28,39 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Obx(() => _children[controller.currentIndex.value]),
-
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.grey,
-        currentIndex: controller.currentIndex.value,
-        onTap: controller.changePage,
-        selectedLabelStyle : const TextStyle(fontWeight: FontWeight.bold),
-        selectedIconTheme: const IconThemeData(size: 30),mouseCursor: SystemMouseCursors.click,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time_sharp),
-            label: 'Appointments',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.blueAccent,
+          unselectedItemColor: Colors.grey,
+          currentIndex: controller.currentIndex.value,
+          onTap: controller.changePage,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          selectedIconTheme: const IconThemeData(size: 30),
+          mouseCursor: SystemMouseCursors.click,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search_outlined),
+              label: 'Search',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.access_time_sharp),
+              label: 'Appointments',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore_outlined),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
-
   }
 }
