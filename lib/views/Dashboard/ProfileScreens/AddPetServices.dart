@@ -20,6 +20,7 @@ class _AddPetServicesState extends State<AddPetServices> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Pet Services'),
+        centerTitle: true,
       ),
       body: Container(
         child: Column(
