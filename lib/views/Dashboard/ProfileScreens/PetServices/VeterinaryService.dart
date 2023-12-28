@@ -36,7 +36,9 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   final TextEditingController _postalCodeController = TextEditingController();
 
   String? selectedOption;
-  RxString doctorimage = ''.obs;
+
+  String? profileImg, img1, img2, img3;
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // add imageview for adding doctor image
-              Obx(()=>
+
                 Center(
                   child: Stack(
                     children: [
@@ -68,12 +70,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(15.0),
-                            image: imagePickerController.doctorimagePath.value == ''
+                            image: profileImg== null
                                 ?const DecorationImage(
                                     image: AssetImage('assets/images/doctor.png'))
                                 : DecorationImage(
-                                    image: FileImage(File(imagePickerController
-                                        .doctorimagePath.value
+                                    image: FileImage(File(profileImg
                                         .toString())),
                                     fit: BoxFit.cover,
                                   ),
@@ -84,8 +85,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         bottom: 10,
                         right: 10,
                         child: InkWell(
-                          onTap: () {
-                            imagePickerController.getDoctorImage();
+                          onTap: () async {
+                           profileImg = await imagePickerController.GetImage();
+                           setState(() {
+
+                           });
                           },
                           child: Container(
                             height: 40,
@@ -104,7 +108,6 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                     ],
                   ),
                 ),
-              ),
 
               const SizedBox(height: 36.0),
 
@@ -120,7 +123,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Obx(()=>
+
                        Stack(
                         children: [
                           Container(
@@ -133,13 +136,12 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
-                              image: imagePickerController.imagePath.value == ''
+                              image: img1 == null
                                   ?const DecorationImage(
                                       image:
                                           AssetImage('assets/images/petimage.png'))
                                   : DecorationImage(
-                                      image: FileImage(File(imagePickerController
-                                          .imagePath.value
+                                      image: FileImage(File(img1
                                           .toString())),
                                       fit: BoxFit.cover,
                                     ),
@@ -150,9 +152,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             bottom: 5,
                             right: 5,
                             child: InkWell(
-                              onTap: () {
-                                imagePickerController.getPetsImage();
+                              onTap: () async {
+                               img1= await  imagePickerController.GetImage();
+                               setState(() {
 
+                               });
                               },
                               child: Container(
                                 height: 20,
@@ -172,8 +176,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
                         ],
                       ),
-                    ),
-                    Obx(()=> Stack(
+
+                    Stack(
                         children: [
                           Container(
                             height: Get.height * 0.2,
@@ -185,13 +189,12 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
-                              image: imagePickerController.imagePath.value == ''
+                              image: img2== null
                                   ? const DecorationImage(
                                       image:
                                           AssetImage('assets/images/petimage.png'))
                                   : DecorationImage(
-                                      image: FileImage(File(imagePickerController
-                                          .imagePath.value
+                                      image: FileImage(File(img2
                                           .toString())),
                                       fit: BoxFit.cover,
                                     ),
@@ -201,8 +204,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             bottom: 5,
                             right: 5,
                             child: InkWell(
-                              onTap: () {
-                                imagePickerController.getImage();
+                              onTap: () async {
+                              img2= await  imagePickerController.GetImage();
+                              setState(() {
+
+                              });
                               },
                               child: Container(
                                 height: 20,
@@ -221,8 +227,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                           ),
                         ],
                       ),
-                    ),
-                    Obx(()=>
+
+
                        Stack(
                         children: [
                           Container(
@@ -235,13 +241,12 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
-                              image: imagePickerController.imagePath.value == ''
+                              image: img3== null
                                   ?  const DecorationImage(
                                       image:
                                           AssetImage('assets/images/petimage.png'))
                                   : DecorationImage(
-                                      image: FileImage(File(imagePickerController
-                                          .imagePath.value
+                                      image: FileImage(File(img3
                                           .toString())),
                                       fit: BoxFit.cover,
                                     ),
@@ -251,8 +256,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             bottom: 5,
                             right: 5,
                             child: InkWell(
-                              onTap: () {
-                                imagePickerController.getImage();
+                              onTap: () async {
+                              img3= await  imagePickerController.GetImage();
+                              setState(() {
+
+                              });
                               },
                               child: Container(
                                 height: 20,
@@ -274,7 +282,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                           ),
                         ],
                       ),
-                    ),
+
                   ],
                 ),
               ),

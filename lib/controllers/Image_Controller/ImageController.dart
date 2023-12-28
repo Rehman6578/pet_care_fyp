@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -20,37 +22,15 @@ class ImagePickerController extends GetxController{
   }
 
 
-  Future getImage() async{
 
+  Future<Uint8List?> getMyImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
+    final image = await _picker.pickImage(source: ImageSource.gallery);
 
-    if(image != null){
-      imagePath.value = image.path.toString();
+    if (image != null) {
+      return image.readAsBytes();
     }
-
-  }
-
-  Future getDoctorImage() async{
-
-    final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
-
-    if(image != null){
-      doctorimagePath.value = image.path.toString();
-    }
-
-  }
-
-  Future getPetsImage() async{
-
-    final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
-
-    if(image != null){
-      petsimagepath.value = image.path.toString();
-    }
-
+    return null;
   }
 
   // create one component for image picker that can be used in all screens
