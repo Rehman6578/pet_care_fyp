@@ -38,9 +38,9 @@ class _AddPetServicesState extends State<AddPetServices> {
                   elevation: 4.0,
                   child: ListTile(
                     leading: Image.asset('assets/images/vet.png'),
-                    title: Text(' Veterinary Service'),
-                    subtitle: Text('Avaliable all the time'),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    title: const Text(' Veterinary Service'),
+                    subtitle: const Text('Available all the time'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
@@ -58,9 +58,9 @@ class _AddPetServicesState extends State<AddPetServices> {
                   elevation: 4.0,
                   child: ListTile(
                     leading: Image.asset('assets/images/grooming.png'),
-                    title: Text(' Grooming Service'),
-                    subtitle: Text('Avaliable all the time'),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    title: const Text(' Grooming Service'),
+                    subtitle: const Text('Available all the time'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
@@ -70,15 +70,15 @@ class _AddPetServicesState extends State<AddPetServices> {
               padding: const EdgeInsets.only(left: 8,right: 8,top: 5),
               child: InkWell(
                 onTap: () {
-                  // Get.to(AddBoardingService());
+                  Get.to(const BoardingService());
                 },
                 child: Card(
                   elevation: 4.0,
                   child: ListTile(
                     leading: Image.asset('assets/images/petboarding.png'),
-                    title: Text(' Boarding Service'),
-                    subtitle: Text('Avaliable all the time'),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    title: const Text(' Boarding Service'),
+                    subtitle: const Text('Available all the time'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
