@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 
 class AddLocation extends StatefulWidget {
@@ -16,6 +17,22 @@ class _AddLocationState extends State<AddLocation> {
   final TextEditingController state_Controller = TextEditingController();
   final TextEditingController postalcode_Controller = TextEditingController();
   final TextEditingController search_Controller = TextEditingController();
+
+  static const _intialCameraPosition = CameraPosition(
+    target: LatLng(34.004331, 71.503790),
+    zoom: 11.5,
+  );
+  // 34.004331, 71.503790
+  GoogleMapController? googleMaapController;
+  Marker? _origion;
+  Marker? _distination;
+
+  @override
+  void dispose() {
+    // dispose googlemap controller
+    googleMaapController!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -209,14 +226,25 @@ class _AddLocationState extends State<AddLocation> {
               ),
 
               // add container for map
-              const Card(
+              Card(
                 elevation: 5,
                 color: Colors.white,
                 child: SizedBox(
                   height: 400,
                   width: double.infinity,
-                  child: Center(
-                    child: Text('Map'),
+                  child: GoogleMap(
+                    myLocationButtonEnabled: true,
+                    myLocationEnabled: true,
+                    zoomControlsEnabled: false,
+                    initialCameraPosition: _intialCameraPosition,
+                    onMapCreated: (controller) =>
+                        googleMaapController = controller,
+                    markers: {
+                      if (_origion != null) _origion!,
+                      if (_distination != null) _distination!,
+                    },
+                    onLongPress: _addMarker,
+
                   ),
                 ),
               ),
@@ -235,12 +263,37 @@ class _AddLocationState extends State<AddLocation> {
                   color: Colors.blueAccent,
                 ),
               ),
-              SizedBox(
-                height: 20,)
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
       ),
     );
+  }
+  void _addMarker(LatLng pos) {
+    setState(() {
+      if (_origion == null || (_origion != null && _distination != null)) {
+        _origion = Marker(
+          markerId: const MarkerId('origion'),
+          infoWindow: const InfoWindow(title: 'Origon'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            BitmapDescriptor.hueGreen,
+          ),
+          position: pos,
+        );
+        _distination = null;
+      } else {
+        _distination = Marker(
+          markerId: const MarkerId('distination'),
+          infoWindow: const InfoWindow(title: 'Distination'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            BitmapDescriptor.hueRed,
+          ),
+          position: pos,
+        );
+      }
+    });
   }
 }

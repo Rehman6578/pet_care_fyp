@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:pet_care_fyp/WidgetCommon/AddLocationScreen.dart';
+import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
 import 'package:pet_care_fyp/firebase_options.dart';
 import 'package:pet_care_fyp/views/Dashboard/GroomingScreen.dart';
 import 'package:pet_care_fyp/views/Dashboard/MainDashboard.dart';

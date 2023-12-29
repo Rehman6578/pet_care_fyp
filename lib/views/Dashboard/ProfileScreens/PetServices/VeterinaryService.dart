@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
+import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
 
 import '../../../../controllers/Image_Controller/ImageController.dart';
 
@@ -15,20 +19,24 @@ class AddVeterinaryService extends StatefulWidget {
 }
 
 class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
-
-  ImagePickerController imagePickerController = Get.put(ImagePickerController());
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
 
   // TextEditingController for handling input
   final TextEditingController _doctorNameController = TextEditingController();
   final TextEditingController _experienceController = TextEditingController();
-  final TextEditingController _specializationController = TextEditingController();
+  final TextEditingController _specializationController =
+      TextEditingController();
   final TextEditingController _personalInfoController = TextEditingController();
   final TextEditingController _educationController = TextEditingController();
   final TextEditingController _acceptedPetsController = TextEditingController();
-  final TextEditingController _offeredServicesController = TextEditingController();
-  final TextEditingController _acceptedPetTypesController = TextEditingController();
-  final TextEditingController _preferredLocationController = TextEditingController();
+  final TextEditingController _offeredServicesController =
+      TextEditingController();
+  final TextEditingController _acceptedPetTypesController =
+      TextEditingController();
+  final TextEditingController _preferredLocationController =
+      TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _streetNameController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -38,7 +46,12 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   String? selectedOption;
 
   String? profileImg, img1, img2, img3;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance.collection('users');
+  FirebaseStorage _storage = FirebaseStorage.instance;
 
+  final formkey = GlobalKey<FormState>();
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,17 +62,18 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // add imageview for adding doctor image
+          child: Form(
+            key: formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // add imageview for adding doctor image
 
                 Center(
                   child: Stack(
                     children: [
                       Card(
                         elevation: 8.0,
-
                         child: Container(
                           height: Get.height * 0.25,
                           width: Get.width,
@@ -70,12 +84,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(15.0),
-                            image: profileImg== null
-                                ?const DecorationImage(
+                            image: profileImg == null
+                                ? const DecorationImage(
                                     image: AssetImage('assets/images/doctor.png'))
                                 : DecorationImage(
-                                    image: FileImage(File(profileImg
-                                        .toString())),
+                                    image: FileImage(File(profileImg.toString())),
                                     fit: BoxFit.cover,
                                   ),
                           ),
@@ -86,10 +99,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         right: 10,
                         child: InkWell(
                           onTap: () async {
-                           profileImg = await imagePickerController.GetImage();
-                           setState(() {
-
-                           });
+                            profileImg = await imagePickerController.GetImage();
+                            setState(() {});
                           },
                           child: Container(
                             height: 40,
@@ -109,22 +120,21 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                   ),
                 ),
 
-              const SizedBox(height: 36.0),
+                const SizedBox(height: 36.0),
 
-              const Text(
-                'Add lovely images of your pets:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10.0),
-              // add container to get three more images
-              SizedBox(
-                height: Get.height * 0.1,
-                width: Get.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-
-                       Stack(
+                const Text(
+                  'Add lovely images of your pets:',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10.0),
+                // add container to get three more images
+                SizedBox(
+                  height: Get.height * 0.1,
+                  width: Get.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Stack(
                         children: [
                           Container(
                             height: Get.height * 0.2,
@@ -137,12 +147,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               ),
                               borderRadius: BorderRadius.circular(10.0),
                               image: img1 == null
-                                  ?const DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/petimage.png'))
+                                  ? const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
                                   : DecorationImage(
-                                      image: FileImage(File(img1
-                                          .toString())),
+                                      image: FileImage(File(img1.toString())),
                                       fit: BoxFit.cover,
                                     ),
                             ),
@@ -153,10 +162,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             right: 5,
                             child: InkWell(
                               onTap: () async {
-                               img1= await  imagePickerController.GetImage();
-                               setState(() {
-
-                               });
+                                img1 = await imagePickerController.GetImage();
+                                setState(() {});
                               },
                               child: Container(
                                 height: 20,
@@ -173,11 +180,9 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
-
-                    Stack(
+                      Stack(
                         children: [
                           Container(
                             height: Get.height * 0.2,
@@ -189,13 +194,12 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
-                              image: img2== null
+                              image: img2 == null
                                   ? const DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/petimage.png'))
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
                                   : DecorationImage(
-                                      image: FileImage(File(img2
-                                          .toString())),
+                                      image: FileImage(File(img2.toString())),
                                       fit: BoxFit.cover,
                                     ),
                             ),
@@ -205,10 +209,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             right: 5,
                             child: InkWell(
                               onTap: () async {
-                              img2= await  imagePickerController.GetImage();
-                              setState(() {
-
-                              });
+                                img2 = await imagePickerController.GetImage();
+                                setState(() {});
                               },
                               child: Container(
                                 height: 20,
@@ -227,9 +229,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                           ),
                         ],
                       ),
-
-
-                       Stack(
+                      Stack(
                         children: [
                           Container(
                             height: Get.height * 0.2,
@@ -241,13 +241,12 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
-                              image: img3== null
-                                  ?  const DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/petimage.png'))
+                              image: img3 == null
+                                  ? const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
                                   : DecorationImage(
-                                      image: FileImage(File(img3
-                                          .toString())),
+                                      image: FileImage(File(img3.toString())),
                                       fit: BoxFit.cover,
                                     ),
                             ),
@@ -257,10 +256,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             right: 5,
                             child: InkWell(
                               onTap: () async {
-                              img3= await  imagePickerController.GetImage();
-                              setState(() {
-
-                              });
+                                img3 = await imagePickerController.GetImage();
+                                setState(() {});
                               },
                               child: Container(
                                 height: 20,
@@ -274,7 +271,6 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                                     Icons.add,
                                     color: Colors.white,
                                     size: 20,
-
                                   ),
                                 ),
                               ),
@@ -282,332 +278,276 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                           ),
                         ],
                       ),
-
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 40),
-              // Input for Doctor's Name
-              const Text(
-                'Doctor\'s Name',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                controller: _doctorNameController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter doctor\'s name',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-
-              // Input for Professional Experience
-              const Text(
-                'Professional Experience',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                controller: _experienceController,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  hintText: 'Enter professional experience',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-
-              // Input for Specialization
-              const Text(
-                'Specialization',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                controller: _specializationController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter specialization',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-
-              // Input for Personal Information
-              const Text(
-                'Personal Information',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                controller: _personalInfoController,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  hintText: 'Enter personal information',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-
-              // Input for Education
-              const Text(
-                'Education',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                controller: _educationController,
-                maxLines: 3,
-                decoration: const InputDecoration(
-                  hintText: 'Enter education details',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-
-              // Input for Offered Services
-              const Text(
-                'Offered Services',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                controller: _offeredServicesController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter offered services',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-
-              // Input for Accepted Pet Types
-              const Text(
-                'What pets do you accept?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 10),
-              DropDownMultiSelect(
-                options: petController.allPetTypes,
-                whenEmpty: 'eg: Dog, Cat, Reptile',
-                onChanged: (value) {
-                  petController.selectedPetTypes.value = value;
-                  petController.selectedOption.value = "";
-
-                  for (var value1 in petController.selectedPetTypes.value) {
-                    petController.selectedOption.value =
-                        "${petController.selectedOption.value}$value1";
-                  }
-                },
-                selectedValues: petController.selectedPetTypes.value,
-              ),
-
-              const SizedBox(height: 16.0),
-              const Text(
-                'Size of pet you accept?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(
-                height: 16.0,
-              ),
-
-              DropDownMultiSelect(
-                  options: petController.allPetSizes,
-                  selectedValues: petController.selectedPetSizes.value,
-                  whenEmpty: 'eg: 1-5kg , 15-20kg',
-                  onChanged: (value) {
-                    petController.selectedPetSizes.value = value;
-                    petController.SizesOptions.value = "";
-
-                    for (var value1 in petController.selectedPetSizes.value) {
-                      petController.SizesOptions.value =
-                          "${petController.SizesOptions.value}$value1";
-                    }
-                  }),
-              const SizedBox(
-                height: 16.0,
-              ),
-
-              const Text(
-                'Do you have transport for emergencies?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  child: DropdownButton<String>(
-                    hint: const Text('Yes/No'),
-                    isExpanded: true,
-                    value: selectedOption,
-                    menuMaxHeight: 100,
-                    borderRadius: BorderRadius.circular(10.0),
-                    items: petController.options.map((option) {
-                      return DropdownMenuItem<String>(
-                        value: option,
-                        child: Text(option),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedOption = value!;
-                      });
-                    },
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16.0),
-              const Text(
-                'Price:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                controller: _priceController,
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                decoration: const InputDecoration(
-                  hintText: 'Enter the price',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-              const SizedBox(height: 40.0),
-
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Preferred Search Location',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      TextFormField(
-                        controller: _preferredLocationController,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter preferred search location',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                      ),
-                      // Input for Price
-                      const SizedBox(height: 16.0),
-                      // Input for Street Name
-                      const Text(
-                        'Street Name/No',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      TextFormField(
-                        controller: _streetNameController,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter street name/number',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-
-                      // Input for City
-                      const Text(
-                        'City',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      TextFormField(
-                        controller: _cityController,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter city',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-
-                      // Input for State
-                      const Text(
-                        'State',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      TextFormField(
-                        controller: _stateController,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter state',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-
-                      // Input for Postal Code
-                      const Text(
-                        'Postal Code',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      TextFormField(
-                        controller: _postalCodeController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter postal code',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-
-                      // Map View
-                      const Text(
-                        'Location on Map',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16.0),
-                      Container(
-                        height: Get.height * 0.4,
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-
-                      const SizedBox(height: 32.0),
                     ],
                   ),
                 ),
-              ),
-              // Input for Preferred Search Location
 
-              const SizedBox(height: 30.0),
-              // Button to Add Service
-              Center(
+                const SizedBox(height: 40),
+                // Input for Doctor's Name
+                const Text(
+                  'Doctor\'s Name',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: _doctorNameController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter doctor\'s name';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter doctor/clinic name',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+
+                // Input for Professional Experience
+                const Text(
+                  'Professional Experience',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: _experienceController,
+                  maxLines: 5,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter professional experience please';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter professional experience',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+
+                // Input for Specialization
+                const Text(
+                  'Specialization',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: _specializationController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter specialization please';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter specialization',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+
+                // Input for Personal Information
+                const Text(
+                  'Personal Information',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: _personalInfoController,
+                  maxLines: 5,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter personal information please';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter personal information',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+
+                // Input for Education
+                const Text(
+                  'Education',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: _educationController,
+                  maxLines: 3,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter education please';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter education details',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+
+                // Input for Offered Services
+                const Text(
+                  'Offered Services',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: _offeredServicesController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter offered services please';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter offered services',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+
+                // Input for Accepted Pet Types
+                const Text(
+                  'What pets do you accept?',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+
+                const SizedBox(height: 10),
+                DropDownMultiSelect(
+                  options: petController.allPetTypes,
+                  whenEmpty: 'eg: Dog, Cat, Reptile',
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      return 'Please select pet type';
+                    }
+                    petController.selectedPetTypes.value = value;
+                    petController.selectedOption.value = "";
+
+                    for (var value1 in petController.selectedPetTypes.value) {
+                      petController.selectedOption.value =
+                          "${petController.selectedOption.value}$value1";
+                    }
+                  },
+                  selectedValues: petController.selectedPetTypes.value,
+                ),
+
+                const SizedBox(height: 16.0),
+                const Text(
+                  'Size of pet you accept?',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+
+                const SizedBox(
+                  height: 16.0,
+                ),
+
+                DropDownMultiSelect(
+                    options: petController.allPetSizes,
+                    selectedValues: petController.selectedPetSizes.value,
+                    whenEmpty: 'eg: 1-5kg , 15-20kg',
+                    onChanged: (value) {
+                      if (value.isEmpty) {
+                        return 'Please select pet size';
+                      }
+                      petController.selectedPetSizes.value = value;
+                      petController.SizesOptions.value = "";
+
+                      for (var value1 in petController.selectedPetSizes.value) {
+                        petController.SizesOptions.value =
+                            "${petController.SizesOptions.value}$value1";
+                      }
+                    }),
+                const SizedBox(
+                  height: 16.0,
+                ),
+
+                const Text(
+                  'Do you have transport for emergencies?',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: DropdownButton<String>(
+                      hint: Text('Yes/No'),
+                      isExpanded: true,
+                      value: selectedOption,
+                      menuMaxHeight: 100,
+                      borderRadius: BorderRadius.circular(10.0),
+                      items: petController.options.map((option) {
+                        return DropdownMenuItem<String>(
+                          value: option,
+                          child: Text(option),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value == null) {
+                          return;
+                        }
+
+                        setState(() {
+                          selectedOption = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 16.0),
+                const Text(
+                  'Price:',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: _priceController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter price please';
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter the price',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 40.0),
+
+                // Input for Preferred Search Location
+
+                // Button to Add Service
+                Center(
                   child: RoundedButton(
-                text: 'Add Veterinary Service',
-                press: () {},
-                color: Colors.lightBlue,
-                textColor: Colors.white,
-                width: 380,
-                height: 70,
-              )),
-              const SizedBox(height: 30.0),
-            ],
+                    text: 'Add Veterinary Service',
+                    isloading: _loading,
+                    press: () {
+                      if (formkey.currentState!.validate()) {
+                        setState(() {
+                          _loading = true;
+                        });
+                        addVeterinaryService();
+                      }
+                      Get.snackbar(
+                          snackPosition: SnackPosition.BOTTOM,
+                          'Success', 'Veterinary Service Added Successfully');
+                      Get.to(AddLocation());
+                    },
+                    color: Colors.lightBlue,
+                    textColor: Colors.white,
+                    width: 380,
+                    height: 70,
+                  ),
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         ),
       ),
@@ -621,21 +561,88 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     String specialization = _specializationController.text;
     String personalInfo = _personalInfoController.text;
     String education = _educationController.text;
-    String acceptedPets = _acceptedPetsController.text;
+    List<String> acceptedPets = petController.selectedPetTypes.value;
     String offeredServices = _offeredServicesController.text;
-    String acceptedPetTypes = _acceptedPetTypesController.text;
-    String preferredLocation = _preferredLocationController.text;
+    List<String> acceptedPetTypes = petController.selectedPetSizes.value;
     double price = double.tryParse(_priceController.text) ?? 0.0;
-    String streetName = _streetNameController.text;
-    String city = _cityController.text;
-    String state = _stateController.text;
-    String postalCode = _postalCodeController.text;
 
-    // Perform logic to add the service to your data model or database
-    // For example, you could use a Provider or Bloc pattern to manage state
-    // and update the list of veterinary services in the app.
+    if (formkey.currentState!.validate()) {
+      setState(() {
+        _loading = true;
+      });
 
-    // After adding, you might want to navigate back to the previous screen
-    Navigator.pop(context);
+      // String uid = DateTime.now().microsecondsSinceEpoch.toString();
+      String uid = _auth.currentUser!.uid;
+
+      _storage
+          .ref()
+          .child('veterinaryServices/$uid/profileImg')
+          .putFile(File(profileImg.toString()))
+          .then((value) {
+        value.ref.getDownloadURL().then((value) {
+          profileImg = value;
+        });
+      });
+
+      _storage
+          .ref()
+          .child('veterinaryServices/$uid/img1')
+          .putFile(File(img1.toString()))
+          .then((value) {
+        value.ref.getDownloadURL().then((value) {
+          img1 = value;
+        });
+      });
+
+      _storage
+          .ref()
+          .child('veterinaryServices/$uid/img2')
+          .putFile(File(img2.toString()))
+          .then((value) {
+        value.ref.getDownloadURL().then((value) {
+          img2 = value;
+        });
+      });
+
+      _storage
+          .ref()
+          .child('veterinaryServices/$uid/img3')
+          .putFile(File(img3.toString()))
+          .then((value) {
+        value.ref.getDownloadURL().then((value) {
+          img3 = value;
+        });
+      });
+
+      // add all the form data in map
+      Map<String, dynamic> data = {
+        'doctorName': doctorName,
+        'experience': experience,
+        'specialization': specialization,
+        'personalInfo': personalInfo,
+        'education': education,
+        'acceptedPets': acceptedPets,
+        'offeredServices': offeredServices,
+        'acceptedPetTypes': acceptedPetTypes,
+        'price': price,
+        'uid': uid,
+        'profileImg': profileImg,
+        'img1': img1,
+        'img2': img2,
+        'img3': img3,
+      };
+
+
+      _firestore.doc(uid).collection('VaterinaryService').add(data).then((value) {
+        setState(() {
+          _loading = false;
+        });
+      }).catchError((error) {
+        setState(() {
+          _loading = false;
+        });
+        Get.snackbar('Error', error.toString());
+      });
+    }
   }
 }

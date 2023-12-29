@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multiselect/multiselect.dart';
-import 'package:pet_care_fyp/WidgetCommon/AddLocationScreen.dart';
+import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Image_Controller/ImageController.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';

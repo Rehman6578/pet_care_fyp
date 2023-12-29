@@ -63,11 +63,11 @@ class EditProfile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Obx(
-                () => Center(
-                  child: Stack(
-                    children: [
-                      Container(
+              Center(
+                child: Stack(
+                  children: [
+                    Obx(
+                      () => Container(
                         height: 112,
                         width: 112,
                         decoration: BoxDecoration(
@@ -96,30 +96,29 @@ class EditProfile extends StatelessWidget {
                                 ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 10,
-                        right: 0,
-                        child: InkWell(
-                          onTap: () async {
-                            profileImage =
-                                await imagePickerController.GetImage();
-                          },
-                          child: Container(
-                            width: 29,
-                            height: 29,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.blue,
-                            ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () async {
+                          profileImage = await imagePickerController.GetImage();
+                        },
+                        child: Container(
+                          width: 29,
+                          height: 29,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.blue,
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
