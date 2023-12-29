@@ -22,7 +22,22 @@ class MultiSelectionController extends GetxController {
     '15-20kg',
     '20-25kg',
     '25-30kg',
+    '30-35kg',
+    '35-40kg',
   ];
+
+  // How long is each walk?
+
+  RxList<String> selectedDuration = RxList<String>([]);
+  var selectedTime = ''.obs;
+
+  List<String> walkDuration = [
+    '30 minutes',
+    '1 hour',
+  ];
+  RxList<String> selectedWalkDuration = RxList<String>([]);
+  var selectedWalkTime = ''.obs;
+
 
   RxList<String> selectedPetSizes = RxList<String>([]);
 
