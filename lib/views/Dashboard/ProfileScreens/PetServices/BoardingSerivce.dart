@@ -277,7 +277,6 @@ class _BoardingServiceState extends State<BoardingService> {
               const SizedBox(
                 height: 15,
               ),
-
               const Text(
                 'Add service name',
                 style: TextStyle(
@@ -329,8 +328,7 @@ class _BoardingServiceState extends State<BoardingService> {
               const SizedBox(
                 height: 10,
               ),
-
-              Container(
+              Obx(() => Container(
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(
@@ -363,8 +361,7 @@ class _BoardingServiceState extends State<BoardingService> {
                     },
                   ),
                 ),
-              ),
-
+              )),
               const SizedBox(height: 16),
               const Text(
                 'What pets do you accept?',
@@ -377,7 +374,7 @@ class _BoardingServiceState extends State<BoardingService> {
               const SizedBox(
                 height: 10,
               ),
-              DropDownMultiSelect(
+              Obx(() => DropDownMultiSelect(
                 options: petController.allPetTypes,
                 hint: const Text('eg: Dog, Cat, Reptile'),
                 hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
@@ -387,34 +384,31 @@ class _BoardingServiceState extends State<BoardingService> {
 
                   for (var value1 in petController.selectedPetTypes.value) {
                     petController.selectedOption.value =
-                        "${petController.selectedOption.value}$value1";
+                    "${petController.selectedOption.value}$value1";
                   }
                 },
                 selectedValues: petController.selectedPetTypes.value,
-              ),
-
+              )),
               const SizedBox(height: 16),
               const Text(
                 'Size of pet you accept?',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-
               const SizedBox(height: 16.0),
+             Obx(() =>  DropDownMultiSelect(
+                 options: petController.SelectPetSizes,
+                 selectedValues: petController.selectedPetSize1.value,
+                 // hint: const Text(''),
+                 // hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
+                 onChanged: (value) {
+                   petController.selectedPetSize1.value = value;
+                   petController.selectedSize1.value = "";
 
-              DropDownMultiSelect(
-                  options: petController.allPetSizes,
-                  selectedValues: petController.selectedPetSizes.value,
-                  hint: const Text('eg: 1-5kg, 5-10kg, 10-15kg'),
-                  hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-                  onChanged: (value) {
-                    petController.selectedPetSizes.value = value;
-                    petController.SizesOptions.value = "";
-
-                    for (var value1 in petController.selectedPetSizes.value) {
-                      petController.SizesOptions.value =
-                          "${petController.SizesOptions.value}$value1";
-                    }
-                  }),
+                   for (var value1 in petController.selectedPetSize1.value) {
+                     petController.selectedSize1.value =
+                     "${petController.selectedSize1.value}$value1";
+                   }
+                 })),
               const SizedBox(
                 height: 15,
               ),
@@ -428,39 +422,39 @@ class _BoardingServiceState extends State<BoardingService> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  child: DropdownButton<String>(
-                    hint: const Text(
-                      '1,2',
-                      style: TextStyle(fontWeight: FontWeight.normal),
-                    ),
-                    isExpanded: true,
-                    value: selectedWalkingServic,
-                    borderRadius: BorderRadius.circular(10.0),
-                    items: petController.walkingServices.map((option) {
-                      return DropdownMenuItem<String>(
-                        value: option,
-                        child: Text(option),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedWalkingServic = value!;
-                      });
-                    },
-                  ),
-                ),
-              ),
+             Obx(() =>  Container(
+               decoration: BoxDecoration(
+                 color: Colors.transparent,
+                 border: Border.all(
+                   color: Colors.grey,
+                   width: 1,
+                 ),
+                 borderRadius: BorderRadius.circular(5.0),
+               ),
+               child: Padding(
+                 padding: const EdgeInsets.only(left: 8, right: 8),
+                 child: DropdownButton<String>(
+                   hint: const Text(
+                     '1,2',
+                     style: TextStyle(fontWeight: FontWeight.normal),
+                   ),
+                   isExpanded: true,
+                   value: selectedWalkingServic,
+                   borderRadius: BorderRadius.circular(10.0),
+                   items: petController.walkingServices.map((option) {
+                     return DropdownMenuItem<String>(
+                       value: option,
+                       child: Text(option),
+                     );
+                   }).toList(),
+                   onChanged: (value) {
+                     setState(() {
+                       selectedWalkingServic = value!;
+                     });
+                   },
+                 ),
+               ),
+             )),
               const SizedBox(
                 height: 15,
               ),
@@ -471,8 +465,7 @@ class _BoardingServiceState extends State<BoardingService> {
               const SizedBox(
                 height: 16.0,
               ),
-
-              Container(
+              Obx(() => Container(
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(
@@ -503,12 +496,10 @@ class _BoardingServiceState extends State<BoardingService> {
                     },
                   ),
                 ),
-              ),
-
+              )),
               const SizedBox(
                 height: 15,
               ),
-
               const Text(
                 'What best describes the home you live in?',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -516,8 +507,7 @@ class _BoardingServiceState extends State<BoardingService> {
               const SizedBox(
                 height: 16.0,
               ),
-
-              Container(
+              Obx(() => Container(
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(
@@ -548,12 +538,10 @@ class _BoardingServiceState extends State<BoardingService> {
                     },
                   ),
                 ),
-              ),
-
+              )),
               const SizedBox(
                 height: 20,
               ),
-
               const Text(
                 'Your price per night',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -567,11 +555,9 @@ class _BoardingServiceState extends State<BoardingService> {
                   hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
-
               const SizedBox(
                 height: 20,
               ),
-
               Center(
                 child: RoundedButton(
                   text: "Next",

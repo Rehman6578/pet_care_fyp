@@ -38,31 +38,22 @@ class _AddLocationState extends State<AddLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Location'),
+        title: const Text('Add Location',style: TextStyle(color: Colors.black)),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Listing Location',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Pet parents will only get your full address once they have booked a resservice with you.',
+              const Text('Listing Location',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              const Text('Pet parents will only get your full address once they have booked a resservice with you.',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              SizedBox(
-                height: 20,
-              ),
-
+              const SizedBox(height: 20),
               // add rounded shadow container for location
-
               Card(
                 elevation: 5,
                 color: Colors.white,
@@ -82,21 +73,14 @@ class _AddLocationState extends State<AddLocation> {
                   ),
                 ),
               ),
-
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               // add line divider
               const Divider(
                 height: 1,
                 thickness: 1,
                 color: Colors.grey,
               ),
-
-              const SizedBox(
-                height: 15,
-              ),
-
+              const SizedBox(height: 15),
               Card(
                 elevation: 5,
                 color: Colors.white,
@@ -116,10 +100,7 @@ class _AddLocationState extends State<AddLocation> {
                   ),
                 ),
               ),
-
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Card(
                 elevation: 5,
                 color: Colors.white,

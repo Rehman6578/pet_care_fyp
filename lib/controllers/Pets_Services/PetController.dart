@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 
 class MultiSelectionController extends GetxController {
+
+  // What type of pet do you have? List
+
   List<String> allPetTypes = [
     'Dog',
     'Cat',
@@ -10,38 +13,41 @@ class MultiSelectionController extends GetxController {
     'Reptile',
     'Other',
   ];
-
-  // Selected pet types
   RxList<String> selectedPetTypes = RxList<String>([]);
   var selectedOption = ''.obs;
 
-  List<String> allPetSizes = [
+
+  // Pet visiting distance from home to clinic or home to home List
+
+  List<String> PetVisiting = [
+    '1-5km',
+    '5-20km',
+    '20-50km',
+    '50-100km',
+    '100+km',
+  ];
+  RxList<String> selectPetVisit = RxList<String>([]);
+  var selecteVisit = ''.obs;
+
+
+  //  Pet Size List for pet walking and pet boarding services
+
+  List<String> SelectPetSizes = [
     '1-5kg',
     '5-10kg',
     '10-15kg',
     '15-20kg',
     '20-25kg',
-    '25-30kg',
-    '30-35kg',
-    '35-40kg',
   ];
+  RxList<String> selectedPetSize1 = RxList<String>([]);
+  var selectedSize1 = ''.obs;
 
-  // How long is each walk?
+  // How long can you walk a dog for? List
 
-  RxList<String> selectedDuration = RxList<String>([]);
-  var selectedTime = ''.obs;
-
-  List<String> walkDuration = [
+  List<String> TimeList = [
     '30 minutes',
     '1 hour',
   ];
-  RxList<String> selectedWalkDuration = RxList<String>([]);
-  var selectedWalkTime = ''.obs;
-
-
-  RxList<String> selectedPetSizes = RxList<String>([]);
-
-  var SizesOptions = ''.obs;
 
   List<String> options = [
     'Yes',
