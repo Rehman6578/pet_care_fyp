@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
@@ -23,37 +26,55 @@ class _AddLocationState extends State<AddLocation> {
     zoom: 11.5,
   );
   // 34.004331, 71.503790
-  GoogleMapController? googleMaapController;
+  final Completer< GoogleMapController> googleMaapController= Completer();
   Marker? _origion;
   Marker? _distination;
 
-  @override
-  void dispose() {
-    // dispose googlemap controller
-    googleMaapController!.dispose();
-    super.dispose();
+  Future<Position> _getCurrentLocation() async {
+    // if permisson is granted then get current location
+
+    await Geolocator.requestPermission().then((value) {}, onError: (error) {
+      print(error.toString());
+    });
+
+    return await Geolocator.getCurrentPosition();
   }
+
+  // create set of markers for map
+
+  final List<Marker> markers = [];
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Location',style: TextStyle(color: Colors.black)),
-        centerTitle: true,
+        title: Text('Add Location'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('Listing Location',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              const Text('Pet parents will only get your full address once they have booked a resservice with you.',
+              Text(
+                'Listing Location',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Pet parents will only get your full address once they have booked a resservice with you.',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              const SizedBox(height: 20),
+              SizedBox(
+                height: 20,
+              ),
+
               // add rounded shadow container for location
+
               Card(
                 elevation: 5,
                 color: Colors.white,
@@ -73,14 +94,75 @@ class _AddLocationState extends State<AddLocation> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+
+              const SizedBox(
+                height: 20,
+              ),
               // add line divider
               const Divider(
                 height: 1,
                 thickness: 1,
                 color: Colors.grey,
               ),
-              const SizedBox(height: 15),
+
+              const SizedBox(
+                height: 15,
+              ),
+
+              Card(
+                elevation: 5,
+                child: InkWell(
+                  onTap: () {
+                    _getCurrentLocation().then((value) async {
+                      markers.add(
+                        Marker(
+                          markerId: const MarkerId('current'),
+                          infoWindow:
+                          const InfoWindow(title: 'Current Location'),
+                          position: LatLng(value.latitude, value.longitude),
+                          icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueGreen,
+                          ),
+                        ),
+                      );
+
+                      CameraPosition position = CameraPosition(
+                        target: LatLng(value.latitude, value.longitude),
+                        zoom: 14,
+                      );
+                      final GoogleMapController controller =
+                      await googleMaapController.future;
+
+                      controller.animateCamera(
+                          CameraUpdate.newCameraPosition(position));
+
+                      setState(() {});
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // add icon for location and text get current location
+                        Icon(Icons.location_on_outlined),
+                        Text(
+                          'Get Current Location',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black45),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 15,
+              ),
+
               Card(
                 elevation: 5,
                 color: Colors.white,
@@ -100,7 +182,10 @@ class _AddLocationState extends State<AddLocation> {
                   ),
                 ),
               ),
-              const SizedBox(height: 15),
+
+              const SizedBox(
+                height: 15,
+              ),
               Card(
                 elevation: 5,
                 color: Colors.white,
@@ -218,8 +303,9 @@ class _AddLocationState extends State<AddLocation> {
                     myLocationEnabled: true,
                     zoomControlsEnabled: false,
                     initialCameraPosition: _intialCameraPosition,
-                    onMapCreated: (controller) =>
-                        googleMaapController = controller,
+                    onMapCreated: (controller) {
+                      googleMaapController.complete(controller);
+                    },
                     markers: {
                       if (_origion != null) _origion!,
                       if (_distination != null) _distination!,
