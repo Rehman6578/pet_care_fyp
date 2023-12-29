@@ -536,6 +536,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       }
                       Get.snackbar(
                           snackPosition: SnackPosition.BOTTOM,
+                          duration: const Duration(seconds: 2),
                           'Success', 'Veterinary Service Added Successfully');
                       Get.to(AddLocation());
                     },
@@ -569,6 +570,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     if (formkey.currentState!.validate()) {
       setState(() {
         _loading = true;
+        return ;
       });
 
       // String uid = DateTime.now().microsecondsSinceEpoch.toString();

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 class MultiSelectionController extends GetxController {
+
   List<String> allPetTypes = [
     'Dog',
     'Cat',
@@ -11,9 +12,10 @@ class MultiSelectionController extends GetxController {
     'Other',
   ];
 
-  // Selected pet types
   RxList<String> selectedPetTypes = RxList<String>([]);
   var selectedOption = ''.obs;
+
+  // create list of pet sizes
 
   List<String> allPetSizes = [
     '1-5kg',
@@ -25,11 +27,11 @@ class MultiSelectionController extends GetxController {
     '30-35kg',
     '35-40kg',
   ];
+  RxList<String> selectedPetSizes = RxList<String>([]);
+  var SizesOptions = ''.obs;
 
-  // How long is each walk?
 
-  RxList<String> selectedDuration = RxList<String>([]);
-  var selectedTime = ''.obs;
+  // list of pets time duration
 
   List<String> walkDuration = [
     '30 minutes',
@@ -39,14 +41,15 @@ class MultiSelectionController extends GetxController {
   var selectedWalkTime = ''.obs;
 
 
-  RxList<String> selectedPetSizes = RxList<String>([]);
 
-  var SizesOptions = ''.obs;
+  // list of options
 
   List<String> options = [
     'Yes',
     'No',
   ];
+
+  // list of year in pet buisness
 
   List<String> years = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
