@@ -1,47 +1,50 @@
 
-
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
-
 import '../../../../controllers/Image_Controller/ImageController.dart';
-import 'BoardingSerivce.dart';
 
-class AddPetWalkingService extends StatefulWidget {
+class AddAdoptioniService extends StatefulWidget {
   @override
-  _AddPetWalkingServiceState createState() => _AddPetWalkingServiceState();
+  _AddAdoptioniServiceState createState() => _AddAdoptioniServiceState();
 }
 
-class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
+class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
   ImagePickerController imagePickerController =
   Get.put(ImagePickerController());
 
   final _formKey = GlobalKey<FormState>();
+  bool _loading = false;
 
 
   MultiSelectionController petController = Get.put(MultiSelectionController());
 
   final TextEditingController _nameServicesController = TextEditingController();
   final TextEditingController _listingSummaryController = TextEditingController();
-  final TextEditingController _discriptionsController = TextEditingController();
+  final TextEditingController _DiscriptionsController = TextEditingController();
   final TextEditingController _preferredLocationController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _PetGroomingController = TextEditingController();
+  final TextEditingController _PetAdoptionController = TextEditingController();
   String? selectedOption;
 
-  String? profileImg;
-  String? img1;
-  String? img2;
-  String? img3;
+  String? profileImg, img1, img2, img3;
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance.collection('users');
+  FirebaseStorage _storage = FirebaseStorage.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Walking Service',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          'Adoption Service', style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       body: Padding(
@@ -97,7 +100,8 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                           right: 10,
                           child: InkWell(
                             onTap: () async {
-                              profileImg = await imagePickerController.GetImage();
+                              profileImg =
+                              await imagePickerController.GetImage();
 
                               setState(() {});
                             },
@@ -312,8 +316,9 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                               : null;
                         },
                         decoration: const InputDecoration(
-                          hintText: 'eg: Peshawar Dog Boarding',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                          hintText: 'eg: Pet Name Service',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors
+                              .grey),
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                         ),
@@ -326,9 +331,8 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                     'Listing Summary',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
                   Card(
-                    elevation: 4.0,
+                    elevation: 2.0,
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -341,9 +345,10 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                               : null;
                         },
                         decoration: const InputDecoration(
-                          hintText: 'Give an overview of what service you offer. Tell us what are some of the '
-                              'achievements you have made in your career. Describe of 500 words and above will maximise your exposure.',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                          hintText: 'Give an overview of what service you offer. Describe of '
+                              '500 words and above will maximise your exposure.',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors
+                              .grey),
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                         ),
@@ -355,92 +360,84 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                     'How far are you willing to travel to visit a pet owner\'s home?',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  Obx(() =>  DropDownMultiSelect(
-                     options: petController.PetVisiting,
-                     validator: (value) {
-                       return value!.isEmpty
-                           ? 'Select Option'
-                           : '';
-                     },
-                     selectedValues: petController.selectPetVisit.value,
-                     onChanged: (value) {
-                       petController.selectPetVisit.value = value;
-                       petController.selecteVisit.value = "";
+                  Obx(() =>
+                      DropDownMultiSelect(
+                          validator: (value) {
+                            return value!.isEmpty
+                                ? 'Select Option'
+                                : '';
+                          },
+                          options: petController.PetVisiting,
+                          selectedValues: petController.selectPetVisit.value,
+                          onChanged: (value) {
+                            petController.selectPetVisit.value = value;
+                            petController.selecteVisit.value = "";
 
-                       for (var value1 in petController.selectPetVisit.value) {
-                         petController.selecteVisit.value =
-                         "${petController.selecteVisit.value}$value1";
-                       }
-                     })),
+                            for (var value1 in petController.selectPetVisit
+                                .value) {
+                              petController.selecteVisit.value =
+                              "${petController.selecteVisit.value}$value1";
+                            }
+                          })),
                   const SizedBox(height: 16.0),
                   const Text(
-                    'Size of dogs you accept',
+                    'What pets do you accept?',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  Obx(() => DropDownMultiSelect(
-                      options: petController.SelectPetSizes,
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? 'Select Option'
-                            : '';
-                      },
-                      selectedValues: petController.selectedPetSize1.value,
-                      onChanged: (value) {
-                        petController.selectedPetSize1.value = value;
-                        petController.selectedSize1.value = "";
-
-                        for (var value1 in petController.selectedPetSize1.value) {
-                          petController.selectedSize1.value =
-                          "${petController.selectedSize1.value}$value1";
-                        }
-                      })),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'How long is each walk?',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: selectedOption,
-                        menuMaxHeight: 100,
-                        borderRadius: BorderRadius.circular(10.0),
-                        items: petController.TimeList.map((option) {
-                          return DropdownMenuItem<String>(
-                            value: option,
-                            child: Text(option),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          if (value == null) {
-                            return;
-                          }
-
-                          setState(() {
-                            selectedOption = value!;
-                          });
+                  Obx(() =>
+                      DropDownMultiSelect(
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? 'Select Option'
+                              : '';
                         },
-                      ),
-                    ),
+                        options: petController.allPetTypes,
+                        onChanged: (value) {
+                          petController.selectedPetTypes.value = value;
+                          petController.selectedOption.value = "";
+
+                          for (var value1 in petController.selectedPetTypes
+                              .value) {
+                            petController.selectedOption.value =
+                            "${petController.selectedOption
+                                .value}$value1"; // interpolation
+                          }
+                        },
+                        selectedValues: petController.selectedPetTypes.value,
+                      )),
+                  const SizedBox(height: 16.0,),
+                  const Text(
+                    'Size of pets do you accept?',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
+                  Obx(() =>
+                      DropDownMultiSelect(
+                        validator: (value) {
+                          return value!.isEmpty
+                              ? 'Select Option'
+                              : '';
+                        },
+                        options: petController.SelectPetSizes,
+                        onChanged: (value) {
+                          petController.selectedPetSize1.value = value;
+                          petController.selectedSize1.value = "";
+
+                          for (var value1 in petController.selectedPetSize1
+                              .value) {
+                            petController.selectedSize1.value =
+                            "${petController.selectedSize1
+                                .value}$value1"; // interpolation
+                          }
+                        },
+                        selectedValues: petController.selectedPetSize1.value,
+                      )),
                   const SizedBox(height: 16.0,),
                   const Text(
                     'Preferred search location (optional)',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 16.0),
                   Card(
-                    elevation: 4.0,
+                    elevation: 2.0,
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -456,7 +453,8 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                           hintText: 'Enter a landmark, key location, or area which you would like people'
                               ' who are searching for your service to find you in. This value can only be entered once.'
                               'E.g. Peshawar, Islamabad, Lahore, Karachi, etc.',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                          hintStyle: TextStyle(fontSize: 14, color: Colors
+                              .grey),
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                         ),
@@ -465,17 +463,18 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                   ),
                   const SizedBox(height: 16.0),
                   Card(
-                    elevation: 4.0,
-                    color:  Colors.white,
+                    elevation: 2.0,
+                    color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         readOnly: true,
-                        controller: _PetGroomingController,
+                        controller: _PetAdoptionController,
                         decoration: const InputDecoration(
                           label: Text('Services Type'),
-                          hintText: 'Dog Walking ',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.black),
+                          hintText: 'Pet Adoption ',
+                          hintStyle: TextStyle(fontSize: 14, color: Colors
+                              .black),
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                         ),
@@ -484,8 +483,8 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                   ),
                   const SizedBox(height: 16.0),
                   Card(
-                    elevation: 4.0,
-                    color:  Colors.white,
+                    elevation: 2.0,
+                    color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
@@ -500,10 +499,12 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                         decoration: const InputDecoration(
                           prefixText: 'USD  ',
                           prefixStyle: TextStyle(color: Colors.black),
-                          suffixText: '/walk',
-                          suffixStyle: TextStyle(color: Colors.black,wordSpacing: 10),
+                          suffixText: '/adoption',
+                          suffixStyle: TextStyle(color: Colors.black,
+                              wordSpacing: 10),
                           hintText: 'Your Price',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                          hintStyle: TextStyle(fontSize: 14, color: Colors
+                              .grey),
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                         ),
@@ -511,18 +512,17 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                   Text(
+                  const Text(
                     'Pet owner will feel more comfortable knowing what is include in this quote',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
-                  const SizedBox(height: 16.0),
                   Card(
                     elevation: 4.0,
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        controller: _discriptionsController,
+                        controller: _DiscriptionsController,
                         validator: (value) {
                           return value!.isEmpty
                               ? 'Enter Description'
@@ -531,7 +531,8 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                         maxLines: 5,
                         decoration: const InputDecoration(
                           hintText: 'Description',
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                          hintStyle: TextStyle(fontSize: 14, color: Colors
+                              .grey),
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                         ),
@@ -542,11 +543,16 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                   // Button to Add Service
                   Center(
                       child: RoundedButton(
-                        text: 'Add Grooming Service',
+
+                        text: 'Add Adoption Service',
+                        isloading: _loading,
                         press: () {
-                          if(_formKey.currentState!.validate()){
-                            Get.snackbar('Success', 'Grooming Service Added Successfully');
-                          };
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              _loading = true;
+                            });
+                            // addAdoptionServices();
+                          }
                         },
                         color: Colors.lightBlue,
                         textColor: Colors.white,
@@ -562,4 +568,106 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
       ),
     );
   }
+
+  // Add Adoption Service Function
+
+   void addAdoptionServices(){
+
+
+       String nameServices = _nameServicesController.text;
+       String listingSummary = _listingSummaryController.text;
+       List<String> petVisit = petController.selectPetVisit;
+       List<String> petTypes = petController.selectedPetTypes;
+       List<String> petSize = petController.selectedPetSize1;
+       String preferredLocation = _preferredLocationController.text;
+       String price = _priceController.text;
+       String description = _DiscriptionsController.text;
+
+       if (_formKey.currentState!.validate()) {
+         setState(() {
+           _loading = true;
+           return;
+         });
+       }
+
+       // String uid = DateTime.now().microsecondsSinceEpoch.toString();
+       String uid = _auth.currentUser!.uid;
+
+       _storage
+           .ref()
+           .child('AdoptionServices/$uid/profileImg')
+           .putFile(File(profileImg.toString()))
+           .then((value) {
+         value.ref.getDownloadURL().then((value) {
+           profileImg = value;
+         });
+       });
+
+       _storage
+           .ref()
+           .child('AdoptionServices/$uid/img1')
+           .putFile(File(img1.toString()))
+           .then((value) {
+         value.ref.getDownloadURL().then((value) {
+           img1 = value;
+         });
+       });
+
+       _storage
+           .ref()
+           .child('AdoptionServices/$uid/img2')
+           .putFile(File(img2.toString()))
+           .then((value) {
+         value.ref.getDownloadURL().then((value) {
+           img2 = value;
+         });
+       });
+
+       _storage
+           .ref()
+           .child('AdoptionServices/$uid/img3')
+           .putFile(File(img3.toString()))
+           .then((value) {
+         value.ref.getDownloadURL().then((value) {
+           img3 = value;
+         });
+       });
+
+       // add all the form data in map
+       Map<String, dynamic> data = {
+         'serviceName': nameServices,
+         'summaryList': listingSummary,
+         'petVisited': petVisit,
+         'petType': petTypes,
+         'petSize': petSize,
+         'preferredLocation': preferredLocation,
+         'price': price,
+         'description': description,
+         'uid': uid,
+         'profileImg': profileImg,
+         'img1': img1,
+         'img2': img2,
+         'img3': img3,
+       };
+
+       _nameServicesController.clear();
+       _listingSummaryController.clear();
+       _preferredLocationController.clear();
+       _priceController.clear();
+       _DiscriptionsController.clear();
+
+       // add data to firebase
+       _firestore.doc(uid).collection('petTaxiServices').add(data).then((value) {
+         setState(() {
+           _loading = false;
+         });
+       }).catchError((error) {
+         setState(() {
+           _loading = false;
+         });
+         Get.snackbar('Error', error.toString());
+       });
+
+   }
+
 }

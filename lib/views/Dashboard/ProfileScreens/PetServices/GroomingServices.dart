@@ -1,16 +1,12 @@
 
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
-import 'package:pet_care_fyp/const/images.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
-
 import '../../../../controllers/Image_Controller/ImageController.dart';
-import 'BoardingSerivce.dart';
 
 class AddGroomingService extends StatefulWidget {
   @override
@@ -120,7 +116,6 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                     ],
                   ),
                 ),
-
                 const SizedBox(
                   height: 10,
                 ),
@@ -291,7 +286,6 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 const SizedBox(
                   height: 15,
                 ),
-
                 const SizedBox(height: 36.0),
                 const Text(
                   'Give a Name to your Service',
@@ -325,7 +319,6 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 // Input for Professional Experience
                 const Text(
                   'Listing Summary',
@@ -356,12 +349,11 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 const Text(
                   'What pets do you accept?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                DropDownMultiSelect(
+                Obx(() =>  DropDownMultiSelect(
                   validator: (value) {
                     return value!.isEmpty
                         ? 'Select Option'
@@ -379,14 +371,13 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                     }
                   },
                   selectedValues: petController.selectedPetTypes.value,
-                ),
-
+                )),
                 const SizedBox(height: 16.0),
                 const Text(
                   'How far are you willing to travel to visit a pet owner\'s home?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                DropDownMultiSelect(
+                Obx(() => DropDownMultiSelect(
                     validator: (value) {
                       return value!.isEmpty
                           ? 'Select Option'
@@ -402,9 +393,8 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                         petController.selecteVisit.value =
                         "${petController.selecteVisit.value}$value1";
                       }
-                    }),
+                    })),
                 const SizedBox(height: 16.0,),
-
                 const Text(
                   'Preferred search location (optional)',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -482,7 +472,6 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 const Text(
                   'Pet owner will feel more comfortable knowing what is include in this quote',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -510,7 +499,6 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 30.0),
                 // Button to Add Service
                 Center(

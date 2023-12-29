@@ -58,18 +58,18 @@ class _AddLocationState extends State<AddLocation> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              const Text(
                 'Listing Location',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 'Pet parents will only get your full address once they have booked a resservice with you.',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
 
@@ -139,9 +139,9 @@ class _AddLocationState extends State<AddLocation> {
                       setState(() {});
                     });
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Row(
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // add icon for location and text get current location

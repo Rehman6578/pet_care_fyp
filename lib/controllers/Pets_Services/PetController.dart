@@ -29,6 +29,16 @@ class MultiSelectionController extends GetxController {
   RxList<String> selectPetVisit = RxList<String>([]);
   var selecteVisit = ''.obs;
 
+  // do you have a dog seat belt strap ? List
+
+  List<String> petSeatBeltList = [
+    'dog seat belt strap',
+    'dog crate',
+    'dog carrier',
+  ];
+  RxList<String> selectPetseatbelt = RxList<String>([]);
+  var selectePetSeatBelt = ''.obs;
+
 
   //  Pet Size List for pet walking and pet boarding services
 
@@ -65,7 +75,6 @@ class MultiSelectionController extends GetxController {
     'Trick Training',
     'Potty Training',
   ];
-
   RxList<String> selectedTrainingCourse = RxList<String>([]);
   var selectedTrainingCourseOption = ''.obs;
 
@@ -75,7 +84,6 @@ class MultiSelectionController extends GetxController {
     'Group dog training lessons',
     'Board and train programs',
   ];
-
   RxList<String> selectedTrainingClasses = RxList<String>([]);
   var selectedTrainingClassesOption = ''.obs;
 

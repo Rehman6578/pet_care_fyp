@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/BoardingSerivce.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/TrainingSerivce.dart';
+import 'PetServices/AdoptionServices.dart';
 import 'PetServices/PetWalking.dart';
 import 'PetServices/GroomingServices.dart';
+import 'PetServices/TaxiServices.dart';
 import 'PetServices/VeterinaryService.dart';
 
 class AddPetServices extends StatefulWidget {
@@ -87,7 +89,9 @@ class _AddPetServicesState extends State<AddPetServices> {
             Padding(
               padding: const EdgeInsets.only(left: 8,right: 8,top: 5),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(()=>AddAdoptioniService());
+                },
                 child: Card(
                   elevation: 4.0,
                   child: ListTile(
@@ -140,7 +144,7 @@ class _AddPetServicesState extends State<AddPetServices> {
               padding: const EdgeInsets.only(left: 8,right: 8,top: 5),
               child: InkWell(
                 onTap: () {
-                  // Get.to(()=>AddTaxiServices());
+                  Get.to(()=> AddTaxiService());
                 },
                 child: Card(
                   elevation: 4.0,
