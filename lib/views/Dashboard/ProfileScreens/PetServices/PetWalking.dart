@@ -3,10 +3,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
-import 'package:pet_care_fyp/const/images.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 
 import '../../../../controllers/Image_Controller/ImageController.dart';
@@ -28,7 +26,7 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
 
   final TextEditingController _nameServicesController = TextEditingController();
   final TextEditingController _listingSummaryController = TextEditingController();
-  final TextEditingController _DiscriptionsController = TextEditingController();
+  final TextEditingController _discriptionsController = TextEditingController();
   final TextEditingController _preferredLocationController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _PetGroomingController = TextEditingController();
@@ -120,7 +118,6 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                       ],
                     ),
                   ),
-
                   const SizedBox(
                     height: 10,
                   ),
@@ -360,67 +357,84 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                     'How far are you willing to travel to visit a pet owner\'s home?',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  DropDownMultiSelect(
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? 'Select Option'
-                            : '';
-                      },
-                      options: petController.allPetSizes,
-                      selectedValues: petController.selectedPetSizes.value,
-                      onChanged: (value) {
-                        petController.selectedPetSizes.value = value;
-                        petController.SizesOptions.value = "";
+                 Obx(() =>  DropDownMultiSelect(
+                     options: petController.PetVisiting,
+                     validator: (value) {
+                       return value!.isEmpty
+                           ? 'Select Option'
+                           : '';
+                     },
+                     selectedValues: petController.selectPetVisit.value,
+                     onChanged: (value) {
+                       petController.selectPetVisit.value = value;
+                       petController.selecteVisit.value = "";
 
-                        for (var value1 in petController.selectedPetSizes.value) {
-                          petController.SizesOptions.value =
-                          "${petController.SizesOptions.value}$value1";
-                        }
-                      }),
+                       for (var value1 in petController.selectPetVisit.value) {
+                         petController.selecteVisit.value =
+                         "${petController.selecteVisit.value}$value1";
+                       }
+                     })),
                   const SizedBox(height: 16.0),
                   const Text(
                     'Size of dogs you accept',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  DropDownMultiSelect(
+                  Obx(() => DropDownMultiSelect(
+                      options: petController.SelectPetSizes,
                       validator: (value) {
                         return value!.isEmpty
                             ? 'Select Option'
                             : '';
                       },
-                      options: petController.allPetSizes,
-                      selectedValues: petController.selectedPetSizes.value,
+                      selectedValues: petController.selectedPetSize1.value,
                       onChanged: (value) {
-                        petController.selectedPetSizes.value = value;
-                        petController.SizesOptions.value = "";
+                        petController.selectedPetSize1.value = value;
+                        petController.selectedSize1.value = "";
 
-                        for (var value1 in petController.selectedPetSizes.value) {
-                          petController.SizesOptions.value =
-                          "${petController.SizesOptions.value}$value1";
+                        for (var value1 in petController.selectedPetSize1.value) {
+                          petController.selectedSize1.value =
+                          "${petController.selectedSize1.value}$value1";
                         }
-                      }),
+                      })),
                   const SizedBox(height: 16.0),
                   const Text(
                     'How long is each walk?',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  DropDownMultiSelect(
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? 'Select Option'
-                            : '';
-                      },
-                      options: petController.walkDuration,
-                      selectedValues: petController.selectedPetSizes.value,
-                      onChanged: (value) {
-                        petController.selectedWalkDuration.value = value;
-                        petController.selectedWalkTime.value = "";
+                 Obx(() =>  Container(
+                   decoration: BoxDecoration(
+                     color: Colors.transparent,
+                     border: Border.all(
+                       color: Colors.grey,
+                       width: 1,
+                     ),
+                     borderRadius: BorderRadius.circular(5.0),
+                   ),
+                   child: Padding(
+                     padding: const EdgeInsets.only(left: 8, right: 8),
+                     child: DropdownButton<String>(
+                       isExpanded: true,
+                       value: selectedOption,
+                       menuMaxHeight: 100,
+                       borderRadius: BorderRadius.circular(10.0),
+                       items: petController.TimeList.map((option) {
+                         return DropdownMenuItem<String>(
+                           value: option,
+                           child: Text(option),
+                         );
+                       }).toList(),
+                       onChanged: (value) {
+                         if (value == null) {
+                           return;
+                         }
 
-                        for (var value1 in petController.selectedPetSizes.value) {
-                          petController.SizesOptions.value =
-                          "${petController.SizesOptions.value}$value1";
-                        }
-                      }),
+                         setState(() {
+                           selectedOption = value!;
+                         });
+                       },
+                     ),
+                   ),
+                 )),
                   const SizedBox(height: 16.0,),
 
                    const Text(
@@ -512,7 +526,7 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        controller: _DiscriptionsController,
+                        controller: _discriptionsController,
                         validator: (value) {
                           return value!.isEmpty
                               ? 'Enter Description'

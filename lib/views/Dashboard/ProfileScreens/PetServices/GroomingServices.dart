@@ -43,7 +43,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Grooming Service',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text('Grooming Service',style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       body: Padding(
@@ -392,15 +392,15 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                           ? 'Select Option'
                           : '';
                     },
-                    options: petController.allPetSizes,
-                    selectedValues: petController.selectedPetSizes.value,
+                    options: petController.PetVisiting,
+                    selectedValues: petController.selectPetVisit.value,
                     onChanged: (value) {
-                      petController.selectedPetSizes.value = value;
-                      petController.SizesOptions.value = "";
+                      petController.selectPetVisit.value = value;
+                      petController.selecteVisit.value = "";
 
-                      for (var value1 in petController.selectedPetSizes.value) {
-                        petController.SizesOptions.value =
-                        "${petController.SizesOptions.value}$value1";
+                      for (var value1 in petController.selectPetVisit.value) {
+                        petController.selecteVisit.value =
+                        "${petController.selecteVisit.value}$value1";
                       }
                     }),
                 const SizedBox(height: 16.0,),

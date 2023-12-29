@@ -21,27 +21,18 @@ class AddVeterinaryService extends StatefulWidget {
 class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   ImagePickerController imagePickerController =
       Get.put(ImagePickerController());
+
   MultiSelectionController petController = Get.put(MultiSelectionController());
 
   // TextEditingController for handling input
   final TextEditingController _doctorNameController = TextEditingController();
   final TextEditingController _experienceController = TextEditingController();
-  final TextEditingController _specializationController =
-      TextEditingController();
+  final TextEditingController _specializationController = TextEditingController();
   final TextEditingController _personalInfoController = TextEditingController();
   final TextEditingController _educationController = TextEditingController();
-  final TextEditingController _acceptedPetsController = TextEditingController();
-  final TextEditingController _offeredServicesController =
-      TextEditingController();
-  final TextEditingController _acceptedPetTypesController =
-      TextEditingController();
-  final TextEditingController _preferredLocationController =
-      TextEditingController();
+  final TextEditingController _offeredServicesController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _streetNameController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _postalCodeController = TextEditingController();
+
 
   String? selectedOption;
 
@@ -55,9 +46,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
   @override
   Widget build(BuildContext context) {
+    print('build app');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Veterinary Service'),
+        title: const Text('Veterinary Service',style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -68,7 +61,6 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // add imageview for adding doctor image
-
                 Center(
                   child: Stack(
                     children: [
@@ -119,9 +111,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 36.0),
-
                 const Text(
                   'Add lovely images of your pets:',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -281,133 +271,161 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 40),
                 // Input for Doctor's Name
                 const Text(
                   'Doctor\'s Name',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  controller: _doctorNameController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter doctor\'s name';
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Enter doctor/clinic name',
-                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                Card(
+                  elevation: 2.0,
+                  color: Colors.white,
+                  child: TextFormField(
+                    controller: _doctorNameController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter doctor\'s name';
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter doctor/clinic name',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 // Input for Professional Experience
                 const Text(
                   'Professional Experience',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  controller: _experienceController,
-                  maxLines: 5,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter professional experience please';
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Enter professional experience',
-                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                Card(
+                  elevation: 2.0,
+                  color: Colors.white,
+                  child: TextFormField(
+                    controller: _experienceController,
+                    maxLines: 5,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter professional experience please';
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter professional experience',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 // Input for Specialization
                 const Text(
                   'Specialization',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  controller: _specializationController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter specialization please';
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Enter specialization',
-                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                Card(
+                  elevation: 2.0,
+                  color: Colors.white,
+                  child: TextFormField(
+                    controller: _specializationController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter specialization please';
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter specialization',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 // Input for Personal Information
                 const Text(
                   'Personal Information',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  controller: _personalInfoController,
-                  maxLines: 5,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter personal information please';
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Enter personal information',
-                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                Card(
+                  elevation: 2.0,
+                  color: Colors.white,
+                  child: TextFormField(
+                    controller: _personalInfoController,
+                    maxLines: 5,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter personal information please';
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter personal information',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 // Input for Education
                 const Text(
                   'Education',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  controller: _educationController,
-                  maxLines: 3,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter education please';
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Enter education details',
-                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                Card(
+                  elevation: 2.0,
+                  color: Colors.white,
+                  child: TextFormField(
+                    controller: _educationController,
+                    maxLines: 3,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter education please';
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter education details',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 // Input for Offered Services
                 const Text(
                   'Offered Services',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  controller: _offeredServicesController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter offered services please';
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Enter offered services',
-                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                Card(
+                  elevation: 2.0,
+                  color: Colors.white,
+                  child: TextFormField(
+                    controller: _offeredServicesController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter offered services please';
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Enter offered services',
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-
                 // Input for Accepted Pet Types
                 const Text(
                   'What pets do you accept?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-
                 const SizedBox(height: 10),
-                DropDownMultiSelect(
+                Obx(() =>  DropDownMultiSelect(
                   options: petController.allPetTypes,
                   whenEmpty: 'eg: Dog, Cat, Reptile',
                   onChanged: (value) {
@@ -419,42 +437,38 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
                     for (var value1 in petController.selectedPetTypes.value) {
                       petController.selectedOption.value =
-                          "${petController.selectedOption.value}$value1";
+                      "${petController.selectedOption.value}$value1";
                     }
                   },
                   selectedValues: petController.selectedPetTypes.value,
-                ),
-
+                ),),
                 const SizedBox(height: 16.0),
                 const Text(
                   'Size of pet you accept?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-
                 const SizedBox(
                   height: 16.0,
                 ),
+               Obx(() =>  DropDownMultiSelect(
+                   options: petController.SelectPetSizes,
+                   selectedValues: petController.selectedPetSize1.value,
+                   whenEmpty: 'eg: 1-5kg , 15-20kg',
+                   onChanged: (value) {
+                     if (value.isEmpty) {
+                       return 'Please select pet size';
+                     }
+                     petController.selectedPetSize1.value = value;
+                     petController.selectedSize1.value = "";
 
-                DropDownMultiSelect(
-                    options: petController.allPetSizes,
-                    selectedValues: petController.selectedPetSizes.value,
-                    whenEmpty: 'eg: 1-5kg , 15-20kg',
-                    onChanged: (value) {
-                      if (value.isEmpty) {
-                        return 'Please select pet size';
-                      }
-                      petController.selectedPetSizes.value = value;
-                      petController.SizesOptions.value = "";
-
-                      for (var value1 in petController.selectedPetSizes.value) {
-                        petController.SizesOptions.value =
-                            "${petController.SizesOptions.value}$value1";
-                      }
-                    }),
+                     for (var value1 in petController.selectedPetSize1.value) {
+                       petController.selectedSize1.value =
+                       "${petController.selectedSize1.value}$value1";
+                     }
+                   })),
                 const SizedBox(
                   height: 16.0,
                 ),
-
                 const Text(
                   'Do you have transport for emergencies?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -462,7 +476,6 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 const SizedBox(
                   height: 16.0,
                 ),
-
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.transparent,
@@ -498,7 +511,6 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 16.0),
                 const Text(
                   'Price:',
@@ -564,7 +576,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     String education = _educationController.text;
     List<String> acceptedPets = petController.selectedPetTypes.value;
     String offeredServices = _offeredServicesController.text;
-    List<String> acceptedPetTypes = petController.selectedPetSizes.value;
+    List<String> acceptedPetTypes = petController.selectedPetSize1.value;
     double price = double.tryParse(_priceController.text) ?? 0.0;
 
     if (formkey.currentState!.validate()) {
