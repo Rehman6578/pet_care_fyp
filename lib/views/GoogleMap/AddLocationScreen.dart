@@ -157,67 +157,64 @@ class _AddLocationState extends State<AddLocation> {
                 height: 15,
               ),
 
-              SizedBox(
-                height: 350,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: placesList.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: const Icon(Icons.location_on_outlined),
-                      title: Text(placesList[index]['description']),
-                      onTap: () async {
-                        search_Controller.text = placesList[index]['description'];
-                        List<Location> location= await locationFromAddress(placesList[index]['description']);
-                        //  go to the selected location on map
-                        markers.add(
-                          Marker(
-                            markerId: const MarkerId('search location'),
-                            infoWindow:
-                                const InfoWindow(title: 'Your search location'),
-                            position: LatLng(location[0].latitude, location[0].longitude),
-                            icon: BitmapDescriptor.defaultMarkerWithHue(
-                              BitmapDescriptor.hueRed,
-                            ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: placesList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: const Icon(Icons.location_on_outlined),
+                    title: Text(placesList[index]['description']),
+                    onTap: () async {
+                      search_Controller.text = placesList[index]['description'];
+                      List<Location> location= await locationFromAddress(placesList[index]['description']);
+                      //  go to the selected location on map
+                      markers.add(
+                        Marker(
+                          markerId: const MarkerId('search location'),
+                          infoWindow:
+                              const InfoWindow(title: 'Your search location'),
+                          position: LatLng(location[0].latitude, location[0].longitude),
+                          icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueRed,
                           ),
-                        );
+                        ),
+                      );
 
-                        CameraPosition position = CameraPosition(
-                          target: LatLng(location[0].latitude, location[0].longitude),
-                          zoom: 14,
-                        );
+                      CameraPosition position = CameraPosition(
+                        target: LatLng(location[0].latitude, location[0].longitude),
+                        zoom: 14,
+                      );
 
-                        final GoogleMapController controller =
-                            await googleMaapController.future;
+                      final GoogleMapController controller =
+                          await googleMaapController.future;
 
-                        controller.animateCamera(
-                            CameraUpdate.newCameraPosition(position));
+                      controller.animateCamera(
+                          CameraUpdate.newCameraPosition(position));
 
-                        setState(() async {
+                      setState(() async {
 
-                          // get city name from selected location
-                          List<Placemark> placemarks = await placemarkFromCoordinates(location[0].latitude, location[0].longitude);
-                          // get aptitude from selected location
-                          String apt = placemarks[0].subThoroughfare.toString();
-                          String city = placemarks[0].locality.toString();
-                          String street = placemarks[0].street.toString();
-                          String state = placemarks[0].administrativeArea.toString();
-                          String postalCode = placemarks[0].postalCode.toString();
+                        // get city name from selected location
+                        List<Placemark> placemarks = await placemarkFromCoordinates(location[0].latitude, location[0].longitude);
+                        // get aptitude from selected location
+                        String apt = placemarks[0].subThoroughfare.toString();
+                        String city = placemarks[0].locality.toString();
+                        String street = placemarks[0].street.toString();
+                        String state = placemarks[0].administrativeArea.toString();
+                        String postalCode = placemarks[0].postalCode.toString();
 
-                          aptsuit_Controller.text = apt;
-                          city_Controller.text = city;
-                          street_Controller.text = street;
-                          state_Controller.text = state;
-                          postalcode_Controller.text = postalCode;
+                        aptsuit_Controller.text = apt;
+                        city_Controller.text = city;
+                        street_Controller.text = street;
+                        state_Controller.text = state;
+                        postalcode_Controller.text = postalCode;
 
-                          placesList = [];
+                        placesList = [];
 
 
-                        });
-                      },
-                    );
-                  },
-                ),
+                      });
+                    },
+                  );
+                },
               ),
 
               Card(
