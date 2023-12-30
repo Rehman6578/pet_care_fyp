@@ -238,10 +238,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           keyBoardType: TextInputType.emailAddress,
                           hintText: 'Email Address ',
                           labelText: 'Email',
-                          suffixIcon: Icon(Icons.mail,
-                              color: usernameFocusNode.hasFocus
-                                  ? Colors.blueAccent
-                                  : Colors.grey),
+                          suffixIcon: false,
                           hintStyle: TextStyle(fontSize: 15, color: Colors.grey),
                           obscureText: false,
                         ),
@@ -258,10 +255,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'Password ',
                           labelText: 'Password',
                           obscureText: true,
-                          suffixIcon: Icon(Icons.lock,
-                              color: usernameFocusNode.hasFocus
-                                  ? Colors.blueAccent
-                                  : Colors.grey),
+                          suffixIcon: true,
                           hintStyle: TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                         Padding(

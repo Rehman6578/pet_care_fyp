@@ -12,21 +12,21 @@ class MyTextFormField extends StatelessWidget {
     required this.hintText,
     required this.labelText,
     required this.obscureText,
-    this.suffixIcon = const Icon(Icons.visibility_off),
+    this.suffixIcon = false,
     this.enable = true,
     this.autoFocus = false,
     required TextStyle hintStyle,
     
   }) : super(key: key);
 
-  ValueNotifier<bool> _toggle = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _toggle = ValueNotifier<bool>(true);
 
   final TextEditingController myController;
   final FocusNode focusNode;
   final FormFieldSetter onFieldSubmittedValue;
   final FormFieldValidator onValidator;
 
-  final Icon suffixIcon;
+  final bool suffixIcon;
   final TextInputType keyBoardType;
   final String hintText;
   final String labelText;

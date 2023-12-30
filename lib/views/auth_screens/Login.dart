@@ -17,7 +17,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  ValueNotifier<bool> _toggle = ValueNotifier<bool>(true);
+  bool _isSecurePassword = true;
 
    bool _loading = false;
   final _formKey = GlobalKey<FormState>();
@@ -271,35 +271,26 @@ class _LoginState extends State<Login> {
                                   const TextStyle(color: Colors.blueAccent),
                               labelText: 'Email ',
                               obscureText: false,
-                              suffixIcon: const Icon(
-                                Icons.email,
-                                color: Colors.grey,
-                              )),
-                          const SizedBox(height: 10),
+                              suffixIcon: false,
+                          ),
 
-                          ValueListenableBuilder(
-                              valueListenable: _toggle,
-                              builder: (context, value, child){
-                                return MyTextFormField(
-                                    myController: passwordController,
-                                    focusNode: passwordFocusNode,
-                                    onFieldSubmittedValue: (value) {},
-                                    onValidator: (value) {
-                                      return value!.isEmpty
-                                          ? 'Please enter your password'
-                                          : null;
-                                    },
-                                    keyBoardType: TextInputType.visiblePassword,
-                                    labelText: 'Password',
-                                    hintText: 'Enter your Password',
-                                    hintStyle:
-                                    const TextStyle(color: Colors.blueAccent),
-                                    obscureText: _toggle.value,
-                                    suffixIcon: const Icon(
-                                      Icons.lock,
-                                      color: Colors.grey,
-                                    ));
-                              }
+                          const SizedBox(height: 10),
+                          MyTextFormField(
+                              myController: passwordController,
+                              focusNode: passwordFocusNode,
+                              onFieldSubmittedValue: (value) {},
+                              onValidator: (value) {
+                                return value!.isEmpty
+                                    ? 'Please enter your password'
+                                    : null;
+                              },
+                              keyBoardType: TextInputType.visiblePassword,
+                              labelText: 'Password',
+                              hintText: 'Enter your Password',
+                              hintStyle:
+                              const TextStyle(color: Colors.blueAccent),
+                              obscureText: _isSecurePassword,
+                              suffixIcon: true,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
@@ -349,4 +340,14 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+  Widget toggleButton() {
+
+    return IconButton(onPressed: (){
+      setState(() {
+        _isSecurePassword = !_isSecurePassword;
+      });
+    }, icon: _isSecurePassword ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility));
+  }
+
 }
