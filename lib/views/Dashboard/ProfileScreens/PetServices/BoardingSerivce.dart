@@ -106,7 +106,6 @@ class _BoardingServiceState extends State<BoardingService> {
                   ],
                 ),
               ),
-
               const SizedBox(
                 height: 10,
               ),
