@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LocatoinListTile extends StatelessWidget {
-  const LocatoinListTile(
+class LocationListTile extends StatelessWidget {
+  const LocationListTile(
       {required this.location, required this.onTap, super.key});
 
   final String location;
