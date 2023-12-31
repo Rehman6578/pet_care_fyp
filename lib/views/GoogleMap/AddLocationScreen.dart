@@ -7,8 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
-import 'package:pet_care_fyp/const/ApiKey.dart';
-import 'package:pet_care_fyp/views/GoogleMap/LocationListTile.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 

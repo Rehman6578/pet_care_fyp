@@ -221,7 +221,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: Get.height * 0.3,
                       child: Column(
                         children: [
-
                           Center(
                             child: Padding(
                               padding: const EdgeInsets.only(top: 10.0),
