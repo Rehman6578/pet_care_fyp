@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
+import 'package:pet_care_fyp/const/CommonFiles.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
 
@@ -19,9 +20,10 @@ class AddVeterinaryService extends StatefulWidget {
 }
 
 class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
 
+ static String veterinary_key= 'key';
+
+  ImagePickerController imagePickerController =Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
 
   // TextEditingController for handling input
@@ -38,7 +40,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
   String? profileImg, img1, img2, img3;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance.collection('users');
+   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FirebaseStorage _storage = FirebaseStorage.instance;
 
   final formkey = GlobalKey<FormState>();
@@ -579,6 +581,9 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     List<String> acceptedPetTypes = petController.selectedPetSize1.value;
     double price = double.tryParse(_priceController.text) ?? 0.0;
 
+
+    commonFiles.saveStringData(veterinary_key, '1');
+
     if (formkey.currentState!.validate()) {
       setState(() {
         _loading = true;
@@ -647,7 +652,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
       };
 
 
-      _firestore.doc(uid).collection('VaterinaryService').add(data).then((value) {
+      _firestore.collection("users").doc("Services").collection('Veterinary_Service').add(data).then((value) {
         setState(() {
           _loading = false;
         });
