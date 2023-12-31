@@ -273,7 +273,6 @@ class _LoginState extends State<Login> {
                               obscureText: false,
                               suffixIcon: false,
                           ),
-
                           const SizedBox(height: 10),
                           MyTextFormField(
                               myController: passwordController,

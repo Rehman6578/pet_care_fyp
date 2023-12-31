@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pet_care_fyp/Services/google_Services.dart';
+import 'package:pet_care_fyp/views/Dashboard/Navbar_Screen/HomeNavbar.dart';
 
 import '../../Utils/utils.dart';
 import '../Dashboard/MainDashboard.dart';
@@ -104,7 +106,11 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.only(top: 150),
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    AuthServices().signInWithGoogle();
+                    Get.to(() => const home_nav());
+                    ToastMessage().showSnackBar('Login with Google');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     minimumSize: const Size(300, 50),

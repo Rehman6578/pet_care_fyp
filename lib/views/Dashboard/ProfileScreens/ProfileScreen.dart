@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/profile.dart';
 import '../../../Utils/utils.dart';
 import '../../../WidgetCommon/profile_listitems.dart';
+import '../../auth_screens/Login.dart';
 import '../../auth_screens/LoginScreen.dart';
 import 'AddPetServices.dart';
 
@@ -218,7 +219,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     child: Container(
-                      height: Get.height * 0.3,
+                      height: Get.height * 0.4,
                       child: Column(
                         children: [
                           Center(
@@ -278,12 +279,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    auth.signOut().then((value) {
-                                      Get.offAll(LoginScreen());
-                                      ToastMessage().showSnackBar('LogOut');
-                                    }).catchError((e) {
-                                      ToastMessage().showSnackBar(e.toString());
-                                    });
+                                    auth.signOut();
+                                    Get.offAll(() => LoginScreen());
                                   },
                                   child: const Text(
                                     'Logout',

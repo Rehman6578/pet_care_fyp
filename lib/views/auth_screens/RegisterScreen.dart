@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/Utils/utils.dart';
+import '../../Services/google_Services.dart';
 import '../../WidgetCommon/Button.dart';
 import '../../WidgetCommon/My_Text_Field.dart';
 import '../../controllers/auth_Controllers/SignupController.dart';
+import '../Dashboard/Navbar_Screen/HomeNavbar.dart';
 import 'Login.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -130,7 +132,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                        () => AuthServices().signInWithGoogle();
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.red,
                                     minimumSize: const Size(60, 60),
