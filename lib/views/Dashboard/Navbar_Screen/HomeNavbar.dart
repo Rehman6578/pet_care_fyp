@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../WidgetCommon/Button.dart';
 import '../../../WidgetCommon/mainContainer.dart';
 import '../../../const/images.dart';
@@ -51,8 +49,7 @@ class _home_nav extends State<home_nav> {
               child: Wrap(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15, top: 20, bottom: 20),
+                    padding: const EdgeInsets.only(top: 25, left: 20),
                     child: Row(
                       children: [
                         InkWell(
@@ -60,9 +57,10 @@ class _home_nav extends State<home_nav> {
                               Get.back();
                             },
                             child: const Image(image: AssetImage(close))),
-                        const SizedBox(
-                          width: 100,
-                        ),
+
+                        SizedBox(
+                          width: Get.width * 0.2,),
+
                         const Text(
                           'Add Pet Details',
                           style: TextStyle(
@@ -89,19 +87,18 @@ class _home_nav extends State<home_nav> {
                         Text('Reminder of the upcoming events with your pet.'),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20, bottom: 20, top: 20, right: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         RoundedButton(
                             text: "+ Add",
                             press: () {
-                              Get.to(AddPetDetail());
+                              Get.to(const AddPetDetail());
                             },
                             color: Colors.blue,
                             textColor: Colors.white,
-                            width: 150),
+                            width: Get.width * 0.35),
                         const SizedBox(
                           width: 20,
                         ),
@@ -112,7 +109,11 @@ class _home_nav extends State<home_nav> {
                             },
                             color: Colors.grey.withOpacity(0.2),
                             textColor: Colors.black,
-                            width: 150),
+                            width: Get.width * 0.35),
+
+                        SizedBox(
+                        height: Get.height * 0.1,)
+
                       ],
                     ),
                   )
@@ -142,7 +143,7 @@ class _home_nav extends State<home_nav> {
                     icon: const Icon(Icons.search),
                     onPressed: () {
 
-                      Get.to(NearVeterinaryScreen());
+                      Get.to(const NearVeterinaryScreen());
                     },
                   ),
                 ],
@@ -176,7 +177,7 @@ class _home_nav extends State<home_nav> {
                       title: 'Grooming',
                       assetImagePath: 'assets/images/grooming.png',
                       onPressed: () {
-                        Get.to(GroomingScreen());
+                        Get.to(const GroomingScreen());
                       }),
                   CustomGridItem(
                       title: 'Pet boarding',
@@ -200,7 +201,7 @@ class _home_nav extends State<home_nav> {
                       title: 'Pet Taxi',
                       assetImagePath: 'assets/images/pettaxi.png',
                       onPressed: () {
-                        Get.to(PetTaxiScreen());
+                        Get.to( PetTaxiScreen());
                       }),
                   CustomGridItem(
                       title: 'Pet Date',

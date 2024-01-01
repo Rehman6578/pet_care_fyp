@@ -9,7 +9,7 @@ import 'LoginScreen.dart';
 import 'RegisterScreen.dart';
 
 class Login extends StatefulWidget {
-  Login({super.key});
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
           emailController.clear();
           passwordController.clear();
           ToastMessage().showSnackBar('Login Successfully');
-      Get.to(home_nav());
+      Get.to(const home_nav());
       setState(() {
         _loading = false;
       });
@@ -321,7 +321,7 @@ class _LoginState extends State<Login> {
                               press: () {
                                 if(_formKey.currentState!.validate()){
                                   login();
-                                };
+                                }
                               },
                               color: Colors.blue,
                               textColor: Colors.white,

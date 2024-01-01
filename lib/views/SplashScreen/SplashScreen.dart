@@ -41,12 +41,11 @@
 
 // import 'dart:js';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care_fyp/views/SplashScreen/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
-   SplashScreen({super.key});
+   const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

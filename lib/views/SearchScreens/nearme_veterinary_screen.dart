@@ -524,7 +524,7 @@ class _NearVeterinaryScreenState extends State<NearVeterinaryScreen> {
           // Respond to item press.
           if (index == 3) {
             // Navigate to the ProfileScreen when the "Profile" item is tapped.
-            Get.to(ProfileScreen());
+            Get.to(const ProfileScreen());
           }
           if (index == 1) {
             Get.to(const AppointmentScreen());

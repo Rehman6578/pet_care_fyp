@@ -127,7 +127,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                   height: 15,
                 ),
                 // add three container for image
-                Container(
+                SizedBox(
                   height: Get.height * 0.1,
                   width: Get.width,
                   child: Row(
@@ -571,7 +571,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
                     press: () {
                       if (_formKey.currentState!.validate()) {
                         Get.snackbar('Success', 'Service Added Successfully');
-                        Get.to(AddLocation());
+                        Get.to(const AddLocation());
                       }
                     },
                     color: Colors.blueAccent,

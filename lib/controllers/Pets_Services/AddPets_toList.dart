@@ -32,11 +32,11 @@ class AddPets_toList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
+          const Padding(
+            padding: EdgeInsets.only(top: 10),
             child: Text(
               'Add your Pet for Boarding',
               style: TextStyle(
@@ -65,7 +65,7 @@ class AddPets_toList extends StatelessWidget {
 
                     },
                     iconSize: 50,
-                    icon: Icon(Icons.add),
+                    icon: const Icon(Icons.add),
                   ),
                   const Text(
                     'Add Image',
@@ -78,7 +78,7 @@ class AddPets_toList extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Padding(
@@ -103,12 +103,12 @@ class AddPets_toList extends StatelessWidget {
                   hintText: 'Enter Pet Name',
                   labelText: 'Pet Name',
                   obscureText: false,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 MyTextFormField(
                   myController: pettype,
                   focusNode: petType,
@@ -126,12 +126,12 @@ class AddPets_toList extends StatelessWidget {
                   hintText: 'Enter Pet Type',
                   labelText: 'Pet Type',
                   obscureText: false,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 MyTextFormField(
                   myController: petbreed,
                   focusNode: petBreed,
@@ -149,12 +149,12 @@ class AddPets_toList extends StatelessWidget {
                   hintText: 'Enter Pet Breed',
                   labelText: 'Pet Breed',
                   obscureText: false,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 MyTextFormField(
                   myController: ownername,
                   focusNode: ownerName,
@@ -172,12 +172,12 @@ class AddPets_toList extends StatelessWidget {
                   hintText: 'Enter Owner Name',
                   labelText: 'Owner Name',
                   obscureText: false,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 MyTextFormField(
                   myController: contactnumber,
                   focusNode: contactNumber,
@@ -194,12 +194,12 @@ class AddPets_toList extends StatelessWidget {
                   hintText: 'Enter Contact Number',
                   labelText: 'Contact Number',
                   obscureText: false,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 RoundedButton(
                   text: 'Add Pet for boarding',
                   press: () {},

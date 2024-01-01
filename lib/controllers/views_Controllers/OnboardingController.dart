@@ -1,9 +1,6 @@
 // onboarding_controller.dart
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../Utils/Models/OnboardingModel.dart';
 import '../../const/images.dart';
@@ -45,7 +42,7 @@ class OnboardingController extends GetxController {
       // Update the PageView using PageController
       Get.find<PageController>().animateToPage(
         currentPage.value,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
     }

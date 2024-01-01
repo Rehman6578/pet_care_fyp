@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../controllers/FriendlyCatController.dart';
 import '../../../controllers/FriendlyDogController.dart';
 import '../../../controllers/FriendlyKidsAboveTenController.dart';

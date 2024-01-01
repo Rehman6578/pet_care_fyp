@@ -7,7 +7,6 @@ import '../../Services/google_Services.dart';
 import '../../WidgetCommon/Button.dart';
 import '../../WidgetCommon/My_Text_Field.dart';
 import '../../controllers/auth_Controllers/SignupController.dart';
-import '../Dashboard/Navbar_Screen/HomeNavbar.dart';
 import 'Login.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -25,7 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final controller = Get.put(SignupController());
   final formkey = GlobalKey<FormState>();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance.collection('users');
 
 
@@ -172,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               TextButton(
                                 onPressed: () {
                                   // using GetX navigation goto LoginScreen
-                                  Get.to(() => Login());
+                                  Get.to(() => const Login());
                                 },
                                 child: const Text(
                                   'Sign In',
@@ -212,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         MyTextFormField(
@@ -223,6 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (value!.isEmpty) {
                               return 'Please enter your Name';
                             }
+                            return null;
                           },
                           keyBoardType: TextInputType.name,
                           hintText: 'Enter Username ',
@@ -238,12 +238,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (value!.isEmpty) {
                               return 'Please enter your Email ';
                             }
+                            return null;
                           },
                           keyBoardType: TextInputType.emailAddress,
                           hintText: 'Email Address ',
                           labelText: 'Email',
                           suffixIcon: false,
-                          hintStyle: TextStyle(fontSize: 15, color: Colors.grey),
+                          hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
                           obscureText: false,
                         ),
                         MyTextFormField(
@@ -254,13 +255,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (value!.isEmpty) {
                               return 'Please enter your password ';
                             }
+                            return null;
                           },
                           keyBoardType: TextInputType.visiblePassword,
                           hintText: 'Password ',
                           labelText: 'Password',
                           obscureText: true,
                           suffixIcon: true,
-                          hintStyle: TextStyle(fontSize: 15, color: Colors.grey),
+                          hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                         Padding(
                           padding:
@@ -358,7 +360,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         usernameController.clear();
 
         ToastMessage().showSnackBar('User Registered Successfully');
-        Get.to(Login());
+        Get.to(const Login());
         setState(() {
           _loading = false;
         });

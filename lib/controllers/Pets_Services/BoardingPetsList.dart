@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/petBoarding_Controller.dart';
 
 class BoardingPetsList extends StatelessWidget {
@@ -17,7 +15,7 @@ class BoardingPetsList extends StatelessWidget {
         return Container(
           width: double.infinity,
           height: 150,
-          margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+          margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -32,11 +30,11 @@ class BoardingPetsList extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.grey,
                       blurRadius: 10,
@@ -44,7 +42,7 @@ class BoardingPetsList extends StatelessWidget {
                     )
                   ],
                   borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                       'https://th.bing.com/th/id/OIP.Qi2mS11Ml1PRAYV2cZYJAQHaHa?rs=1&pid=ImgDetMain',
                     ),
@@ -60,44 +58,44 @@ class BoardingPetsList extends StatelessWidget {
                     // add pet name as' Pet Name: ''
                     Text(
                       'Pet Name:    ${containerController.petBoarding[index].petName}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       'Pet Type:  ${containerController.petBoarding[index].petType}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       'Pet Breed:  ${containerController.petBoarding[index].petBreed}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       'Owner Name:  ${containerController.petBoarding[index].ownerName}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       'Contact Number:  ${containerController.petBoarding[index].contactNumber}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),

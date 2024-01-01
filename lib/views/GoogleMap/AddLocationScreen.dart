@@ -1,12 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
+import 'package:pet_care_fyp/const/CommonFiles.dart';
+import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/AddPetServices.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,6 +30,18 @@ class _AddLocationState extends State<AddLocation> {
   TextEditingController street_Controller = TextEditingController();
   TextEditingController state_Controller = TextEditingController();
   TextEditingController postalcode_Controller = TextEditingController();
+
+  final DatabaseReference _database = FirebaseDatabase.instance.reference().child('services');
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  String? latitud;
+  String? longitud;
+  String? address;
+  String? apt;
+  String? city;
+  String? street;
+  String? state;
+  String? postalCode;
 
   static const _intialCameraPosition = CameraPosition(
     target: LatLng(34.004331, 71.503790),
@@ -49,7 +67,7 @@ class _AddLocationState extends State<AddLocation> {
 
   final List<Marker> markers = [];
 
-  var uuid = Uuid();
+  var uuid = const Uuid();
   String sessionToken = '122343';
   List<dynamic> placesList = [];
 
@@ -63,24 +81,17 @@ class _AddLocationState extends State<AddLocation> {
   }
 
   void onchange() {
-    if (sessionToken == null) {
-      setState(() {
-        sessionToken = uuid.v4();
-      });
-    }
-
     getSuggestion(search_Controller.text);
   }
 
   getSuggestion(String input) async {
-
-    String kPLACES_API_KEY = 'AIzaSyCPGGTzDcSDX77pcz00YnnpbHkoJTND3P0';
+    String kplacesApiKey = 'AIzaSyCPGGTzDcSDX77pcz00YnnpbHkoJTND3P0';
 
     String baseURL =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-    String request = '$baseURL?input=$input&key=$kPLACES_API_KEY&sessiontoken=$sessionToken';
+    String request =
+        '$baseURL?input=$input&key=$kplacesApiKey&sessiontoken=$sessionToken';
     var response = await http.get(Uri.parse(request));
-
 
     print(response.body.toString());
     if (response.statusCode == 200) {
@@ -96,10 +107,10 @@ class _AddLocationState extends State<AddLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Location'),
+        title: const Text('Add Location'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,14 +175,16 @@ class _AddLocationState extends State<AddLocation> {
                     title: Text(placesList[index]['description']),
                     onTap: () async {
                       search_Controller.text = placesList[index]['description'];
-                      List<Location> location= await locationFromAddress(placesList[index]['description']);
+                      List<Location> location = await locationFromAddress(
+                          placesList[index]['description']);
                       //  go to the selected location on map
                       markers.add(
                         Marker(
                           markerId: const MarkerId('search location'),
                           infoWindow:
                               const InfoWindow(title: 'Your search location'),
-                          position: LatLng(location[0].latitude, location[0].longitude),
+                          position: LatLng(
+                              location[0].latitude, location[0].longitude),
                           icon: BitmapDescriptor.defaultMarkerWithHue(
                             BitmapDescriptor.hueRed,
                           ),
@@ -179,7 +192,8 @@ class _AddLocationState extends State<AddLocation> {
                       );
 
                       CameraPosition position = CameraPosition(
-                        target: LatLng(location[0].latitude, location[0].longitude),
+                        target:
+                            LatLng(location[0].latitude, location[0].longitude),
                         zoom: 14,
                       );
 
@@ -190,25 +204,27 @@ class _AddLocationState extends State<AddLocation> {
                           CameraUpdate.newCameraPosition(position));
 
                       setState(() async {
-
                         // get city name from selected location
-                        List<Placemark> placemarks = await placemarkFromCoordinates(location[0].latitude, location[0].longitude);
+                        List<Placemark> placemarks =
+                            await placemarkFromCoordinates(
+                                location[0].latitude, location[0].longitude);
                         // get aptitude from selected location
-                        String apt = placemarks[0].subThoroughfare.toString();
-                        String city = placemarks[0].locality.toString();
-                        String street = placemarks[0].street.toString();
-                        String state = placemarks[0].administrativeArea.toString();
-                        String postalCode = placemarks[0].postalCode.toString();
+                        apt = placemarks[0].subThoroughfare.toString();
+                        city = placemarks[0].locality.toString();
+                        street = placemarks[0].street.toString();
+                        state = placemarks[0].administrativeArea.toString();
+                        postalCode = placemarks[0].postalCode.toString();
+                        address = placemarks[0].name.toString();
+                        latitud = location[0].latitude.toString();
+                        longitud = location[0].longitude.toString();
 
-                        aptsuit_Controller.text = apt;
-                        city_Controller.text = city;
-                        street_Controller.text = street;
-                        state_Controller.text = state;
-                        postalcode_Controller.text = postalCode;
+                        aptsuit_Controller.text = apt!;
+                        city_Controller.text = city!;
+                        street_Controller.text = street!;
+                        state_Controller.text = state!;
+                        postalcode_Controller.text = postalCode!;
 
                         placesList = [];
-
-
                       });
                     },
                   );
@@ -264,10 +280,6 @@ class _AddLocationState extends State<AddLocation> {
                   ),
                 ),
               ),
-
-
-
-
 
               const SizedBox(
                 height: 15,
@@ -417,8 +429,7 @@ class _AddLocationState extends State<AddLocation> {
                     onMapCreated: (controller) {
                       googleMaapController.complete(controller);
                     },
-                   markers: Set<Marker>.of(markers),
-
+                    markers: Set<Marker>.of(markers),
                   ),
                 ),
               ),
@@ -431,7 +442,137 @@ class _AddLocationState extends State<AddLocation> {
               Center(
                 child: RoundedButton(
                   text: 'Save Location',
-                  press: () {},
+                  press: () async {
+                    // add the address data in map
+                    Map<String, dynamic> addressData = {
+                      'address': address,
+                      'apt': apt,
+                      'city': city,
+                      'street': street,
+                      'state': state,
+                      'postalCode': postalCode,
+                      'latitud': latitud,
+                      'longitud': longitud,
+                    };
+
+                    String uid = _auth.currentUser!.uid;
+
+                    // get the key value from shared preferences
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    String? key = prefs.getString('key');
+
+                    print(
+                        '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+                    print(key);
+
+                    switch (key) {
+                      case '1':
+                        _database
+                            .child('veterinary')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+
+                        break;
+                      case '2':
+                        _database
+                            .child('GroomingSerivce')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+                        break;
+                      case '3':
+                        _database
+                            .child('BoardingService')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+                        break;
+                      case '4':
+                        _database
+                            .child('petAdoption')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+                        break;
+                        case '5':
+                        _database
+                            .child('petWalking')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+                        break;
+                        case '6':
+                        _database
+                            .child('petTraining')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+                        break;
+                        case '7':
+                        _database
+                            .child('petTaxi')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+                        break;
+                        case '8':
+                        _database
+                            .child('petDating')
+                            .child(uid)
+                            .child('address')
+                            .set(addressData);
+                        setState(() {
+                          // show snackbar for success
+                          Get.snackbar(
+                              'Success', 'Location Added Successfully');
+                          Get.offAll(AddPetServices());
+                        });
+                        break;
+                    }
+                  },
                   textColor: Colors.white,
                   width: Get.width * 0.9,
                   color: Colors.blueAccent,

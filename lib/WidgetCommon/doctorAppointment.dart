@@ -18,7 +18,7 @@ class DocterAppointment extends StatefulWidget {
   var doctorlocation;
   var doctorAvailableTime;
 
-  DocterAppointment({
+  DocterAppointment({super.key, 
     this.doctorName,
     this.doctorSpeciality,
     required this.doctorImage,
@@ -39,10 +39,22 @@ class _DocterAppointmentState extends State<DocterAppointment> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(15),
+      padding:  const EdgeInsets.all(15),
       child: Container(
         width: Get.width,
         height: Get.height * 0.38,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              blurRadius: 10,
+              spreadRadius: 5,
+            ),
+          ],
+          // color: Colors.white,
+        ),
         child: Column(
           children: [
             Row(
@@ -56,7 +68,7 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                     width: Get.width  * 0.25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage('assets/images/doctor.png'),
                         fit: BoxFit.cover,
                       ),
@@ -71,7 +83,7 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                     children: [
                       Text(
                         widget.doctorName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -79,7 +91,7 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                       ),
                       Text(
                         widget.doctorSpeciality,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -87,9 +99,9 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                       ),
                       Row(
                         children: [
-                          SizedBox(height:10),
+                          const SizedBox(height:10),
                           _buildStarRating(widget.doctorRatings),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           const Text(
                             'Reviews',
                             style: TextStyle(
@@ -98,7 +110,7 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       // add small pin location icon circular with grey color text
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,7 +132,7 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                 )
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Container(
               height: 100,
               width: 350,
@@ -136,7 +148,7 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                       iconData: Icons.cases_outlined,
                       text: widget.doctorlocation,
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     iconContainer(
                       iconData: Icons.access_time_outlined,
                       text: widget.doctorAvailableTime,
@@ -146,7 +158,7 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -155,18 +167,6 @@ class _DocterAppointmentState extends State<DocterAppointment> {
               ],
             ),
           ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              blurRadius: 10,
-              spreadRadius: 5,
-            ),
-          ],
-          // color: Colors.white,
         ),
       ),
     );

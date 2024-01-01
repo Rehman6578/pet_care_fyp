@@ -7,7 +7,7 @@ class FirebaseAuthService extends GetxService {
 
   final FirebaseApp firebaseApp = Firebase.app();
 
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
     try {

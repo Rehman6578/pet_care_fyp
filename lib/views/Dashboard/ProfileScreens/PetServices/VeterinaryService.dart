@@ -2,28 +2,31 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/const/CommonFiles.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../controllers/Image_Controller/ImageController.dart';
 
 class AddVeterinaryService extends StatefulWidget {
+  const AddVeterinaryService({super.key});
+
   @override
   _AddVeterinaryServiceState createState() => _AddVeterinaryServiceState();
 }
 
 class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
- static String veterinary_key= 'key';
 
-  ImagePickerController imagePickerController =Get.put(ImagePickerController());
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
 
   // TextEditingController for handling input
@@ -35,13 +38,13 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   final TextEditingController _offeredServicesController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
 
-
   String? selectedOption;
 
   String? profileImg, img1, img2, img3;
-  FirebaseAuth _auth = FirebaseAuth.instance;
-   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  FirebaseDatabase _database = FirebaseDatabase.instance;
 
   final formkey = GlobalKey<FormState>();
   bool _loading = false;
@@ -51,7 +54,10 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     print('build app');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Veterinary Service',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          'Veterinary Service',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -80,9 +86,11 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                             borderRadius: BorderRadius.circular(15.0),
                             image: profileImg == null
                                 ? const DecorationImage(
-                                    image: AssetImage('assets/images/doctor.png'))
+                                    image:
+                                        AssetImage('assets/images/doctor.png'))
                                 : DecorationImage(
-                                    image: FileImage(File(profileImg.toString())),
+                                    image:
+                                        FileImage(File(profileImg.toString())),
                                     fit: BoxFit.cover,
                                   ),
                           ),
@@ -288,6 +296,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       if (value!.isEmpty) {
                         return 'Please enter doctor\'s name';
                       }
+                      return null;
                     },
                     decoration: const InputDecoration(
                       hintText: 'Enter doctor/clinic name',
@@ -313,6 +322,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       if (value!.isEmpty) {
                         return 'Enter professional experience please';
                       }
+                      return null;
                     },
                     decoration: const InputDecoration(
                       hintText: 'Enter professional experience',
@@ -337,6 +347,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       if (value!.isEmpty) {
                         return 'Enter specialization please';
                       }
+                      return null;
                     },
                     decoration: const InputDecoration(
                       hintText: 'Enter specialization',
@@ -362,6 +373,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       if (value!.isEmpty) {
                         return 'Enter personal information please';
                       }
+                      return null;
                     },
                     decoration: const InputDecoration(
                       hintText: 'Enter personal information',
@@ -387,6 +399,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       if (value!.isEmpty) {
                         return 'Enter education please';
                       }
+                      return null;
                     },
                     decoration: const InputDecoration(
                       hintText: 'Enter education details',
@@ -411,6 +424,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                       if (value!.isEmpty) {
                         return 'Enter offered services please';
                       }
+                      return null;
                     },
                     decoration: const InputDecoration(
                       hintText: 'Enter offered services',
@@ -427,23 +441,25 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
-                Obx(() =>  DropDownMultiSelect(
-                  options: petController.allPetTypes,
-                  whenEmpty: 'eg: Dog, Cat, Reptile',
-                  onChanged: (value) {
-                    if (value.isEmpty) {
-                      return 'Please select pet type';
-                    }
-                    petController.selectedPetTypes.value = value;
-                    petController.selectedOption.value = "";
+                Obx(
+                  () => DropDownMultiSelect(
+                    options: petController.allPetTypes,
+                    whenEmpty: 'eg: Dog, Cat, Reptile',
+                    onChanged: (value) {
+                      if (value.isEmpty) {
+                        return 'Please select pet type';
+                      }
+                      petController.selectedPetTypes.value = value;
+                      petController.selectedOption.value = "";
 
-                    for (var value1 in petController.selectedPetTypes.value) {
-                      petController.selectedOption.value =
-                      "${petController.selectedOption.value}$value1";
-                    }
-                  },
-                  selectedValues: petController.selectedPetTypes.value,
-                ),),
+                      for (var value1 in petController.selectedPetTypes.value) {
+                        petController.selectedOption.value =
+                            "${petController.selectedOption.value}$value1";
+                      }
+                    },
+                    selectedValues: petController.selectedPetTypes.value,
+                  ),
+                ),
                 const SizedBox(height: 16.0),
                 const Text(
                   'Size of pet you accept?',
@@ -452,22 +468,22 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 const SizedBox(
                   height: 16.0,
                 ),
-               Obx(() =>  DropDownMultiSelect(
-                   options: petController.SelectPetSizes,
-                   selectedValues: petController.selectedPetSize1.value,
-                   whenEmpty: 'eg: 1-5kg , 15-20kg',
-                   onChanged: (value) {
-                     if (value.isEmpty) {
-                       return 'Please select pet size';
-                     }
-                     petController.selectedPetSize1.value = value;
-                     petController.selectedSize1.value = "";
+                Obx(() => DropDownMultiSelect(
+                    options: petController.SelectPetSizes,
+                    selectedValues: petController.selectedPetSize1.value,
+                    whenEmpty: 'eg: 1-5kg , 15-20kg',
+                    onChanged: (value) {
+                      if (value.isEmpty) {
+                        return 'Please select pet size';
+                      }
+                      petController.selectedPetSize1.value = value;
+                      petController.selectedSize1.value = "";
 
-                     for (var value1 in petController.selectedPetSize1.value) {
-                       petController.selectedSize1.value =
-                       "${petController.selectedSize1.value}$value1";
-                     }
-                   })),
+                      for (var value1 in petController.selectedPetSize1.value) {
+                        petController.selectedSize1.value =
+                            "${petController.selectedSize1.value}$value1";
+                      }
+                    })),
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -490,7 +506,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8, right: 8),
                     child: DropdownButton<String>(
-                      hint: Text('Yes/No'),
+                      hint: const Text('Yes/No'),
                       isExpanded: true,
                       value: selectedOption,
                       menuMaxHeight: 100,
@@ -507,7 +523,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         }
 
                         setState(() {
-                          selectedOption = value!;
+                          selectedOption = value;
                         });
                       },
                     ),
@@ -526,6 +542,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                     if (value!.isEmpty) {
                       return 'Enter price please';
                     }
+                    return null;
                   },
                   decoration: const InputDecoration(
                     hintText: 'Enter the price',
@@ -533,8 +550,6 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                   ),
                 ),
                 const SizedBox(height: 40.0),
-
-                // Input for Preferred Search Location
 
                 // Button to Add Service
                 Center(
@@ -546,13 +561,15 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                         setState(() {
                           _loading = true;
                         });
+
                         addVeterinaryService();
+                        Get.snackbar(
+                            snackPosition: SnackPosition.BOTTOM,
+                            duration: const Duration(seconds: 3),
+                            'Success',
+                            'Veterinary Service Added Successfully');
+                        Get.to(const AddLocation());
                       }
-                      Get.snackbar(
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 2),
-                          'Success', 'Veterinary Service Added Successfully');
-                      Get.to(AddLocation());
                     },
                     color: Colors.lightBlue,
                     textColor: Colors.white,
@@ -570,7 +587,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   }
 
   // Method to add the veterinary service
-  void addVeterinaryService() {
+  Future<void> addVeterinaryService() async {
     String doctorName = _doctorNameController.text;
     String experience = _experienceController.text;
     String specialization = _specializationController.text;
@@ -582,86 +599,85 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     double price = double.tryParse(_priceController.text) ?? 0.0;
 
 
-    commonFiles.saveStringData(veterinary_key, '1');
+    // create instace of shared preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('key', '1');
 
-    if (formkey.currentState!.validate()) {
-      setState(() {
-        _loading = true;
-        return ;
+
+
+
+    // check if all the images are selected or not then show the snackbar to select images
+
+    // String uid = DateTime.now().microsecondsSinceEpoch.toString();
+    String uid = _auth.currentUser!.uid;
+
+    _storage
+        .ref()
+        .child('veterinaryServices/$uid/profileImg')
+        .putFile(File(profileImg.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        profileImg = value;
       });
+    });
 
-      // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-      String uid = _auth.currentUser!.uid;
-
-      _storage
-          .ref()
-          .child('veterinaryServices/$uid/profileImg')
-          .putFile(File(profileImg.toString()))
-          .then((value) {
-        value.ref.getDownloadURL().then((value) {
-          profileImg = value;
-        });
+    _storage
+        .ref()
+        .child('veterinaryServices/$uid/img1')
+        .putFile(File(img1.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        img1 = value;
       });
+    });
 
-      _storage
-          .ref()
-          .child('veterinaryServices/$uid/img1')
-          .putFile(File(img1.toString()))
-          .then((value) {
-        value.ref.getDownloadURL().then((value) {
-          img1 = value;
-        });
+    _storage
+        .ref()
+        .child('veterinaryServices/$uid/img2')
+        .putFile(File(img2.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        img2 = value;
       });
+    });
 
-      _storage
-          .ref()
-          .child('veterinaryServices/$uid/img2')
-          .putFile(File(img2.toString()))
-          .then((value) {
-        value.ref.getDownloadURL().then((value) {
-          img2 = value;
-        });
+    _storage
+        .ref()
+        .child('veterinaryServices/$uid/img3')
+        .putFile(File(img3.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        img3 = value;
       });
+    });
 
-      _storage
-          .ref()
-          .child('veterinaryServices/$uid/img3')
-          .putFile(File(img3.toString()))
-          .then((value) {
-        value.ref.getDownloadURL().then((value) {
-          img3 = value;
-        });
-      });
+    // add all the form data in map
 
-      // add all the form data in map
-      Map<String, dynamic> data = {
-        'doctorName': doctorName,
-        'experience': experience,
-        'specialization': specialization,
-        'personalInfo': personalInfo,
-        'education': education,
-        'acceptedPets': acceptedPets,
-        'offeredServices': offeredServices,
-        'acceptedPetTypes': acceptedPetTypes,
-        'price': price,
-        'uid': uid,
-        'profileImg': profileImg,
-        'img1': img1,
-        'img2': img2,
-        'img3': img3,
-      };
+    Map<String, dynamic> data = {
+      'doctorName': doctorName,
+      'experience': experience,
+      'specialization': specialization,
+      'personalInfo': personalInfo,
+      'education': education,
+      'acceptedPets': acceptedPets,
+      'offeredServices': offeredServices,
+      'acceptedPetTypes': acceptedPetTypes,
+      'price': price,
+      'uid': uid,
+      'profileImg': profileImg,
+      'img1': img1,
+      'img2': img2,
+      'img3': img3,
+    };
 
 
-      _firestore.collection("users").doc("Services").collection('Veterinary_Service').add(data).then((value) {
-        setState(() {
-          _loading = false;
-        });
-      }).catchError((error) {
-        setState(() {
-          _loading = false;
-        });
-        Get.snackbar('Error', error.toString());
-      });
-    }
+    // add all the data in firebase database in services node and veterinary node by its user id
+    _database
+        .reference()
+        .child('services')
+        .child('veterinary')
+        .child(uid)
+        .set(data);
+
   }
 }

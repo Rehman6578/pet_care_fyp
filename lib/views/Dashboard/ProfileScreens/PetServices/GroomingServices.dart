@@ -1,33 +1,41 @@
-
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
+import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../controllers/Image_Controller/ImageController.dart';
 
 class AddGroomingService extends StatefulWidget {
+  const AddGroomingService({super.key});
+
   @override
   _AddGroomingServiceState createState() => _AddGroomingServiceState();
 }
 
 class _AddGroomingServiceState extends State<AddGroomingService> {
-  ImagePickerController imagePickerController =
-  Get.put(ImagePickerController());
-
   final _formKey = GlobalKey<FormState>();
 
-
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
-
   final TextEditingController _nameServicesController = TextEditingController();
-  final TextEditingController _listingSummaryController = TextEditingController();
+  final TextEditingController _listingSummaryController =
+      TextEditingController();
   final TextEditingController _DiscriptionsController = TextEditingController();
-  final TextEditingController _preferredLocationController = TextEditingController();
+  final TextEditingController _preferredLocationController =
+      TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _PetGroomingController = TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  FirebaseDatabase _database = FirebaseDatabase.instance;
+
   String? selectedOption;
 
   String? profileImg;
@@ -35,11 +43,16 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
   String? img2;
   String? img3;
 
+  bool _loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Grooming Service',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          'Grooming Service',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -50,7 +63,6 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 const Padding(
                   padding: EdgeInsets.only(left: 8, right: 8),
                   child: Text(
@@ -81,12 +93,13 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                             borderRadius: BorderRadius.circular(15.0),
                             image: profileImg == null
                                 ? const DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/trainingprofile.png'))
+                                    image: AssetImage(
+                                        'assets/images/trainingprofile.png'))
                                 : DecorationImage(
-                              image: FileImage(File(profileImg.toString())),
-                              fit: BoxFit.cover,
-                            ),
+                                    image:
+                                        FileImage(File(profileImg.toString())),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                       ),
@@ -129,7 +142,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   height: Get.height * 0.1,
                   width: Get.width,
                   child: Row(
@@ -149,12 +162,12 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                               borderRadius: BorderRadius.circular(10.0),
                               image: img1 == null
                                   ? const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/petimage.png'))
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
                                   : DecorationImage(
-                                image: FileImage(File(img1.toString())),
-                                fit: BoxFit.cover,
-                              ),
+                                      image: FileImage(File(img1.toString())),
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                           // add shor addimage icon to add image of 20 * 20
@@ -197,12 +210,12 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                               borderRadius: BorderRadius.circular(10.0),
                               image: img2 == null
                                   ? const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/petimage.png'))
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
                                   : DecorationImage(
-                                image: FileImage(File(img2.toString())),
-                                fit: BoxFit.cover,
-                              ),
+                                      image: FileImage(File(img2.toString())),
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                           Positioned(
@@ -244,12 +257,12 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                               borderRadius: BorderRadius.circular(10.0),
                               image: img3 == null
                                   ? const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/petimage.png'))
+                                      image: AssetImage(
+                                          'assets/images/petimage.png'))
                                   : DecorationImage(
-                                image: FileImage(File(img3.toString())),
-                                fit: BoxFit.cover,
-                              ),
+                                      image: FileImage(File(img3.toString())),
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                           Positioned(
@@ -279,7 +292,6 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                           ),
                         ],
                       ),
-
                     ],
                   ),
                 ),
@@ -294,7 +306,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 const SizedBox(height: 8.0),
                 const Text(
                   'You may use a combination of your city/town name and the service you '
-                      'provide and the pet you accept make your listing stand out against others.',
+                  'provide and the pet you accept make your listing stand out against others.',
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 Card(
@@ -334,12 +346,11 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                       controller: _listingSummaryController,
                       maxLines: 5,
                       validator: (value) {
-                        return value!.isEmpty
-                            ? 'Enter Listing Summary'
-                            : null;
+                        return value!.isEmpty ? 'Enter Listing Summary' : null;
                       },
                       decoration: const InputDecoration(
-                        hintText: 'Give an overview of what service you offer. Tell us what are some of the '
+                        hintText:
+                            'Give an overview of what service you offer. Tell us what are some of the '
                             'achievements you have made in your career. Describe of 500 words and above will maximise your exposure.',
                         hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         focusedBorder: InputBorder.none,
@@ -353,36 +364,26 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                   'What pets do you accept?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                Obx(() =>  DropDownMultiSelect(
-                  validator: (value) {
-                    return value!.isEmpty
-                        ? 'Select Option'
-                        : '';
-                  },
-                  options: petController.allPetTypes,
-                  onChanged: (value) {
-                    petController.selectedPetTypes.value = value;
-                    petController.selectedOption.value = "";
+                Obx(() => DropDownMultiSelect(
+                      options: petController.allPetTypes,
+                      onChanged: (value) {
+                        petController.selectedPetTypes.value = value;
+                        petController.selectedOption.value = "";
 
-                    for (var value1 in petController.selectedPetTypes.value) {
-                      petController.selectedOption.value =
-                      "${petController.selectedOption
-                          .value}$value1"; // interpolation
-                    }
-                  },
-                  selectedValues: petController.selectedPetTypes.value,
-                )),
+                        for (var value1
+                            in petController.selectedPetTypes.value) {
+                          petController.selectedOption.value =
+                              "${petController.selectedOption.value}$value1"; // interpolation
+                        }
+                      },
+                      selectedValues: petController.selectedPetTypes.value,
+                    )),
                 const SizedBox(height: 16.0),
                 const Text(
                   'How far are you willing to travel to visit a pet owner\'s home?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Obx(() => DropDownMultiSelect(
-                    validator: (value) {
-                      return value!.isEmpty
-                          ? 'Select Option'
-                          : '';
-                    },
                     options: petController.PetVisiting,
                     selectedValues: petController.selectPetVisit.value,
                     onChanged: (value) {
@@ -391,10 +392,12 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
 
                       for (var value1 in petController.selectPetVisit.value) {
                         petController.selecteVisit.value =
-                        "${petController.selecteVisit.value}$value1";
+                            "${petController.selecteVisit.value}$value1";
                       }
                     })),
-                const SizedBox(height: 16.0,),
+                const SizedBox(
+                  height: 16.0,
+                ),
                 const Text(
                   'Preferred search location (optional)',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -408,13 +411,9 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                     child: TextFormField(
                       controller: _preferredLocationController,
                       maxLines: 5,
-                      validator: (value) {
-                        return value!.isEmpty
-                            ? 'Enter Preferred search location'
-                            : '';
-                      },
                       decoration: const InputDecoration(
-                        hintText: 'Enter a landmark, key location, or area which you would like people'
+                        hintText:
+                            'Enter a landmark, key location, or area which you would like people'
                             ' who are searching for your service to find you in. This value can only be entered once.'
                             'E.g. Peshawar, Islamabad, Lahore, Karachi, etc.',
                         hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
@@ -424,45 +423,26 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 16.0),
                 Card(
                   elevation: 4.0,
-                  color:  Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      readOnly: true,
-                      controller: _PetGroomingController,
-                      decoration: const InputDecoration(
-                        label: Text('Services Type'),
-                        hintText: 'Pet Grooming ',
-                        hintStyle: TextStyle(fontSize: 14, color: Colors.black),
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                Card(
-                  elevation: 4.0,
-                  color:  Colors.white,
+                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       controller: _priceController,
                       validator: (value) {
-                        return value!.isEmpty
-                            ? 'Enter Price'
-                            : null;
+                        return value!.isEmpty ? 'Enter Price' : null;
                       },
-                      keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       decoration: const InputDecoration(
                         prefixText: 'Usd',
                         prefixStyle: TextStyle(color: Colors.black),
                         suffixText: '/session',
-                        suffixStyle: TextStyle(color: Colors.black,wordSpacing: 10),
+                        suffixStyle:
+                            TextStyle(color: Colors.black, wordSpacing: 10),
                         hintText: 'Your Price',
                         hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                         focusedBorder: InputBorder.none,
@@ -485,9 +465,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                     child: TextFormField(
                       controller: _DiscriptionsController,
                       validator: (value) {
-                        return value!.isEmpty
-                            ? 'Enter Description'
-                            : null;
+                        return value!.isEmpty ? 'Enter Description' : null;
                       },
                       maxLines: 5,
                       decoration: const InputDecoration(
@@ -502,25 +480,128 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 const SizedBox(height: 30.0),
                 // Button to Add Service
                 Center(
-                    child: RoundedButton(
-                      text: 'Add Grooming Service',
-                      press: () {
-                        if(_formKey.currentState!.validate()){
-                          Get.snackbar('Success', 'Grooming Service Added Successfully');
-                        };
-                      },
-                      color: Colors.lightBlue,
-                      textColor: Colors.white,
-                      width: 380,
-                      height: 70,
-                    )),
+                  child: RoundedButton(
+                    text: 'Add Grooming Service',
+                    isloading: _loading,
+                    press: () {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          _loading = true;
+                        });
+                        addGroomingService();
+                      }
+                    },
+                    color: Colors.lightBlue,
+                    textColor: Colors.white,
+                    width: 380,
+                    height: 70,
+                  ),
+                ),
                 const SizedBox(height: 30.0),
               ],
             ),
-
-          )
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> addGroomingService() async {
+    // create varibale to store data
+    String name = _nameServicesController.text;
+    String listingSummary = _listingSummaryController.text;
+    String preferredLocation = _preferredLocationController.text;
+    String price = _priceController.text;
+    String discription = _DiscriptionsController.text;
+
+    // create list to store data
+    List<String> acceptedPets = petController.selectedPetTypes.value;
+    List<String> PetVisit = petController.selectPetVisit.value;
+
+    // get user id
+    String uid = _auth.currentUser!.uid;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('key', '2');
+
+    // store images in firebase storage
+    _storage
+        .ref()
+        .child('GroomingServices/$uid/profileImg')
+        .putFile(File(profileImg.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        profileImg = value;
+      });
+    });
+
+    _storage
+        .ref()
+        .child('GroomingServices/$uid/image1')
+        .putFile(File(img1.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        img1 = value;
+      });
+    });
+
+    _storage
+        .ref()
+        .child('GroomingServices/$uid/image2')
+        .putFile(File(img2.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        img2 = value;
+      });
+    });
+
+    _storage
+        .ref()
+        .child('GroomingServices/$uid/image3')
+        .putFile(File(img3.toString()))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        img3 = value;
+      });
+    });
+
+    // add all data in map
+    Map<String, dynamic> map = {
+      'name': name,
+      'listingSummary': listingSummary,
+      'acceptedPets': acceptedPets,
+      'PetVisit': PetVisit,
+      'preferredLocation': preferredLocation,
+      'price': price,
+      'discription': discription,
+      'profileImg': profileImg,
+      'image1': img1,
+      'image2': img2,
+      'image3': img3,
+    };
+
+    // add data in firebase database
+    _database
+        .reference()
+        .child('services')
+        .child('GroomingSerivce')
+        .child(uid)
+        .set(map)
+        .then((value) {
+      setState(() {
+        _loading = false;
+      });
+      Get.snackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+          'Success',
+          'Grooming Service Added Successfully');
+      Get.to(AddLocation());
+    }).catchError((error) {
+      setState(() {
+        _loading = false;
+      });
+      Get.snackbar('Error', error.toString());
+    });
   }
 }
