@@ -1,11 +1,13 @@
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/Utils/utils.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
+
+import 'Login.dart';
+import 'LoginScreen.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -66,6 +68,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
                 TextFormField(
                   controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+
                   decoration: const InputDecoration(
                     hintText: 'Enter Email',
                     hintStyle: TextStyle(
@@ -82,12 +86,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 RoundedButton(
                     text: 'Send Email',
                     press: (){
+
+                      if(!emailController.text.toString().contains('@') || !emailController.text.toString().contains('.')){
+                        Get.snackbar('Error', 'Please enter a valid email address');
+                        return null;
+                      }
                       auth.sendPasswordResetEmail(email: emailController.text.toString())
                       .then((value) => Get.snackbar('Success',
                           'We have sent you a password reset link on your email address.'))
-                          .onError((error, stackTrace) => Get.snackbar('Error', error.toString()));
-
+                          .onError((error, stackTrace) => Get.snackbar('Error', 'Failed to send email'));
                       emailController.clear();
+                      Get.to(() => const Login());
                     },
                     color: Colors.blueAccent,
                     textColor: Colors.white,

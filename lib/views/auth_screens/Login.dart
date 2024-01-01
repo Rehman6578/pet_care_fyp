@@ -44,6 +44,10 @@ class _LoginState extends State<Login> {
     setState(() {
       _loading = true;
     });
+    if(!emailController.text.toString().contains('@') || !emailController.text.toString().contains('.')){
+      Get.snackbar('Error', 'Please enter a valid email address');
+      return null;
+    }
     auth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text).then((value) {

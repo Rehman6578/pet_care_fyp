@@ -341,6 +341,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         _loading = true;
       });
+      if(!emailController.text.toString().contains('@') || !emailController.text.toString().contains('.')){
+        Get.snackbar('Error', 'Please enter a valid email address');
+        return;
+      }
       _auth.createUserWithEmailAndPassword(
         email: emailController.text.toString(),
         password: passwordController.text.toString(),
