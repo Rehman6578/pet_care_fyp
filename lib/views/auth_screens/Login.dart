@@ -5,6 +5,7 @@ import 'package:pet_care_fyp/Utils/utils.dart';
 import '../../WidgetCommon/Button.dart';
 import '../../WidgetCommon/My_Text_Field.dart';
 import '../Dashboard/Navbar_Screen/HomeNavbar.dart';
+import 'Forgot_Password.dart';
 import 'LoginScreen.dart';
 import 'RegisterScreen.dart';
 
@@ -23,6 +24,7 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final forgotPasswordController = TextEditingController();
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
 
@@ -297,11 +299,11 @@ class _LoginState extends State<Login> {
                               alignment: Alignment.centerRight,
                               child: TextButton(
                                 onPressed: () {
-                                  // using GetX navigation goto LoginScreen
-                                  Get.to(() => const LoginScreen());
+                                  // create a dialog for forgot password
+                                  Get.to(const ForgotPassword());
                                 },
                                 child: Text(
-                                  'Do not remember the password?',
+                                  'Forgot password?',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium!
