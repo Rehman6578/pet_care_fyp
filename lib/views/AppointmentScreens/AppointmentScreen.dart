@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../controllers/views_Controllers/Container_Controller.dart';
 import 'PastScreen.dart';
 import 'UpcomingScreen.dart';
@@ -21,75 +19,77 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              // create a container with match parent width and set height to 150 and use blur shadow
-              margin: const EdgeInsets.all(5),
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow:  [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                // add Appointments Text on center of the container with bold style
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: const Text(
-                      'Appointments',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                // create a container with match parent width and set height to 150 and use blur shadow
+                margin: const EdgeInsets.all(5),
+                width: Get.width,
+                height: Get.height * 0.2,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow:  const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // add Appointments Text on center of the container with bold style
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Text(
+                        'Appointments',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  // add SizedBox with height 20
-                  // add container with width of 300 and height of 50 and use row widget add two text widget one is 'Today' and other is 'Tomorrow' with bold style and selected color is blue container
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 50, right: 50, top: 40),
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          buildTab('Upcoming'),
-                          buildTab('Past'),
-                        ],
+                    // add SizedBox with height 20
+                    // add container with width of 300 and height of 50 and use row widget add two text widget one is 'Today' and other is 'Tomorrow' with bold style and selected color is blue container
+                    Padding(
+                      padding: const EdgeInsets.only(top: 35, left: 25, right: 25),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.04,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: Colors.grey),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            buildTab('Upcoming'),
+                            buildTab('Past'),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: 700,
-              child:Obx(() {
-                if (containerController.selectedItem.value == 'Upcoming') {
-                  return UpcomingScreen();
-                } else {
-                  return PastScreen();
-                }
-              }),
-            )
-          ],
+              SizedBox(
+                height: 700,
+                child:Obx(() {
+                  if (containerController.selectedItem.value == 'Upcoming') {
+                    return const UpcomingScreen();
+                  } else {
+                    return const PastScreen();
+                  }
+                }),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -104,7 +104,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           controller.selectedItem.value = text;
         },
         child: Container(
-          width: 155,
+          width: Get.width * 0.42,
           decoration: BoxDecoration(
             color: isSelected ? Colors.blue : null,
             borderRadius: BorderRadius.circular(isSelected ? 25 : 0),

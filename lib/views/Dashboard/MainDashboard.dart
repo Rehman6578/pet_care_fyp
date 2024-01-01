@@ -1,8 +1,6 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../controllers/views_Controllers/MainWrapperController.dart';
 import '../AppointmentScreens/AppointmentScreen.dart';
@@ -20,10 +18,10 @@ class _DashboardState extends State<Dashboard> {
   final MainWrapperController controller = Get.put(MainWrapperController());
 
   final List<Widget> _children = [
-    home_nav(),
-    AppointmentScreen(),
-    home_nav(),
-    ProfileScreen(),
+    const home_nav(),
+    const AppointmentScreen(),
+    const home_nav(),
+    const ProfileScreen(),
   ];
 
   @override

@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class iconContainer extends StatefulWidget {
@@ -7,7 +6,7 @@ class iconContainer extends StatefulWidget {
   IconData iconData;
   final String text;
 
-  iconContainer({required this.iconData,required this.text});
+  iconContainer({super.key, required this.iconData,required this.text});
 
   @override
   State<iconContainer> createState() => _iconContainerState();
@@ -31,12 +30,12 @@ class _iconContainerState extends State<iconContainer> {
             color: Colors.black,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width:5,
         ),
         Text(
           widget.text,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),

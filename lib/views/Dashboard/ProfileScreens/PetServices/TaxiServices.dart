@@ -6,14 +6,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 import '../../../../controllers/Image_Controller/ImageController.dart';
-import '../../../GoogleMap/AddLocationScreen.dart';
 
 class AddTaxiService extends StatefulWidget {
+  const AddTaxiService({super.key});
+
   @override
   _AddTaxiServiceState createState() => _AddTaxiServiceState();
 }
@@ -37,9 +37,9 @@ class _AddTaxiServiceState extends State<AddTaxiService> {
   String? selectedOption;
 
   String? profileImg, img1, img2, img3;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance.collection('users');
-  FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +137,7 @@ class _AddTaxiServiceState extends State<AddTaxiService> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     height: Get.height * 0.1,
                     width: Get.width,
                     child: Row(

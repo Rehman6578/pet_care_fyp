@@ -5,10 +5,10 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     textTheme: TextTheme(
-      headline2: GoogleFonts.montserrat(
+      displayMedium: GoogleFonts.montserrat(
         color: Colors.black87,
       ),
-      subtitle2: GoogleFonts.poppins(
+      titleSmall: GoogleFonts.poppins(
         color: Colors.black54,
         fontSize: 24,
       ),
@@ -27,10 +27,10 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     textTheme: TextTheme(
-      headline2: GoogleFonts.montserrat(
+      displayMedium: GoogleFonts.montserrat(
         color: Colors.white70,
       ),
-      subtitle2: GoogleFonts.poppins(
+      titleSmall: GoogleFonts.poppins(
         color: Colors.white60,
         fontSize: 24,
       ),
@@ -45,8 +45,6 @@ class AppTheme {
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.black,
     ),
-    fontFamily: GoogleFonts.poppins().fontFamily,
-    backgroundColor: Colors.white,
       );
 
 }

@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class profile_list extends StatelessWidget {
@@ -10,7 +9,7 @@ class profile_list extends StatelessWidget {
   Image image;
   String name;
   VoidCallback onTap;
-  profile_list({required this.image, required this.name, required this.onTap});
+  profile_list({super.key, required this.image, required this.name, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +17,9 @@ class profile_list extends StatelessWidget {
       children: [
         ListTile(
             onTap: onTap,
-            leading: CircleAvatar(child: image,backgroundColor: Colors.blue.shade100,radius: 25),
-            title: Text(name,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-            trailing: Icon(Icons.arrow_forward_ios)
+            leading: CircleAvatar(backgroundColor: Colors.blue.shade100,radius: 25, child: image),
+            title: Text(name,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+            trailing: const Icon(Icons.arrow_forward_ios)
 
         ),
         Padding(

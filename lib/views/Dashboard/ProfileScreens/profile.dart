@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../WidgetCommon/Button.dart';
 import '../../../controllers/Image_Controller/ImageController.dart';
 
@@ -144,7 +143,7 @@ class EditProfile extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20, top: 16),
+                padding: const EdgeInsets.only(left: 20, top: 16),
                 child: Text(
                   "Gender",
                   style: TextStyle(
@@ -223,7 +222,7 @@ class EditProfile extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(

@@ -11,6 +11,8 @@ import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 import '../../../../controllers/Image_Controller/ImageController.dart';
 
 class AddAdoptioniService extends StatefulWidget {
+  const AddAdoptioniService({super.key});
+
   @override
   _AddAdoptioniServiceState createState() => _AddAdoptioniServiceState();
 }
@@ -35,9 +37,9 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
 
   String? profileImg, img1, img2, img3;
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance.collection('users');
-  FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +137,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     height: Get.height * 0.1,
                     width: Get.width,
                     child: Row(

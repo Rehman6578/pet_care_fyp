@@ -1,7 +1,5 @@
 // pet_controller.dart
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../Utils/Models/PetsModel.dart';
 import '../../const/images.dart';

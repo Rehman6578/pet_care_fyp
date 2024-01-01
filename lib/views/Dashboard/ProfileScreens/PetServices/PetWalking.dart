@@ -8,9 +8,10 @@ import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 
 import '../../../../controllers/Image_Controller/ImageController.dart';
-import 'BoardingSerivce.dart';
 
 class AddPetWalkingService extends StatefulWidget {
+  const AddPetWalkingService({super.key});
+
   @override
   _AddPetWalkingServiceState createState() => _AddPetWalkingServiceState();
 }
@@ -131,7 +132,7 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     height: Get.height * 0.1,
                     width: Get.width,
                     child: Row(
@@ -427,7 +428,7 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                           }
 
                           setState(() {
-                            selectedOption = value!;
+                            selectedOption = value;
                           });
                         },
                       ),
@@ -498,7 +499,7 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                         keyboardType: const TextInputType.numberWithOptions(
                             decimal: true),
                         decoration: const InputDecoration(
-                          prefixText: 'USD  ',
+                          prefixText: 'Usd  ',
                           prefixStyle: TextStyle(color: Colors.black),
                           suffixText: '/walk',
                           suffixStyle: TextStyle(color: Colors.black,wordSpacing: 10),
@@ -546,7 +547,7 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
                         press: () {
                           if(_formKey.currentState!.validate()){
                             Get.snackbar('Success', 'Grooming Service Added Successfully');
-                          };
+                          }
                         },
                         color: Colors.lightBlue,
                         textColor: Colors.white,

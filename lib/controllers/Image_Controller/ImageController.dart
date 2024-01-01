@@ -13,8 +13,8 @@ class ImagePickerController extends GetxController{
 
   Future GetImage() async{
 
-    final ImagePicker _picker = ImagePicker();
-    final  image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final  image = await picker.pickImage(source: ImageSource.gallery);
 
     if(image != null){
       return image.path.toString();
@@ -24,8 +24,8 @@ class ImagePickerController extends GetxController{
 
 
   Future<Uint8List?> getMyImage(ImageSource source) async {
-    final ImagePicker _picker = ImagePicker();
-    final image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       return image.readAsBytes();

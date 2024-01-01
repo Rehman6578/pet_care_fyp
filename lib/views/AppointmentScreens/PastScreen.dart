@@ -18,7 +18,7 @@ class _PastScreenState extends State<PastScreen> {
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
             const Icon(Icons.watch_later, size: 150, color: Colors.grey),
             const Text('No Past Appointments',
                 style: TextStyle(fontSize: 20, color: Colors.grey)),

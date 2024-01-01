@@ -51,6 +51,7 @@ dependencies:
   multiselect_dropdown_flutter: ^0.0.7
   multiselect: ^0.1.0
   dio: ^4.0.0
+  firebase_database: ^10.3.8
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.0.6
   flutter_typeahead: ^3.2.4
@@ -58,6 +59,7 @@ dependencies:
   geocoding: ^2.0.0
   uuid: ^3.0.5
   google_sign_in: ^6.2.1
+  shared_preferences: ^2.0.6
 #  google_maps_flutter: ^2.5.0
 #  flutter_map: ^5.0.0
 

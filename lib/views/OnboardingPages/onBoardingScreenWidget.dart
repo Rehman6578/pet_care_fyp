@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../Utils/Models/OnboardingModel.dart';
 import '../../WidgetCommon/Button.dart';
 import '../../controllers/views_Controllers/OnboardingController.dart';
 
 class OnboardingScreen extends StatelessWidget {
   final OnboardingController controller = Get.put(OnboardingController());
+
+   OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class OnboardingScreen extends StatelessWidget {
               right: 20.0,
               child: TextButton(
                 onPressed: controller.skipToLogin,
-                child: Text(
+                child: const Text(
                   "Sign In",
                   style: TextStyle(
                     color: Colors.blueAccent,
@@ -66,7 +66,7 @@ class OnboardingScreen extends StatelessWidget {
                   controller.slides.length,
                   (index) => Obx(
                     () => Container(
-                      margin: EdgeInsets.only(right: 5.0),
+                      margin: const EdgeInsets.only(right: 5.0),
                       height: 5.0,
                       width: 15.0,
                       decoration: BoxDecoration(
@@ -90,7 +90,7 @@ class OnboardingScreen extends StatelessWidget {
 class OnboardingSlideContent extends StatelessWidget {
   final OnboardingSlide slide;
 
-  const OnboardingSlideContent({required this.slide});
+  const OnboardingSlideContent({super.key, required this.slide});
 
   @override
   Widget build(BuildContext context) {
@@ -104,19 +104,19 @@ class OnboardingSlideContent extends StatelessWidget {
             height: 400.0,
             width: 400.0,
           ),
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           Text(
             slide.title,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 35.0,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Encode Sans'),
           ),
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
           Text(
             slide.description,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16.0, color: Colors.black),
+            style: const TextStyle(fontSize: 16.0, color: Colors.black),
           ),
         ],
       ),

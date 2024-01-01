@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
 import 'package:pet_care_fyp/firebase_options.dart';
 import 'package:pet_care_fyp/views/Dashboard/GroomingScreen.dart';
@@ -45,11 +43,11 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/onboardingScreens',
-          page: () => OnboardingScreen(),
+          page: () =>  OnboardingScreen(),
         ),
         GetPage(
           name: '/SplashScreen',
-          page: () => SplashScreen(),
+          page: () => const SplashScreen(),
         ),
         GetPage(
           name: '/Dashboard',
@@ -81,7 +79,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/GroomingScreen',
-          page: () => GroomingScreen(),
+          page: () => const GroomingScreen(),
         ),
         GetPage(
           name: '/PetDatingScreen',
@@ -95,10 +93,10 @@ class MyApp extends StatelessWidget {
           name: '/AddPetServices',
           page: () => const AddPetServices(),
         ),
-        GetPage(name: '/AddVeterinaryService', page: () => AddVeterinaryService()),
-        GetPage(name: '/TrainingService', page: () => TrainingSerivce()),
-        GetPage(name: '/BoardingService', page: ()=>BoardingService()),
-        GetPage(name: '/AddLocation', page: ()=> AddLocation()),
+        GetPage(name: '/AddVeterinaryService', page: () => const AddVeterinaryService()),
+        GetPage(name: '/TrainingService', page: () => const TrainingSerivce()),
+        GetPage(name: '/BoardingService', page: ()=>const BoardingService()),
+        GetPage(name: '/AddLocation', page: ()=> const AddLocation()),
       ],
     );
   }

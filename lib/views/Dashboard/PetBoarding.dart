@@ -14,15 +14,15 @@ class PetBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(240, 240, 248, 1),
+      backgroundColor: const Color.fromRGBO(240, 240, 248, 1),
       body: Column(
         children: [
           Container(
             width: double.infinity,
             height: 210,
-            margin: EdgeInsets.only(left: 5, right: 5),
+            margin: const EdgeInsets.only(left: 5, right: 5),
             // ADD SHADOW TO THE CONTAINER
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30),
@@ -40,7 +40,7 @@ class PetBoardingScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 60),
+                  padding: const EdgeInsets.only(top: 60),
                   child: Row(
                     children: [
                       // add back button
@@ -48,14 +48,14 @@ class PetBoardingScreen extends StatelessWidget {
                         onPressed: () {
                           Get.back();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back,
                           color: Colors.black,
                         ),
                       ),
 
-                      Padding(
-                        padding: const EdgeInsets.only(left: 100),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 100),
                         child: Text(
                           'Pet Boarding',
                           style: TextStyle(
@@ -88,7 +88,7 @@ class PetBoardingScreen extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             height: 700,
             child: Obx(() {
               if (containerController.selectedItem.value == 'BoardingPets') {

@@ -7,7 +7,7 @@ class MyRichText extends StatelessWidget {
   final TextStyle subTextStyle;
   // final VoidCallback onPress;
 
-  MyRichText({
+  const MyRichText({super.key, 
     required this.mainText,
     required this.subText,
     // this.onPress,

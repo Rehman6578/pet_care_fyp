@@ -2,14 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/profile.dart';
-import '../../../Utils/utils.dart';
 import '../../../WidgetCommon/profile_listitems.dart';
-import '../../auth_screens/Login.dart';
 import '../../auth_screens/LoginScreen.dart';
 import 'AddPetServices.dart';
 
 class ProfileScreen extends StatefulWidget {
-   ProfileScreen({Key? key}) : super(key: key);
+   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -36,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
               onTap: () {
-                Get.to(ProfileScreen());
+                Get.to(const ProfileScreen());
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -46,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   IconButton(
                       icon: const Icon(Icons.edit, color: Colors.blue),
                       onPressed: () {
-                        Get.to(EditProfile());
+                        Get.to(const EditProfile());
                       }),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 10, right: 10.0),
@@ -176,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
                 child: profile_list(
                   onTap: () {
-                    Get.to(AddPetServices());
+                    Get.to(const AddPetServices());
                   },
                   image: Image.asset('assets/images/medico.png'),
                   name: 'Add Pets Services',
@@ -218,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Dialog dialog = Dialog(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    child: Container(
+                    child: SizedBox(
                       height: Get.height * 0.4,
                       child: Column(
                         children: [
@@ -280,7 +278,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 TextButton(
                                   onPressed: () {
                                     auth.signOut();
-                                    Get.offAll(() => LoginScreen());
+                                    Get.offAll(() => const LoginScreen());
                                   },
                                   child: const Text(
                                     'Logout',
