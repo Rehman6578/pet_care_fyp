@@ -15,6 +15,7 @@ class MyTextFormField extends StatelessWidget {
     this.enable = true,
     this.autoFocus = false,
     required TextStyle hintStyle,
+    required this.labelStyle,
     
   }) : super(key: key);
 
@@ -31,6 +32,7 @@ class MyTextFormField extends StatelessWidget {
   final String labelText;
   final bool obscureText;
   final bool enable, autoFocus;
+  final TextStyle labelStyle;
 
   @override
   Widget build(BuildContext context) {

@@ -20,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // add controller for textfield here
 
   bool _loading = false;
+  bool _isSecurePassword = true;
 
   final controller = Get.put(SignupController());
   final formkey = GlobalKey<FormState>();
@@ -79,33 +80,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
-                  child: Column(
-                    children: [
-                      const Flexible(
-                        fit: FlexFit.loose,
-                        flex: 1,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 150),
-                          child: Text(
-                            'Or Continue with',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                          ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 130,left: 10,right: 10),
+                           child: Row(
+                             children: [
+                               Expanded(
+                                 child: Divider(
+                                   color: Colors.black12,
+                                   thickness: 1,
+                                 ),
+                               ),
+                               SizedBox(width: 5),
+                               Expanded(
+                                 flex: 2,
+                                 child: Text(
+                                   textAlign: TextAlign.center,
+                                   'Or Continue with',
+                                   style: TextStyle(
+                                     color: Colors.grey,
+                                     fontSize: 20,
+                                   ),
+                                 ),
+                               ),
+                               SizedBox(width: 5),
+                               Expanded(
+                                 child: Divider(
+                                   color: Colors.black12,
+                                   thickness: 1,
+                                 ),
+                               ),
+                             ],
+                           )
                         ),
-                      ),
-                      // add  circular button here in Row widget in center of the screen for facebook and google and add only icons in buttons
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // add facebook button here
-                            Flexible(
-                              fit: FlexFit.loose,
-                              flex: 1,
-                              child: Padding(
+                        // add  circular button here in Row widget in center of the screen for facebook and google and add only icons in buttons
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // add facebook button here
+                              Padding(
                                 padding: const EdgeInsets.only(right: 20),
                                 child: ElevatedButton(
                                   onPressed: () {},
@@ -123,12 +140,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                            ),
-                            // add google button here
-                            Flexible(
-                              fit: FlexFit.loose,
-                              flex: 1,
-                              child: Padding(
+                              // add google button here
+                              Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: ElevatedButton(
                                   onPressed: () {
@@ -148,45 +161,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // add login text here below the buttons
-                      Flexible(
-                        fit: FlexFit.loose,
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Already have an account?',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  // using GetX navigation goto LoginScreen
-                                  Get.to(() => const Login());
-                                },
-                                child: const Text(
-                                  'Sign In',
-                                  style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                        // add login text here below the buttons
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15, bottom: 30),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(() => const Login());
+                            },
+                            child: RichText(
+                                text: const TextSpan(
+                                  text: 'Already have an account?',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: 'Sign In',
+                                      style: TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                          )
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -206,127 +213,137 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                   margin: const EdgeInsets.only(top: 200, left: 30, right: 30),
-                  child: Form(
-                    key: formkey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        MyTextFormField(
-                          myController: usernameController,
-                          focusNode: usernameFocusNode,
-                          onFieldSubmittedValue: (newValue) {},
-                          onValidator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your Name';
-                            }
-                            return null;
-                          },
-                          keyBoardType: TextInputType.name,
-                          hintText: 'Enter Username ',
-                          labelText: 'Full name',
-                          obscureText: false,
-                          hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
-                        ),
-                        MyTextFormField(
-                          myController: emailController,
-                          focusNode: emailFocusNode,
-                          onFieldSubmittedValue: (newValue) {},
-                          onValidator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your Email ';
-                            }
-                            return null;
-                          },
-                          keyBoardType: TextInputType.emailAddress,
-                          hintText: 'Email Address ',
-                          labelText: 'Email',
-                          suffixIcon: false,
-                          hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
-                          obscureText: false,
-                        ),
-                        MyTextFormField(
-                          myController: passwordController,
-                          focusNode: passwordFocusNode,
-                          onFieldSubmittedValue: (newValue) {},
-                          onValidator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your password ';
-                            }
-                            return null;
-                          },
-                          keyBoardType: TextInputType.visiblePassword,
-                          hintText: 'Password ',
-                          labelText: 'Password',
-                          obscureText: true,
-                          suffixIcon: true,
-                          hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
-                        ),
-                        Padding(
-                          padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                value: false,
-                                shape: const CircleBorder(),
-                                onChanged: (value) {
-                                  value = true;
-                                },
-                              ),
-                              const Text(
-                                'Agree with the rules',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: formkey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
+                            height: 10,
                           ),
-                        ),
-                        // check box for do not want to recive the news
-                        Padding(
-                          padding:
-                          const EdgeInsets.only(top: 0, left: 20, right: 20),
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                shape: const CircleBorder(),
-                                value: false,
-                                onChanged: (value) {},
-                              ),
-                              const Text(
-                                'I do not want to recive the newsletter',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          MyTextFormField(
+                            myController: usernameController,
+                            focusNode: usernameFocusNode,
+                            onFieldSubmittedValue: (newValue) {},
+                            onValidator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your Name';
+                              }
+                              return null;
+                            },
+                            keyBoardType: TextInputType.name,
+                            hintText: 'Enter Username ',
+                            labelText: 'Full name',
+                            labelStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                            obscureText: false,
+                            hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
                           ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15, bottom: 15),
-                          child: RoundedButton(
-                              text: 'Sign Up',
-                              isloading: _loading,
-                              press: (){
-                                if (formkey.currentState!.validate()) {
-                                  setState(() {
-                                    _loading = true;
-                                  });
-                                  _Registration();
+                          MyTextFormField(
+                            myController: emailController,
+                            focusNode: emailFocusNode,
+                            onFieldSubmittedValue: (newValue) {},
+                            onValidator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your Email ';
+                              }
+                              return null;
+                            },
+                            keyBoardType: TextInputType.emailAddress,
+                            hintText: 'Email Address ',
+                            labelText: 'Email',
+                            labelStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                            suffixIcon: false,
+                            hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                            obscureText: false,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: TextFormField(
+                              controller: passwordController,
+                              obscureText: _isSecurePassword,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                labelStyle: const TextStyle(color: Colors.blueAccent),
+                                hintText: 'Enter your Password',
+                                hintStyle: const TextStyle(color: Colors.black),
+                                suffixIcon: toggleButton(),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your password';
                                 }
+                                return null;
                               },
-                              color: Colors.blue,
-                              textColor: Colors.white,
-                              width: Get.width * 0.8,
-                              height: 70),
-                        ),
-                      ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 5, left: 10, right: 20),
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: false,
+                                  shape: const CircleBorder(),
+                                  onChanged: (value) {
+                                    value = true;
+                                  },
+                                ),
+                                const Text(
+                                  'Agree with the rules',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // check box for do not want to recive the news
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 0, left: 10, right: 20),
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  shape: const CircleBorder(),
+                                  value: false,
+                                  onChanged: (value) {},
+                                ),
+                                const Text(
+                                  'I do not want to receive \n the newsletter',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, bottom: 15),
+                            child: RoundedButton(
+                                text: 'Sign Up',
+                                isloading: _loading,
+                                press: (){
+                                  if (formkey.currentState!.validate()) {
+                                    setState(() {
+                                      _loading = true;
+                                    });
+                                    _Registration();
+                                  }
+                                },
+                                color: Colors.blue,
+                                textColor: Colors.white,
+                                width: Get.width * 0.8,
+                                height: 70),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -376,4 +393,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
     }
   }
+
+  Widget toggleButton() {
+
+    return IconButton(onPressed: (){
+      setState(() {
+        _isSecurePassword = !_isSecurePassword;
+      });
+    }, icon: _isSecurePassword ? const Icon(Icons.visibility_off,color: Colors.grey,)
+        : const Icon(Icons.visibility, color: Colors.grey,));
+  }
+
 }
