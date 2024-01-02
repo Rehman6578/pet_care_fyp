@@ -102,6 +102,10 @@ class AddPets_toList extends StatelessWidget {
                   keyBoardType: TextInputType.text,
                   hintText: 'Enter Pet Name',
                   labelText: 'Pet Name',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                   obscureText: false,
                   hintStyle: const TextStyle(
                     color: Colors.grey,
@@ -125,6 +129,10 @@ class AddPets_toList extends StatelessWidget {
                   keyBoardType: TextInputType.text,
                   hintText: 'Enter Pet Type',
                   labelText: 'Pet Type',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                   obscureText: false,
                   hintStyle: const TextStyle(
                     color: Colors.grey,
@@ -148,6 +156,10 @@ class AddPets_toList extends StatelessWidget {
                   keyBoardType: TextInputType.text,
                   hintText: 'Enter Pet Breed',
                   labelText: 'Pet Breed',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                   obscureText: false,
                   hintStyle: const TextStyle(
                     color: Colors.grey,
@@ -171,6 +183,10 @@ class AddPets_toList extends StatelessWidget {
                   keyBoardType: TextInputType.text,
                   hintText: 'Enter Owner Name',
                   labelText: 'Owner Name',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                   obscureText: false,
                   hintStyle: const TextStyle(
                     color: Colors.grey,
@@ -193,6 +209,10 @@ class AddPets_toList extends StatelessWidget {
                   keyBoardType: TextInputType.number,
                   hintText: 'Enter Contact Number',
                   labelText: 'Contact Number',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                   obscureText: false,
                   hintStyle: const TextStyle(
                     color: Colors.grey,

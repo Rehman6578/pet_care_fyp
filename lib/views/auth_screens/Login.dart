@@ -6,7 +6,6 @@ import '../../WidgetCommon/Button.dart';
 import '../../WidgetCommon/My_Text_Field.dart';
 import '../Dashboard/Navbar_Screen/HomeNavbar.dart';
 import 'Forgot_Password.dart';
-import 'LoginScreen.dart';
 import 'RegisterScreen.dart';
 
 class Login extends StatefulWidget {
@@ -112,98 +111,90 @@ class _LoginState extends State<Login> {
                     child: Expanded(
                       child: Column(
                         children: [
-                          const Flexible(
-                            flex: 3,
-                            fit: FlexFit.loose,
-                            child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 80, left: 20, right: 20),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Divider(
-                                        color: Colors.black12,
-                                        thickness: 1,
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        textAlign: TextAlign.center,
-                                        'Or Continue with',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    Expanded(
-                                      child: Divider(
-                                        color: Colors.black12,
-                                        thickness: 1,
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                          // add  circular button here in Row widget in center of the screen for facebook and google and add only icons in buttons
-                          Flexible(
-                            flex: 2,
-                            fit: FlexFit.loose,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 20),
+                          const Padding(
+                              padding: EdgeInsets.only(
+                                  top: 60, left: 20, right: 20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  // add facebook button here
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 20),
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.blue,
-                                        minimumSize: const Size(60, 60),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                      ),
-                                      child: const Icon(
-                                        Icons.facebook,
-                                        color: Colors.white,
-                                        size: 30,
+                                  Expanded(
+                                    child: Divider(
+                                      color: Colors.black12,
+                                      thickness: 1,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      textAlign: TextAlign.center,
+                                      'Or Continue with',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 20,
                                       ),
                                     ),
                                   ),
-                                  // add google button here
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.red,
-                                        minimumSize: const Size(60, 60),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                      ),
-                                      child: const Icon(
-                                        Icons.g_mobiledata,
-                                        color: Colors.white,
-                                        size: 30,
-                                      ),
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                    child: Divider(
+                                      color: Colors.black12,
+                                      thickness: 1,
                                     ),
                                   ),
                                 ],
-                              ),
+                              )),
+                          // add  circular button here in Row widget in center of the screen for facebook and google and add only icons in buttons
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // add facebook button here
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                      minimumSize: const Size(60, 60),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30),
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.facebook,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                  ),
+                                ),
+                                // add google button here
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red,
+                                      minimumSize: const Size(60, 60),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30),
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.g_mobiledata,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           // add login text here below the buttons
                           Padding(
-                            padding: const EdgeInsets.only(top: 70),
+                            padding: const EdgeInsets.only(top: 50),
                             child: InkWell(
                               onTap: () {
                                 Get.to(const RegisterScreen());
@@ -273,30 +264,34 @@ class _LoginState extends State<Login> {
                               },
                               keyBoardType: TextInputType.emailAddress,
                               hintText: 'Email Address',
-                              hintStyle:
-                                  const TextStyle(color: Colors.blueAccent),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               labelText: 'Email ',
+                              labelStyle: const TextStyle(color: Colors.grey),
                               obscureText: false,
                               suffixIcon: false,
                           ),
                           const SizedBox(height: 10),
-                          MyTextFormField(
-                              myController: passwordController,
-                              focusNode: passwordFocusNode,
-                              onFieldSubmittedValue: (value) {},
-                              onValidator: (value) {
-                                return value!.isEmpty
-                                    ? 'Please enter your password'
-                                    : null;
-                              },
-                              keyBoardType: TextInputType.visiblePassword,
-                              labelText: 'Password',
-                              hintText: 'Enter your Password',
-                              hintStyle:
-                              const TextStyle(color: Colors.blueAccent),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: TextFormField(
+                              controller: passwordController,
                               obscureText: _isSecurePassword,
-                              suffixIcon: true,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                labelStyle: const TextStyle(color: Colors.blueAccent),
+                                hintText: 'Enter your Password',
+                                hintStyle: const TextStyle(color: Colors.black),
+                                suffixIcon: toggleButton(),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                return null;
+                              },
+                            ),
                           ),
+
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: Align(
@@ -352,7 +347,8 @@ class _LoginState extends State<Login> {
       setState(() {
         _isSecurePassword = !_isSecurePassword;
       });
-    }, icon: _isSecurePassword ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility));
+    }, icon: _isSecurePassword ? const Icon(Icons.visibility_off,color: Colors.grey,)
+        : const Icon(Icons.visibility, color: Colors.grey,));
   }
 
 }
