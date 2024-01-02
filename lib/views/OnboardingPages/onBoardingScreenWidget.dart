@@ -44,15 +44,17 @@ class OnboardingScreen extends StatelessWidget {
               left: 20.0,
               right: 20.0,
               child: Center(
-                child: RoundedButton(
-                    text: 'Next',
-                    press: () {
-                      controller.nextPage();
-                    },
-                    color: Colors.blueAccent,
-                    textColor: Colors.white,
-                    width: 280,
-                height: 70,),
+                child: Obx(()=>
+                   RoundedButton(
+                      text: 'Next',
+                      press: () {
+                        controller.nextPage();
+                      },
+                      color: Colors.blueAccent,
+                      textColor: Colors.white,
+                      width: 280,
+                  height: 70,),
+                ),
               ),
             ),
             // add the indicator dots

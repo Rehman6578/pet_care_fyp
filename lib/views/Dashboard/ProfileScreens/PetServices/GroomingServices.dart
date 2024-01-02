@@ -361,29 +361,103 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 ),
                 const SizedBox(height: 16.0),
                 const Text(
+                  'What do you provide in Spa Bath Grooming?',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8.0),
+                Obx(
+                  () => DropDownMultiSelect(
+                    options: petController.spaGroomingService,
+                    onChanged: (value) {
+                      petController.selectedSpaGroomingService.value = value;
+                      petController.selectedSpaGroomingServiceOption.value = "";
+
+                      for (var value1
+                          in petController.selectedSpaGroomingService.value) {
+                        petController.selectedSpaGroomingServiceOption.value =
+                            "${petController.selectedSpaGroomingServiceOption.value}$value1";
+                      }
+                    },
+                    selectedValues: petController.selectedSpaGroomingService.value,
+                  ),
+                ),
+
+                const SizedBox(height: 16.0),
+
+                const Text(
+                  'What do you provide in Basic Bath Grooming?',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8.0),
+                Obx(
+                  () => DropDownMultiSelect(
+                    options: petController.basicBathGroomingService,
+                    onChanged: (value) {
+                      petController.selectedBasicBathGroomingService.value = value;
+                      petController.selectedBasicBathGroomingServiceOption.value = "";
+
+                      for (var value1 in petController.selectedBasicBathGroomingService.value) {
+                        petController.selectedBasicBathGroomingServiceOption.value =
+                            "${petController.selectedBasicBathGroomingServiceOption.value}$value1";
+                      }
+                    },
+                    selectedValues:
+                        petController.selectedBasicBathGroomingService.value,
+                  ),
+                ),
+
+                const SizedBox(height: 16.0),
+
+                const Text(
+                  'What do you provide in Full Grooming?',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8.0),
+                DropDownMultiSelect(
+                    options: petController.fullGroomingService,
+                    onChanged: (value) {
+                      petController.selectedFullGroomingService.value = value;
+                      petController.selectedFullGroomingServiceOption.value =
+                          "";
+
+                      for (var value1
+                          in petController.selectedFullGroomingService.value) {
+                        petController.selectedFullGroomingServiceOption.value =
+                            "${petController.selectedFullGroomingServiceOption.value}$value1";
+                      }
+                    },
+                    selectedValues:
+                        petController.selectedFullGroomingService.value,
+                  ),
+
+
+                const SizedBox(height: 16.0),
+                const Text(
                   'What pets do you accept?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                Obx(() => DropDownMultiSelect(
-                      options: petController.allPetTypes,
-                      onChanged: (value) {
-                        petController.selectedPetTypes.value = value;
-                        petController.selectedOption.value = "";
+                Obx(
+                  () => DropDownMultiSelect(
+                    options: petController.allPetTypes,
+                    onChanged: (value) {
+                      petController.selectedPetTypes.value = value;
+                      petController.selectedOption.value = "";
 
-                        for (var value1
-                            in petController.selectedPetTypes.value) {
-                          petController.selectedOption.value =
-                              "${petController.selectedOption.value}$value1"; // interpolation
-                        }
-                      },
-                      selectedValues: petController.selectedPetTypes.value,
-                    )),
+                      for (var value1 in petController.selectedPetTypes.value) {
+                        petController.selectedOption.value =
+                            "${petController.selectedOption.value}$value1"; // interpolation
+                      }
+                    },
+                    selectedValues: petController.selectedPetTypes.value,
+                  ),
+                ),
                 const SizedBox(height: 16.0),
                 const Text(
                   'How far are you willing to travel to visit a pet owner\'s home?',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                Obx(() => DropDownMultiSelect(
+                Obx(
+                  () => DropDownMultiSelect(
                     options: petController.PetVisiting,
                     selectedValues: petController.selectPetVisit.value,
                     onChanged: (value) {
@@ -394,7 +468,9 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                         petController.selecteVisit.value =
                             "${petController.selecteVisit.value}$value1";
                       }
-                    })),
+                    },
+                  ),
+                ),
                 const SizedBox(
                   height: 16.0,
                 ),

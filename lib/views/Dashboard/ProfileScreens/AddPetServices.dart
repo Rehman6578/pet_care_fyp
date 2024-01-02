@@ -41,7 +41,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/vet.png'),
                     title: const Text(' Veterinary Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('For when the pet is not feeling its best.'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
@@ -61,7 +61,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/grooming.png'),
                     title: const Text(' Grooming Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('Give the pet a new look'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
@@ -79,7 +79,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/petboarding.png'),
                     title: const Text(' Boarding Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('Perfect if the pet needs overnight pet care'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
@@ -97,7 +97,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/petadoption.png'),
                     title: const Text(' Adoption Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('For when the pet needs a new home'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
@@ -115,7 +115,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/dogwalking.png'),
                     title: const Text(' Walking Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('For dogs that needs to be walked'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
@@ -133,7 +133,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/pettraining.png'),
                     title: const Text(' Training Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('For training pets to be in its best behavior'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
@@ -151,7 +151,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/pettaxi.png'),
                     title: const Text(' Taxi Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('For when the pet needs to go somewhere'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
@@ -169,7 +169,7 @@ class _AddPetServicesState extends State<AddPetServices> {
                   child: ListTile(
                     leading: Image.asset('assets/images/petdate.png'),
                     title: const Text(' Dating Service'),
-                    subtitle: const Text('Available all the time'),
+                    subtitle: const Text('For when the want to find a partner for the pet'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
