@@ -33,20 +33,20 @@ class OnboardingController extends GetxController {
   }
 
   void nextPage() {
-    // if (currentPage.value < slides.length - 1) {
-    //   currentPage.value++;
-    // }
-
     if (currentPage.value < slides.length - 1) {
       currentPage.value++;
-      // Update the PageView using PageController
-      Get.find<PageController>().animateToPage(
-        currentPage.value,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
     }
-  }
+
+    // if (currentPage.value < slides.length - 1) {
+    //   currentPage.value++;
+    //   // Update the PageView using PageController
+    //   Get.find<PageController>().animateToPage(
+    //     currentPage.value,
+    //     duration: const Duration(milliseconds: 300),
+    //     curve: Curves.easeIn,
+    //   );
+    }
+
 
   void skipToLogin() {
     // Navigate to the login screen

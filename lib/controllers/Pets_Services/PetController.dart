@@ -1,6 +1,54 @@
 import 'package:get/get.dart';
 
 class MultiSelectionController extends GetxController {
+  // create a list of basic grooming service list
+  List<String> spaGroomingService = [
+        'Bath With Shampoo '
+        'Blow Dry'
+        'Nail Clipping'
+        'Ear Cleaning'
+        'Eyes Cleaning'
+        'Paw Massage'
+        'Combing/Brushing'
+  ];
+  RxList<String> selectedSpaGroomingService = RxList<String>([]);
+  var selectedSpaGroomingServiceOption = ''.obs;
+
+// create a list of basicBath+grooming service list
+  List<String> basicBathGroomingService = [
+        'Bath With Shampoo'
+        'Blow Dry'
+        'Nail Clipping'
+        'Ear Cleaning'
+        'Eyes Cleaning'
+        'Paw Massage'
+        'Combing/Brushing'
+        'Face Haircutting'
+        'Sanitary Trim'
+        'Teeth Cleaning/Mouth Spray'
+  ];
+  RxList<String> selectedBasicBathGroomingService = RxList<String>([]);
+  var selectedBasicBathGroomingServiceOption = ''.obs;
+
+  // create a list of full grooming service list
+  List<String> fullGroomingService = [
+        'Bath With Shampoo'
+        'Blow Dry'
+        'Nail Clipping'
+        'Ear Cleaning'
+        'Eyes Cleaning'
+        'Paw Massage'
+        'Combing/Brushing'
+        'Face Haircutting'
+        'Sanitary Trim'
+        'Teeth Cleaning/Mouth Spray'
+        'Full Body Haircutting'
+        'Anal Gland Expression'
+        'Paw Pad Haircutting'
+        'Paw Massage'
+  ];
+  RxList<String> selectedFullGroomingService = RxList<String>([]);
+  var selectedFullGroomingServiceOption = ''.obs;
 
   // What type of pet do you have? List
 
@@ -15,7 +63,6 @@ class MultiSelectionController extends GetxController {
   ];
   RxList<String> selectedPetTypes = RxList<String>([]);
   var selectedOption = ''.obs;
-
 
   // Pet visiting distance from home to clinic or home to home List
 
@@ -38,7 +85,6 @@ class MultiSelectionController extends GetxController {
   ];
   RxList<String> selectPetseatbelt = RxList<String>([]);
   var selectePetSeatBelt = ''.obs;
-
 
   //  Pet Size List for pet walking and pet boarding services
 
@@ -123,6 +169,4 @@ class MultiSelectionController extends GetxController {
 
   RxList<String> selectedPetsSleepingAtNight = RxList<String>([]);
   var selectedPetsSleepingAtNightOption = ''.obs;
-
-
 }
