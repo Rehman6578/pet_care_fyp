@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/Utils/utils.dart';
+import '../../Services/google_Services.dart';
 import '../../WidgetCommon/Button.dart';
 import '../../WidgetCommon/My_Text_Field.dart';
 import '../Dashboard/Navbar_Screen/HomeNavbar.dart';
@@ -66,7 +67,6 @@ class _LoginState extends State<Login> {
 
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -153,7 +153,9 @@ class _LoginState extends State<Login> {
                                 Padding(
                                   padding: const EdgeInsets.only(right: 20),
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      AuthServices().singInWithFacebook();
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.blue,
                                       minimumSize: const Size(60, 60),
@@ -173,7 +175,9 @@ class _LoginState extends State<Login> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      AuthServices().signInWithGoogle();
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.red,
                                       minimumSize: const Size(60, 60),
