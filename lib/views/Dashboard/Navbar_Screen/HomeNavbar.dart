@@ -5,7 +5,6 @@ import '../../../WidgetCommon/mainContainer.dart';
 import '../../../const/images.dart';
 import '../../SearchScreens/nearme_veterinary_screen.dart';
 import '../GroomingScreen.dart';
-import '../PetBoarding.dart';
 import '../PetDatingScreen.dart';
 import 'PetTaxiScreen.dart';
 import 'add_pet_detail.dart';
@@ -142,27 +141,26 @@ class _home_nav extends State<home_nav> {
                   IconButton(
                     icon: const Icon(Icons.search),
                     onPressed: () {
-
-                      Get.to(const NearVeterinaryScreen());
+                      // Get.to(const NearVeterinaryScreen());
                     },
                   ),
                 ],
               ),
             ),
 
-            const Padding(
+             const Padding(
               padding: EdgeInsets.only(top: 70, left: 25, right: 15),
-              child: Text('What are you looking for?',
+              child: Text('What are you looking for ?',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     wordSpacing: 1.9,
                     color: Colors.black,
                     fontFamily: 'Encode Sans',
-                    fontWeight: FontWeight.w700,
+                    // fontWeight: FontWeight.bold,
                     fontSize: 48,
                   )),
             ),
-            // use gridview to display 3 row and 3 column of contianer inside icons and text
+            // use gridview to display 3 row and 3 column of container inside icons and text
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: GridView.count(
@@ -172,7 +170,9 @@ class _home_nav extends State<home_nav> {
                   CustomGridItem(
                       title: 'Veterinary',
                       assetImagePath: 'assets/images/vet.png',
-                      onPressed: () {}),
+                      onPressed: () {
+                        Get.to(const NearVeterinaryScreen());
+                      }),
                   CustomGridItem(
                       title: 'Grooming',
                       assetImagePath: 'assets/images/grooming.png',
@@ -183,7 +183,7 @@ class _home_nav extends State<home_nav> {
                       title: 'Pet boarding',
                       assetImagePath: 'assets/images/petboarding.png',
                       onPressed: () {
-                        Get.to(PetBoardingScreen());
+                        // Get.to(PetBoardingScreen());
                       }),
                   CustomGridItem(
                       title: 'Adoption',

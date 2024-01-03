@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../WidgetCommon/Button.dart';
+import '../../../WidgetCommon/gender_Button.dart';
+import '../../../controllers/Gender_Controller.dart';
 import '../../../controllers/Image_Controller/ImageController.dart';
 
 class EditProfile extends StatelessWidget {
@@ -10,15 +12,17 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ImagePickerController imagePickerController =
-        Get.put(ImagePickerController());
 
+    ImagePickerController imagePickerController = Get.put(ImagePickerController());
+
+
+    String? profileImg;
     TextEditingController fullNameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController phoneNumberController = TextEditingController();
     TextEditingController aboutMeController = TextEditingController();
 
-    String? profileImage;
+    // String? profileImage;
 
     return Scaffold(
       //app bar
@@ -62,11 +66,10 @@ class EditProfile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Stack(
-                  children: [
-                    Obx(
-                      () => Container(
+               Center(
+                  child: Stack(
+                    children: [
+                      Container(
                         height: 112,
                         width: 112,
                         decoration: BoxDecoration(
@@ -82,44 +85,41 @@ class EditProfile extends StatelessWidget {
                             ),
                           ],
                           shape: BoxShape.circle,
-                          image: profileImage == null
+                          image: profileImg == null
                               ? const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/Background.png'),
-                                  fit: BoxFit.cover,
-                                )
-                              : DecorationImage(
                                   image:
-                                      FileImage(File(profileImage.toString())),
+                                      AssetImage('assets/images/doctor.png'))
+                              : DecorationImage(
+                                  image: FileImage(File(profileImg.toString())),
                                   fit: BoxFit.cover,
                                 ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 10,
-                      right: 0,
-                      child: InkWell(
-                        onTap: () async {
-                          profileImage = await imagePickerController.GetImage();
-                        },
-                        child: Container(
-                          width: 29,
-                          height: 29,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.blue,
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
+                      Positioned(
+                        bottom: 10,
+                        right: 0,
+                        child: InkWell(
+                          onTap: () async {
+                            profileImg =
+                                await imagePickerController.GetImage();
+                          },
+                          child: Container(
+                            width: 29,
+                            height: 29,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.blue,
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
@@ -156,69 +156,12 @@ class EditProfile extends StatelessWidget {
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 150,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Functionality for the first button
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.male, size: 32, color: Colors.white),
-                              SizedBox(width: 4),
-                              Text(
-                                'Male',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 150,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Functionality for the second button
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.female,
-                                  size: 32, color: Colors.pinkAccent),
-                              SizedBox(width: 4),
-                              Text(
-                                'Female',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    buildToggleButton('Male', Icons.male),
+                    buildToggleButton('Female', Icons.female),
+                  ],
                 ),
               ),
               Padding(

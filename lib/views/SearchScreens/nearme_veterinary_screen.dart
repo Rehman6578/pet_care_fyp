@@ -20,499 +20,491 @@ class NearVeterinaryScreen extends StatefulWidget {
 class _NearVeterinaryScreenState extends State<NearVeterinaryScreen> {
   int selectedSegment = 0; // Default selected segment index
 
-  Widget specialistWidgets() {
-    // Define the widgets you want to show when "Specialist" is selected
-    return const Column(
-      children: [
-        Text('Specialist Widgets'),
-        // Add more widgets as needed
-      ],
-    );
-  }
+  // Widget specialistWidgets() {
+  //   // Define the widgets you want to show when "Specialist" is selected
+  //   return const Column(
+  //     children: [
+  //       Text('Specialist Widgets'),
+  //       // Add more widgets as needed
+  //     ],
+  //   );
+  // }
 
-  Widget clinicsWidgets() {
-    // Define the widgets you want to show when "Clinics" is selected
-    return const Column(
-      children: [
-        Text('Clinics Widgets'),
-        // Add more widgets as needed
-      ],
-    );
-  }
+  // Widget clinicsWidgets() {
+  //   // Define the widgets you want to show when "Clinics" is selected
+  //   return const Column(
+  //     children: [
+  //       Text('Clinics Widgets'),
+  //       // Add more widgets as needed
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          padding: const EdgeInsetsDirectional.only(end: 10),
-          middle: CupertinoSegmentedControl<int>(
-            selectedColor: blue,
-            padding: const EdgeInsetsDirectional.all(8),
-
-            children: const {
-              0: Text(
-                'Specialist',
-              ),
-              1: Text('Clinics'),
-            },
-            groupValue: selectedSegment,
-            onValueChanged: (value) {
-              setState(() {
-                selectedSegment = value;
-              });
-            },
-          ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
+      body:  Padding(
+        padding: const EdgeInsets.only(top: 70),
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              Image.asset((map), width: 20.0, height: 20.0),
-              const SizedBox(width: 4.0),
-              const Text(
-                'Map',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: CupertinoColors.inactiveGray,
-                ),
-              ),
+              if (selectedSegment == 0)
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CupertinoSearchTextField(
+                        placeholder: 'Search',
+                        onSubmitted: (query) {
+                          // Handle search query submission
+                          print('Search query: $query');
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: blue, // Change this color to your desired background color
+                            ),
+                            child: const Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(step),
+                                  width: 20,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '9Sep',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            )),
+                        ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: blue, // Change this color to your desired background color
+                            ),
+                            child: const Row(
+                              children: [
+                                Text(
+                                  'Dentist',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            )),
+                        ElevatedButton(
+                            onPressed: () {},
+                            child: const Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(filter),
+                                  width: 20,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Text('Filter'),
+                              ],
+                            )),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.off(const VeterinaryDocScreen());
+                            },
+                            child: Card(
+                              elevation: 5, // Adjust the card's shadow
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          img1, width: 100,
+                                          //fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const Column(
+                                        children: [
+                                          Text(
+                                            'Vassilena Oksana',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Veterinary Dentist',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image(image: AssetImage(star)),
+                                              Text(
+                                                '125 Reviews',
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.only(bottom: 8.0, left: 8),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'Doctor experience',
+                                          style:
+                                          TextStyle(color: Colors.grey),
+                                        ),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(map),
+                                              width: 20,
+                                            )),
+                                        Text('1.5km'),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(walet),
+                                              width: 30,
+                                            )),
+                                        Image(
+                                          image: AssetImage(dollar),
+                                          width: 15,
+                                        ),
+                                        Text('20'),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              elevation: 5, // Adjust the card's shadow
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          img1, width: 100,
+                                          //fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const Column(
+                                        children: [
+                                          Text(
+                                            'Vassilena Oksana',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Veterinary Dentist',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image(image: AssetImage(star)),
+                                              Text(
+                                                '125 Reviews',
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.only(bottom: 8.0, left: 8),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '10 years of experience',
+                                          style:
+                                          TextStyle(color: Colors.grey),
+                                        ),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(map),
+                                              width: 20,
+                                            )),
+                                        Text('1.5km'),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(walet),
+                                              width: 30,
+                                            )),
+                                        Image(
+                                          image: AssetImage(dollar),
+                                          width: 15,
+                                        ),
+                                        Text('20'),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              elevation: 5, // Adjust the card's shadow
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          img1, width: 100,
+                                          //fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const Column(
+                                        children: [
+                                          Text(
+                                            'Vasilenko Oksana',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Veterinary Dentist',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image(image: AssetImage(star)),
+                                              Text(
+                                                '125 Reviews',
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.only(bottom: 8.0, left: 8),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '10 years of experience',
+                                          style:
+                                          TextStyle(color: Colors.grey),
+                                        ),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(map),
+                                              width: 20,
+                                            )),
+                                        Text('1.5km'),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(walet),
+                                              width: 30,
+                                            )),
+                                        Image(
+                                          image: AssetImage(dollar),
+                                          width: 15,
+                                        ),
+                                        Text('20'),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              elevation: 5, // Adjust the card's shadow
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          img1, width: 100,
+                                          //fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const Column(
+                                        children: [
+                                          Text(
+                                            'Vasilenko Oksana',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Veterinary Dentist',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Image(image: AssetImage(star)),
+                                              Text(
+                                                '125 Reviews',
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.only(bottom: 8.0, left: 8),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '10 years of experience',
+                                          style:
+                                          TextStyle(color: Colors.grey),
+                                        ),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(map),
+                                              width: 20,
+                                            )),
+                                        Text('1.5km'),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        CircleAvatar(
+                                            child: Image(
+                                              image: AssetImage(walet),
+                                              width: 30,
+                                            )),
+                                        Image(
+                                          image: AssetImage(dollar),
+                                          width: 15,
+                                        ),
+                                        Text('20'),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              else if (selectedSegment == 1)
+                const Row(
+                  children: [Text('clinics screen')],
+                )
             ],
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 100),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                if (selectedSegment == 0)
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: CupertinoSearchTextField(
-                          placeholder: 'Search',
-                          onSubmitted: (query) {
-                            // Handle search query submission
-                            print('Search query: $query');
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: blue, // Change this color to your desired background color
-                              ),
-                              child: const Row(
-                                children: [
-                                  Image(
-                                    image: AssetImage(step),
-                                    width: 20,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 2,
-                                  ),
-                                  Text(
-                                    '9Steps',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              )),
-                          const SizedBox(
-                            width: 14,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: blue, // Change this color to your desired background color
-                              ),
-                              child: const Row(
-                                children: [
-                                  Text(
-                                    'Dentist',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              )),
-                          const SizedBox(
-                            width: 14,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: const Row(
-                                children: [
-                                  Image(
-                                    image: AssetImage(filter),
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 2,
-                                  ),
-                                  Text('Filter'),
-                                ],
-                              )),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Get.off(const VeterinaryDocScreen());
-                              },
-                              child: Card(
-                                elevation: 5, // Adjust the card's shadow
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Image.asset(
-                                            img1, width: 100,
-                                            //fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        const Column(
-                                          children: [
-                                            Text(
-                                              'Vasilenko Oksana',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Veterinary Dentist',
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Image(image: AssetImage(star)),
-                                                Text(
-                                                  '125 Reviews',
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(bottom: 8.0, left: 8),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            '10 years of experience',
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(map),
-                                            width: 20,
-                                          )),
-                                          Text('1.5km'),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(walet),
-                                            width: 30,
-                                          )),
-                                          Image(
-                                            image: AssetImage(dollar),
-                                            width: 15,
-                                          ),
-                                          Text('20'),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                elevation: 5, // Adjust the card's shadow
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Image.asset(
-                                            img1, width: 100,
-                                            //fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        const Column(
-                                          children: [
-                                            Text(
-                                              'Vasilenko Oksana',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Veterinary Dentist',
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Image(image: AssetImage(star)),
-                                                Text(
-                                                  '125 Reviews',
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(bottom: 8.0, left: 8),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            '10 years of experience',
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(map),
-                                            width: 20,
-                                          )),
-                                          Text('1.5km'),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(walet),
-                                            width: 30,
-                                          )),
-                                          Image(
-                                            image: AssetImage(dollar),
-                                            width: 15,
-                                          ),
-                                          Text('20'),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                elevation: 5, // Adjust the card's shadow
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Image.asset(
-                                            img1, width: 100,
-                                            //fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        const Column(
-                                          children: [
-                                            Text(
-                                              'Vasilenko Oksana',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Veterinary Dentist',
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Image(image: AssetImage(star)),
-                                                Text(
-                                                  '125 Reviews',
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(bottom: 8.0, left: 8),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            '10 years of experience',
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(map),
-                                            width: 20,
-                                          )),
-                                          Text('1.5km'),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(walet),
-                                            width: 30,
-                                          )),
-                                          Image(
-                                            image: AssetImage(dollar),
-                                            width: 15,
-                                          ),
-                                          Text('20'),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                elevation: 5, // Adjust the card's shadow
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Image.asset(
-                                            img1, width: 100,
-                                            //fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        const Column(
-                                          children: [
-                                            Text(
-                                              'Vasilenko Oksana',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Veterinary Dentist',
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Image(image: AssetImage(star)),
-                                                Text(
-                                                  '125 Reviews',
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(bottom: 8.0, left: 8),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            '10 years of experience',
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(map),
-                                            width: 20,
-                                          )),
-                                          Text('1.5km'),
-                                          SizedBox(
-                                            width: 11,
-                                          ),
-                                          CircleAvatar(
-                                              child: Image(
-                                            image: AssetImage(walet),
-                                            width: 30,
-                                          )),
-                                          Image(
-                                            image: AssetImage(dollar),
-                                            width: 15,
-                                          ),
-                                          Text('20'),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                else if (selectedSegment == 1)
-                  const Row(
-                    children: [Text('clinics screen')],
-                  )
-              ],
-            ),
-          ),
-        ),
       ),
+      // CupertinoPageScaffold(
+      //   navigationBar: CupertinoNavigationBar(
+      //     padding: const EdgeInsetsDirectional.only(end: 10),
+      //     middle: CupertinoSegmentedControl<int>(
+      //       selectedColor: blue,
+      //       padding: const EdgeInsetsDirectional.all(8),
+      //
+      //       children: const {
+      //         0: Text(
+      //           'Specialist',
+      //         ),
+      //         1: Text('Clinics'),
+      //       },
+      //       groupValue: selectedSegment,
+      //       onValueChanged: (value) {
+      //         setState(() {
+      //           selectedSegment = value;
+      //         });
+      //       },
+      //     ),
+      //     trailing: Row(
+      //       mainAxisSize: MainAxisSize.min,
+      //       children: [
+      //         Image.asset((map), width: 20.0, height: 20.0),
+      //         const SizedBox(width: 4.0),
+      //         const Text(
+      //           'Map',
+      //           style: TextStyle(
+      //             fontSize: 16.0,
+      //             color: CupertinoColors.inactiveGray,
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
