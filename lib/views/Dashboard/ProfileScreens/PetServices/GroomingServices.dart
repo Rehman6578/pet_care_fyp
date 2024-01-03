@@ -30,11 +30,13 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
   final TextEditingController _DiscriptionsController = TextEditingController();
   final TextEditingController _preferredLocationController =
       TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _SpapriceController = TextEditingController();
+  final TextEditingController _BasicpriceController = TextEditingController();
+  final TextEditingController _FullpriceController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  FirebaseDatabase _database = FirebaseDatabase.instance;
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   String? selectedOption;
 
@@ -368,6 +370,8 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 Obx(
                   () => DropDownMultiSelect(
                     options: petController.spaGroomingService,
+                    selectedValues:
+                        petController.selectedSpaGroomingService.value,
                     onChanged: (value) {
                       petController.selectedSpaGroomingService.value = value;
                       petController.selectedSpaGroomingServiceOption.value = "";
@@ -378,10 +382,36 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                             "${petController.selectedSpaGroomingServiceOption.value}$value1";
                       }
                     },
-                    selectedValues: petController.selectedSpaGroomingService.value,
                   ),
                 ),
 
+                const SizedBox(height: 16.0),
+                Card(
+                  elevation: 4.0,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _SpapriceController,
+                      validator: (value) {
+                        return value!.isEmpty ? 'Enter Spa Grooming Price' : null;
+                      },
+                      keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        prefixText: 'Usd  ',
+                        prefixStyle: TextStyle(color: Colors.black),
+                        suffixText: '/session',
+                        suffixStyle:
+                        TextStyle(color: Colors.black, wordSpacing: 10),
+                        hintText: 'Enter Spa Grooming Price',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 16.0),
 
                 const Text(
@@ -392,20 +422,51 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 Obx(
                   () => DropDownMultiSelect(
                     options: petController.basicBathGroomingService,
+                    selectedValues:
+                        petController.selectedBasicBathGroomingService.value,
                     onChanged: (value) {
-                      petController.selectedBasicBathGroomingService.value = value;
-                      petController.selectedBasicBathGroomingServiceOption.value = "";
+                      petController.selectedBasicBathGroomingService.value =
+                          value;
+                      petController
+                          .selectedBasicBathGroomingServiceOption.value = "";
 
-                      for (var value1 in petController.selectedBasicBathGroomingService.value) {
-                        petController.selectedBasicBathGroomingServiceOption.value =
+                      for (var value1 in petController
+                          .selectedBasicBathGroomingService.value) {
+                        petController
+                                .selectedBasicBathGroomingServiceOption.value =
                             "${petController.selectedBasicBathGroomingServiceOption.value}$value1";
                       }
                     },
-                    selectedValues:
-                        petController.selectedBasicBathGroomingService.value,
                   ),
                 ),
 
+                const SizedBox(height: 16.0),
+                Card(
+                  elevation: 4.0,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _BasicpriceController,
+                      validator: (value) {
+                        return value!.isEmpty ? 'Enter Basic Grooming Price' : null;
+                      },
+                      keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        prefixText: 'Usd  ',
+                        prefixStyle: TextStyle(color: Colors.black),
+                        suffixText: '/session',
+                        suffixStyle:
+                        TextStyle(color: Colors.black, wordSpacing: 10),
+                        hintText: 'Enter Basic Grooming Price',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 16.0),
 
                 const Text(
@@ -413,8 +474,13 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8.0),
-                DropDownMultiSelect(
+                Obx(
+                  () => DropDownMultiSelect(
                     options: petController.fullGroomingService,
+                    selectedValues:
+                        petController.selectedFullGroomingService.value,
+                    whenEmpty: 'Select Full Grooming Service',
+
                     onChanged: (value) {
                       petController.selectedFullGroomingService.value = value;
                       petController.selectedFullGroomingServiceOption.value =
@@ -426,11 +492,36 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                             "${petController.selectedFullGroomingServiceOption.value}$value1";
                       }
                     },
-                    selectedValues:
-                        petController.selectedFullGroomingService.value,
                   ),
+                ),
 
-
+                const SizedBox(height: 16.0),
+                Card(
+                  elevation: 4.0,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _FullpriceController,
+                      validator: (value) {
+                        return value!.isEmpty ? 'Enter Full Grooming Price' : null;
+                      },
+                      keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        prefixText: 'Usd  ',
+                        prefixStyle: TextStyle(color: Colors.black),
+                        suffixText: '/session',
+                        suffixStyle:
+                        TextStyle(color: Colors.black, wordSpacing: 10),
+                        hintText: 'Enter Full Grooming Price',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 16.0),
                 const Text(
                   'What pets do you accept?',
@@ -439,6 +530,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 Obx(
                   () => DropDownMultiSelect(
                     options: petController.allPetTypes,
+                    whenEmpty: 'eg: Dog, Cat, etc.',
                     onChanged: (value) {
                       petController.selectedPetTypes.value = value;
                       petController.selectedOption.value = "";
@@ -460,6 +552,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                   () => DropDownMultiSelect(
                     options: petController.PetVisiting,
                     selectedValues: petController.selectPetVisit.value,
+                    whenEmpty: 'eg: 5km, 10km, etc.',
                     onChanged: (value) {
                       petController.selectPetVisit.value = value;
                       petController.selecteVisit.value = "";
@@ -501,32 +594,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                 ),
 
                 const SizedBox(height: 16.0),
-                Card(
-                  elevation: 4.0,
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _priceController,
-                      validator: (value) {
-                        return value!.isEmpty ? 'Enter Price' : null;
-                      },
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(
-                        prefixText: 'Usd',
-                        prefixStyle: TextStyle(color: Colors.black),
-                        suffixText: '/session',
-                        suffixStyle:
-                            TextStyle(color: Colors.black, wordSpacing: 10),
-                        hintText: 'Your Price',
-                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ),
+
                 const SizedBox(height: 16.0),
                 const Text(
                   'Pet owner will feel more comfortable knowing what is include in this quote',
@@ -587,12 +655,34 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     String name = _nameServicesController.text;
     String listingSummary = _listingSummaryController.text;
     String preferredLocation = _preferredLocationController.text;
-    String price = _priceController.text;
+    String spagroomingprice = _SpapriceController.text;
+    String basicgroomingprice = _BasicpriceController.text;
+    String fullgroomingprice = _FullpriceController.text;
     String discription = _DiscriptionsController.text;
 
     // create list to store data
     List<String> acceptedPets = petController.selectedPetTypes.value;
     List<String> PetVisit = petController.selectPetVisit.value;
+
+    List<String> spaGroomingService =
+        petController.selectedSpaGroomingService.value;
+    List<String> basicBathGroomingService =
+        petController.selectedBasicBathGroomingService.value;
+    List<String> fullGroomingService =
+        petController.selectedFullGroomingService.value;
+
+    if (acceptedPets.isEmpty ||
+        PetVisit.isEmpty ||
+        spaGroomingService.isEmpty ||
+        basicBathGroomingService.isEmpty ||
+        fullGroomingService.isEmpty) {
+      Get.snackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 2),
+          'Error',
+          'Please Select All DropDown Fields');
+      return;
+    }
 
     // get user id
     String uid = _auth.currentUser!.uid;
@@ -645,11 +735,16 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     Map<String, dynamic> map = {
       'name': name,
       'listingSummary': listingSummary,
+      'preferredLocation': preferredLocation,
+      'discription': discription,
+      'spaprice': spagroomingprice,
+      'basicprice': basicgroomingprice,
+      'fullprice': fullgroomingprice,
+      'spaGroomingService': spaGroomingService,
+      'basicBathGroomingService': basicBathGroomingService,
+      'fullGroomingService': fullGroomingService,
       'acceptedPets': acceptedPets,
       'PetVisit': PetVisit,
-      'preferredLocation': preferredLocation,
-      'price': price,
-      'discription': discription,
       'profileImg': profileImg,
       'image1': img1,
       'image2': img2,
@@ -672,7 +767,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
           duration: const Duration(seconds: 3),
           'Success',
           'Grooming Service Added Successfully');
-      Get.to(AddLocation());
+      Get.to(const AddLocation());
     }).catchError((error) {
       setState(() {
         _loading = false;

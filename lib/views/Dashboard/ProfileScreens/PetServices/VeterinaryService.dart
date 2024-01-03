@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
-import 'package:pet_care_fyp/const/CommonFiles.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 import 'package:pet_care_fyp/views/GoogleMap/AddLocationScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,12 +38,14 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   final TextEditingController _priceController = TextEditingController();
 
   String? selectedOption;
+  String? experienceYears;
+  String? gender;
 
   String? profileImg, img1, img2, img3;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  FirebaseDatabase _database = FirebaseDatabase.instance;
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   final formkey = GlobalKey<FormState>();
   bool _loading = false;
@@ -290,19 +291,61 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 Card(
                   elevation: 2.0,
                   color: Colors.white,
-                  child: TextFormField(
-                    controller: _doctorNameController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter doctor\'s name';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter doctor/clinic name',
-                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _doctorNameController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter doctor\'s name';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter doctor/clinic name',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                const Text(
+                  'Select Gender',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16.0),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: DropdownButton<String>(
+                      hint: const Text(
+                        'Select Gender',
+                        style: TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                      isExpanded: true,
+                      value: gender,
+                      borderRadius: BorderRadius.circular(10.0),
+                      items: petController.Gender.map((option) {
+                        return DropdownMenuItem<String>(
+                          value: option,
+                          child: Text(option),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          gender = value;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -315,20 +358,67 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 Card(
                   elevation: 2.0,
                   color: Colors.white,
-                  child: TextFormField(
-                    controller: _experienceController,
-                    maxLines: 5,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter professional experience please';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter professional experience',
-                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _experienceController,
+                      maxLines: 5,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter professional experience please';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter professional experience',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'How many years fo Experience you have?',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: DropdownButton<String>(
+                      hint: const Text(
+                        'eg: 1,3,5',
+                        style: TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                      isExpanded: true,
+                      value: experienceYears,
+                      borderRadius: BorderRadius.circular(10.0),
+                      items: petController.years.map((option) {
+                        return DropdownMenuItem<String>(
+                          value: option,
+                          child: Text(option),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          experienceYears = value;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -341,19 +431,22 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 Card(
                   elevation: 2.0,
                   color: Colors.white,
-                  child: TextFormField(
-                    controller: _specializationController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter specialization please';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter specialization',
-                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _specializationController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter specialization please';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter specialization',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
                     ),
                   ),
                 ),
@@ -366,20 +459,23 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 Card(
                   elevation: 2.0,
                   color: Colors.white,
-                  child: TextFormField(
-                    controller: _personalInfoController,
-                    maxLines: 5,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter personal information please';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter personal information',
-                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _personalInfoController,
+                      maxLines: 5,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter personal information please';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter personal information',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
                     ),
                   ),
                 ),
@@ -392,20 +488,23 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 Card(
                   elevation: 2.0,
                   color: Colors.white,
-                  child: TextFormField(
-                    controller: _educationController,
-                    maxLines: 3,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter education please';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter education details',
-                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _educationController,
+                      maxLines: 3,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter education please';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter education details',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
                     ),
                   ),
                 ),
@@ -418,19 +517,22 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                 Card(
                   elevation: 2.0,
                   color: Colors.white,
-                  child: TextFormField(
-                    controller: _offeredServicesController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter offered services please';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter offered services',
-                      hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _offeredServicesController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter offered services please';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter offered services',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
                     ),
                   ),
                 ),
@@ -534,19 +636,28 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
                   'Price:',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                TextFormField(
-                  controller: _priceController,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Enter price please';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Enter the price',
-                    hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                Card(
+                  elevation: 4.0,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _priceController,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Enter price please';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter the price',
+                        hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 40.0),
@@ -593,6 +704,8 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     String specialization = _specializationController.text;
     String personalInfo = _personalInfoController.text;
     String education = _educationController.text;
+    String experienceY = experienceYears.toString();
+    String Gender = gender.toString();
     List<String> acceptedPets = petController.selectedPetTypes.value;
     String offeredServices = _offeredServicesController.text;
     List<String> acceptedPetTypes = petController.selectedPetSize1.value;
@@ -602,11 +715,6 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     // create instace of shared preferences
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '1');
-
-
-
-
-    // check if all the images are selected or not then show the snackbar to select images
 
     // String uid = DateTime.now().microsecondsSinceEpoch.toString();
     String uid = _auth.currentUser!.uid;
@@ -655,7 +763,9 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
     Map<String, dynamic> data = {
       'doctorName': doctorName,
+      'gender': Gender,
       'experience': experience,
+      'experienceYears': experienceY,
       'specialization': specialization,
       'personalInfo': personalInfo,
       'education': education,

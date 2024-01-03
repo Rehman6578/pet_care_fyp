@@ -39,8 +39,8 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
   String? profileImg, img1, img2, img3;
 
   bool _housetrained = false;
-  bool _goodWithChildren = false;
-  bool _goodWithOtherPets = false;
+  final bool _goodWithChildren = false;
+  final bool _goodWithOtherPets = false;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance.collection('users');
@@ -443,7 +443,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
               ),
 
               Text('Additional Information',
-                  style: Theme.of(context).textTheme.headline6),
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8.0),
               Row(
                 children: [
@@ -452,7 +452,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
                     onChanged: (value) =>
                         setState(() => _housetrained = value!),
                   ),
-                  Text('Housetrained'),
+                  const Text('Housetrained'),
                 ],
               ),
 

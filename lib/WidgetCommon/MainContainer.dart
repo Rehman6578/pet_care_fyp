@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomGridItem extends StatelessWidget {
   final String title;
@@ -16,8 +17,8 @@ class CustomGridItem extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        width: 88,
-        height: 88,
+        width: Get.width * 0.25,
+        height: Get.width * 0.25,
         margin: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -47,7 +48,7 @@ class CustomGridItem extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 13.0,
+                fontSize: 12.0,
                 // fontWeight: FontWeight.bold,
                 fontFamily: 'Encode Sans',
                 fontWeight: FontWeight.w400,

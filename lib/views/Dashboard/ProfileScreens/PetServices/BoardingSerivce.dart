@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -752,7 +751,7 @@ class _BoardingServiceState extends State<BoardingService> {
           duration: const Duration(seconds: 3),
           'Success',
           'Boarding Service Added Successfully');
-      Get.to(AddLocation());
+      Get.to(const AddLocation());
     }).catchError((error) {
       setState(() {
         _loading = false;
