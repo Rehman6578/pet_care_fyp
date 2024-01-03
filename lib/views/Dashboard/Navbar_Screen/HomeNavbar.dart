@@ -187,6 +187,7 @@ class _home_nav extends State<home_nav> {
                         title: 'Grooming',
                         assetImagePath: 'assets/images/grooming.png',
                         onPressed: () {
+                          Get.to(const GroomingScreen());
 
                         }),
                     CustomGridItem(

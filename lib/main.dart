@@ -41,58 +41,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/SplashScreen',
       getPages: [
-        GetPage(
-          name: '/onboardingScreens',
-          page: () =>  OnboardingScreen(),
-        ),
-        GetPage(
-          name: '/SplashScreen',
-          page: () => const SplashScreen(),
-        ),
-        GetPage(
-          name: '/Dashboard',
-          page: () => const Dashboard(),
-        ),
-        GetPage(
-          name: '/LoginScreen',
-          page: () => const LoginScreen(),
-        ),
-        GetPage(
-          name: '/RegisterScreen',
-          page: () => const RegisterScreen(),
-        ),
-        GetPage(
-          name: '/EditProfile',
-          page: () => const EditProfile(),
-        ),
-        GetPage(
-          name: '/AddPetDetails',
-          page: () => const AddPetDetail(),
-        ),
-        GetPage(
-          name: '/NearVeterinaryScreen',
-          page: () => const NearVeterinaryScreen(),
-        ),
-        GetPage(
-          name: '/VeterinaryDocScreen',
-          page: () => const VeterinaryDocScreen(),
-        ),
-        GetPage(
-          name: '/GroomingScreen',
-          page: () => const GroomingScreen(),
-        ),
-        GetPage(
-          name: '/PetDatingScreen',
-          page: () => PetDating(),
-        ),
-        GetPage(
-          name: '/PetBoarding',
-          page: () => PetBoardingScreen(),
-        ),
-        GetPage(
-          name: '/AddPetServices',
-          page: () => const AddPetServices(),
-        ),
+        GetPage(name: '/onboardingScreens', page: () =>  OnboardingScreen()),
+        GetPage(name: '/SplashScreen', page: () => const SplashScreen()),
+        GetPage(name: '/Dashboard', page: () => const Dashboard()),
+        GetPage(name: '/LoginScreen', page: () => const LoginScreen()),
+        GetPage(name: '/RegisterScreen', page: () => const RegisterScreen()),
+        GetPage(name: '/EditProfile', page: () => const EditProfile()),
+        GetPage(name: '/AddPetDetails', page: () => const AddPetDetail()),
+        GetPage(name: '/NearVeterinaryScreen', page: () => const NearVeterinaryScreen()),
+        GetPage(name: '/VeterinaryDocScreen', page: () => const VeterinaryDocScreen()),
+        GetPage(name: '/GroomingScreen', page: () => const GroomingScreen()),
+        GetPage(name: '/PetDatingScreen', page: () => PetDating()),
+        GetPage(name: '/PetBoarding', page: () => PetBoardingScreen()),
+        GetPage(name: '/AddPetServices', page: () => const AddPetServices()),
         GetPage(name: '/AddVeterinaryService', page: () => const AddVeterinaryService()),
         GetPage(name: '/TrainingService', page: () => const TrainingSerivce()),
         GetPage(name: '/BoardingService', page: ()=>const BoardingService()),
