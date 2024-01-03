@@ -21,13 +21,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool _loading = false;
   bool _isSecurePassword = true;
-
   final controller = Get.put(SignupController());
   final formkey = GlobalKey<FormState>();
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance.collection('users');
-
 
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
@@ -35,7 +32,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
   final usernameFocusNode = FocusNode();
-
 
   @override
   void dispose() {
@@ -50,10 +46,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
+      home: SafeArea(
+        child: Scaffold(
           body: Stack(
             children: [
               // add back arrow button here
+
               const Image(
                 image: AssetImage('assets/images/Background.png'),
                 fit: BoxFit.cover,
@@ -61,8 +59,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 width: double.infinity,
                 alignment: Alignment.center,
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 100, left: 30),
+              Positioned(
+                top: 20,
+                left: 10,
+                child: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+
+              const Positioned(
+                top: 70,
+                left: 30,
                 child: Text(
                   'Registration\n',
                   style: TextStyle(
@@ -75,129 +88,130 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 500),
                 child: Container(
-                  height: double.infinity,
+                  height: Get.height * 0.4,
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 130,left: 10,right: 10),
-                           child: Row(
-                             children: [
-                               Expanded(
-                                 child: Divider(
-                                   color: Colors.black12,
-                                   thickness: 1,
-                                 ),
-                               ),
-                               SizedBox(width: 5),
-                               Expanded(
-                                 flex: 2,
-                                 child: Text(
-                                   textAlign: TextAlign.center,
-                                   'Or Continue with',
-                                   style: TextStyle(
-                                     color: Colors.grey,
-                                     fontSize: 20,
-                                   ),
-                                 ),
-                               ),
-                               SizedBox(width: 5),
-                               Expanded(
-                                 child: Divider(
-                                   color: Colors.black12,
-                                   thickness: 1,
-                                 ),
-                               ),
-                             ],
-                           )
-                        ),
-                        // add  circular button here in Row widget in center of the screen for facebook and google and add only icons in buttons
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
+                  child: Column(
+                    children: [
+                      const Padding(
+                          padding:
+                          EdgeInsets.only(top: 130, left: 10, right: 10),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // add facebook button here
-                              Padding(
-                                padding: const EdgeInsets.only(right: 20),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue,
-                                    minimumSize: const Size(60, 60),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                  ),
-                                  child: const Icon(
-                                    Icons.facebook,
-                                    color: Colors.white,
-                                    size: 30,
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.black12,
+                                  thickness: 1,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  'Or Continue with',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ),
-                              // add google button here
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                        () => AuthServices().signInWithGoogle();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red,
-                                    minimumSize: const Size(60, 60),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                  ),
-                                  child: const Icon(
-                                    Icons.g_mobiledata,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
+                              SizedBox(width: 5),
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.black12,
+                                  thickness: 1,
                                 ),
                               ),
                             ],
+                          )),
+                      // add  circular button here in Row widget in center of the screen for facebook and google and add only icons in buttons
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // add facebook button here
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue,
+                                  minimumSize: const Size(60, 60),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.facebook,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                            // add google button here
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                      () => AuthServices().signInWithGoogle();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                  minimumSize: const Size(60, 60),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.g_mobiledata,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // add login text here below the buttons
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 30),
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(() => const Login());
+                          },
+                          child: RichText(
+                            text: const TextSpan(
+                              text: 'Already have an account?',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'Sign In',
+                                  style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        // add login text here below the buttons
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15, bottom: 30),
-                          child: InkWell(
-                            onTap: () {
-                              Get.to(() => const Login());
-                            },
-                            child: RichText(
-                                text: const TextSpan(
-                                  text: 'Already have an account?',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Sign In',
-                                      style: TextStyle(
-                                        color: Colors.blueAccent,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                            ),
-                          )
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Expanded(
+              Positioned(
+                top: 200,
+                left: 30,
+                right: 30,
                 child: Container(
                   width: Get.width,
                   decoration: BoxDecoration(
@@ -212,7 +226,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ],
                   ),
-                  margin: const EdgeInsets.only(top: 200, left: 30, right: 30),
                   child: SingleChildScrollView(
                     child: Form(
                       key: formkey,
@@ -235,9 +248,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             keyBoardType: TextInputType.name,
                             hintText: 'Enter Username ',
                             labelText: 'Full name',
-                            labelStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                            labelStyle: const TextStyle(
+                                fontSize: 15, color: Colors.grey),
                             obscureText: false,
-                            hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                            hintStyle: const TextStyle(
+                                fontSize: 15, color: Colors.grey),
                           ),
                           MyTextFormField(
                             myController: emailController,
@@ -252,22 +267,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             keyBoardType: TextInputType.emailAddress,
                             hintText: 'Email Address ',
                             labelText: 'Email',
-                            labelStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                            labelStyle: const TextStyle(
+                                fontSize: 15, color: Colors.grey),
                             suffixIcon: false,
-                            hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+                            hintStyle: const TextStyle(
+                                fontSize: 15, color: Colors.grey),
                             obscureText: false,
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: TextFormField(
                               controller: passwordController,
                               obscureText: _isSecurePassword,
                               decoration: InputDecoration(
                                 labelText: 'Password',
-                                labelStyle: const TextStyle(color: Colors.blueAccent),
+                                labelStyle:
+                                    const TextStyle(color: Colors.blueAccent),
                                 hintText: 'Enter your Password',
                                 hintStyle: const TextStyle(color: Colors.black),
                                 suffixIcon: toggleButton(),
@@ -281,8 +300,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           Padding(
-                            padding:
-                            const EdgeInsets.only(top: 5, left: 10, right: 20),
+                            padding: const EdgeInsets.only(
+                                top: 5, left: 10, right: 20),
                             child: Row(
                               children: [
                                 Checkbox(
@@ -304,8 +323,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           // check box for do not want to recive the news
                           Padding(
-                            padding:
-                            const EdgeInsets.only(top: 0, left: 10, right: 20),
+                            padding: const EdgeInsets.only(
+                                top: 0, left: 10, right: 20),
                             child: Row(
                               children: [
                                 Checkbox(
@@ -329,7 +348,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: RoundedButton(
                                 text: 'Sign Up',
                                 isloading: _loading,
-                                press: (){
+                                press: () {
                                   if (formkey.currentState!.validate()) {
                                     setState(() {
                                       _loading = true;
@@ -348,8 +367,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
+
+
+
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 
@@ -358,18 +382,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         _loading = true;
       });
-      if(!emailController.text.toString().contains('@') || !emailController.text.toString().contains('.')){
+      if (!emailController.text.toString().contains('@') ||
+          !emailController.text.toString().contains('.')) {
         Get.snackbar('Error', 'Please enter a valid email address');
         return;
       }
-      _auth.createUserWithEmailAndPassword(
+      _auth
+          .createUserWithEmailAndPassword(
         email: emailController.text.toString(),
         password: passwordController.text.toString(),
-      ).then((value) {
-        String uid = DateTime
-            .now()
-            .microsecondsSinceEpoch
-            .toString();
+      )
+          .then((value) {
+        String uid = DateTime.now().microsecondsSinceEpoch.toString();
         _firestore.doc(uid).set({
           'name': usernameController.text.toString(),
           'email': emailController.text.toString(),
@@ -395,13 +419,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget toggleButton() {
-
-    return IconButton(onPressed: (){
-      setState(() {
-        _isSecurePassword = !_isSecurePassword;
-      });
-    }, icon: _isSecurePassword ? const Icon(Icons.visibility_off,color: Colors.grey,)
-        : const Icon(Icons.visibility, color: Colors.grey,));
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            _isSecurePassword = !_isSecurePassword;
+          });
+        },
+        icon: _isSecurePassword
+            ? const Icon(
+                Icons.visibility_off,
+                color: Colors.grey,
+              )
+            : const Icon(
+                Icons.visibility,
+                color: Colors.grey,
+              ));
   }
-
 }

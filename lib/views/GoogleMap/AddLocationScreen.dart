@@ -7,10 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
-import 'package:pet_care_fyp/const/CommonFiles.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/AddPetServices.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -32,7 +30,7 @@ class _AddLocationState extends State<AddLocation> {
   TextEditingController postalcode_Controller = TextEditingController();
 
   final DatabaseReference _database = FirebaseDatabase.instance.reference().child('services');
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String? latitud;
   String? longitud;
@@ -217,6 +215,8 @@ class _AddLocationState extends State<AddLocation> {
                         address = placemarks[0].name.toString();
                         latitud = location[0].latitude.toString();
                         longitud = location[0].longitude.toString();
+
+
 
                         aptsuit_Controller.text = apt!;
                         city_Controller.text = city!;
@@ -476,7 +476,7 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
 
                         break;
@@ -490,7 +490,7 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
                         break;
                       case '3':
@@ -503,7 +503,7 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
                         break;
                       case '4':
@@ -516,12 +516,12 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
                         break;
                         case '5':
                         _database
-                            .child('petWalking')
+                            .child('WalkingSerivce')
                             .child(uid)
                             .child('address')
                             .set(addressData);
@@ -529,12 +529,12 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
                         break;
                         case '6':
                         _database
-                            .child('petTraining')
+                            .child('TrainingSerivce')
                             .child(uid)
                             .child('address')
                             .set(addressData);
@@ -542,12 +542,12 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
                         break;
                         case '7':
                         _database
-                            .child('petTaxi')
+                            .child('TaxiSerivce')
                             .child(uid)
                             .child('address')
                             .set(addressData);
@@ -555,7 +555,7 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
                         break;
                         case '8':
@@ -568,7 +568,7 @@ class _AddLocationState extends State<AddLocation> {
                           // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
-                          Get.offAll(AddPetServices());
+                          Get.offAll(const AddPetServices());
                         });
                         break;
                     }

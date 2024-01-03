@@ -1,14 +1,21 @@
 import 'package:get/get.dart';
 
 class MultiSelectionController extends GetxController {
+
+  // create a list for select gender
+  List<String> Gender=[
+    'Male',
+    "Female",
+  ];
+
   // create a list of basic grooming service list
   List<String> spaGroomingService = [
-        'Bath With Shampoo '
-        'Blow Dry'
-        'Nail Clipping'
-        'Ear Cleaning'
-        'Eyes Cleaning'
-        'Paw Massage'
+        'Bath With Shampoo',
+        'Blow Dry',
+        'Nail Clipping',
+        'Ear Cleaning',
+        'Eyes Cleaning',
+        'Paw Massage',
         'Combing/Brushing'
   ];
   RxList<String> selectedSpaGroomingService = RxList<String>([]);
@@ -16,15 +23,15 @@ class MultiSelectionController extends GetxController {
 
 // create a list of basicBath+grooming service list
   List<String> basicBathGroomingService = [
-        'Bath With Shampoo'
-        'Blow Dry'
-        'Nail Clipping'
-        'Ear Cleaning'
-        'Eyes Cleaning'
-        'Paw Massage'
-        'Combing/Brushing'
-        'Face Haircutting'
-        'Sanitary Trim'
+        'Bath With Shampoo',
+        'Blow Dry',
+        'Nail Clipping',
+        'Ear Cleaning',
+        'Eyes Cleaning',
+        'Paw Massage',
+        'Combing/Brushing',
+        'Face Haircutting',
+        'Sanitary Trim',
         'Teeth Cleaning/Mouth Spray'
   ];
   RxList<String> selectedBasicBathGroomingService = RxList<String>([]);
@@ -32,19 +39,19 @@ class MultiSelectionController extends GetxController {
 
   // create a list of full grooming service list
   List<String> fullGroomingService = [
-        'Bath With Shampoo'
-        'Blow Dry'
-        'Nail Clipping'
-        'Ear Cleaning'
-        'Eyes Cleaning'
-        'Paw Massage'
-        'Combing/Brushing'
-        'Face Haircutting'
-        'Sanitary Trim'
-        'Teeth Cleaning/Mouth Spray'
-        'Full Body Haircutting'
-        'Anal Gland Expression'
-        'Paw Pad Haircutting'
+        'Bath With Shampoo',
+        'Blow Dry',
+        'Nail Clipping',
+        'Ear Cleaning',
+        'Eyes Cleaning',
+        'Paw Massage',
+        'Combing/Brushing',
+        'Face Haircutting',
+        'Sanitary Trim',
+        'Teeth Cleaning/Mouth Spray',
+        'Full Body Haircutting',
+        'Anal Gland Expression',
+        'Paw Pad Haircutting',
         'Paw Massage'
   ];
   RxList<String> selectedFullGroomingService = RxList<String>([]);
@@ -55,8 +62,6 @@ class MultiSelectionController extends GetxController {
   List<String> allPetTypes = [
     'Dog',
     'Cat',
-    'Bird',
-    'Fish',
     'Rabbit',
     'Reptile',
     'Other',
@@ -111,6 +116,7 @@ class MultiSelectionController extends GetxController {
   ];
 
   List<String> years = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  List<String> expYears = ['1', '2', '3', '4', '5', '6+'];
 
   //add 6 option for pet training course
   List<String> petTrainingCourse = [
