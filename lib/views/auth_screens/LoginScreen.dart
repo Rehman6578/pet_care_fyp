@@ -192,33 +192,27 @@ class _LoginScreenState extends State<LoginScreen> {
             // add text 'Already have an account? Login' at the bottom of the screen
 
             Padding(
-              padding: const EdgeInsets.only(top: 750),
-
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Already have an account?',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // using GetX navigation goto LoginScreen
-                      Get.to(() =>  const Login());
-                    },
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+              padding: const EdgeInsets.only(top: 680.0, left: 50),
+              child: RichText(
+                  text: const TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Already have an account? ',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
+                      TextSpan(
+                        text: 'Login',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
               ),
             ),
           ],
