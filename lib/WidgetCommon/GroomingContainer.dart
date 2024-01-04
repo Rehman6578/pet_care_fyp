@@ -9,25 +9,19 @@ class GroomingContainer extends StatefulWidget {
   var doctorName;
   var doctorSpeciality;
   final Image doctorImage;
-  var doctorDate;
-  String doctorStatus;
   int doctorRatings;
   var doctorFee;
   var doctorAddress;
   var doctorlocation;
-  var doctorAvailableTime;
 
    GroomingContainer({
     required this.doctorName,
     required this.doctorSpeciality,
     required this.doctorImage,
-    required this.doctorDate,
-    required this.doctorStatus,
     required this.doctorRatings,
     required this.doctorFee,
     required this.doctorAddress,
     required this.doctorlocation,
-    required this.doctorAvailableTime,
     super.key});
 
   @override
@@ -64,7 +58,7 @@ class _GroomingContainerState extends State<GroomingContainer> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/doctor.png'),
+                  image: AssetImage('assets/images/doctor1.png'),
                   fit: BoxFit.cover,
                 ),
               ),
