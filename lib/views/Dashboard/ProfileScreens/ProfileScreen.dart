@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/profile.dart';
+import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/UpdateProfile.dart';
 import '../../../WidgetCommon/profile_listitems.dart';
 import '../../auth_screens/LoginScreen.dart';
 import 'AddPetServices.dart';
@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   IconButton(
                       icon: const Icon(Icons.edit, color: Colors.blue),
                       onPressed: () {
-                        Get.to(const EditProfile());
+                        Get.to(const UpdateProfile());
                       }),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 10, right: 10.0),

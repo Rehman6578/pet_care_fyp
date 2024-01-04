@@ -1,29 +1,37 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../../../WidgetCommon/Button.dart';
 import '../../../WidgetCommon/gender_Button.dart';
-import '../../../controllers/Gender_Controller.dart';
 import '../../../controllers/Image_Controller/ImageController.dart';
 
-class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
+class UpdateProfile extends StatefulWidget {
+  const UpdateProfile({super.key});
+
+  @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
+
+  ImagePickerController imagePickerController =
+  Get.put(ImagePickerController());
+
+  // String? profileImg;
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController aboutMeController = TextEditingController();
+
+  Uint8List? profileImg;
+
 
   @override
   Widget build(BuildContext context) {
-
-    ImagePickerController imagePickerController = Get.put(ImagePickerController());
-
-
-    String? profileImg;
-    TextEditingController fullNameController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController phoneNumberController = TextEditingController();
-    TextEditingController aboutMeController = TextEditingController();
-
-    // String? profileImage;
-
     return Scaffold(
       //app bar
       appBar: AppBar(
@@ -66,60 +74,66 @@ class EditProfile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 112,
-                        width: 112,
-                        decoration: BoxDecoration(
-                          border: Border.all(
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 112,
+                      width: 112,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 0,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                          ),
+                        ],
+                        shape: BoxShape.circle,
+                        image: profileImg == null
+                            ? const DecorationImage(
+                            image: AssetImage('assets/images/doctor.png'))
+                            : DecorationImage(
+                          image: MemoryImage(
+                              profileImg!),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+
+                    Positioned(
+                      bottom: 10,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () async {
+                          profileImg =
+                          await imagePickerController
+                              .getMyImage(ImageSource.gallery);
+
+                          setState(() {});
+
+                        },
+                        child: Container(
+                          width: 29,
+                          height: 29,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.blue,
+                          ),
+                          child: const Icon(
+                            Icons.add,
                             color: Colors.white,
-                            width: 0,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1),
-                            ),
-                          ],
-                          shape: BoxShape.circle,
-                          image: profileImg == null
-                              ? const DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/doctor.png'))
-                              : DecorationImage(
-                                  image: FileImage(File(profileImg.toString())),
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 10,
-                        right: 0,
-                        child: InkWell(
-                          onTap: () async {
-                            profileImg =
-                                await imagePickerController.GetImage();
-                          },
-                          child: Container(
-                            width: 29,
-                            height: 29,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.blue,
-                            ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
@@ -135,9 +149,9 @@ class EditProfile extends StatelessWidget {
                     ),
                     suffixIcon: fullNameController.text.isNotEmpty
                         ? const Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          )
+                      Icons.check,
+                      color: Colors.green,
+                    )
                         : null, // Show the check icon conditionally
                   ),
                 ),
@@ -148,7 +162,9 @@ class EditProfile extends StatelessWidget {
                   "Gender",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.grey.shade700,
+                    // use grey color for light theme
+
+                    color: Colors.grey.shade500,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -164,6 +180,7 @@ class EditProfile extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
@@ -179,13 +196,16 @@ class EditProfile extends StatelessWidget {
                     ),
                     suffixIcon: emailController.text.isNotEmpty
                         ? const Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          )
+                      Icons.check,
+                      color: Colors.green,
+                    )
                         : null, // Show the check icon conditionally
                   ),
                 ),
               ),
+
+              const SizedBox(height: 16),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
@@ -202,16 +222,16 @@ class EditProfile extends StatelessWidget {
                     ),
                     suffixIcon: phoneNumberController.text.isNotEmpty
                         ? const Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          )
+                      Icons.check,
+                      color: Colors.green,
+                    )
                         : null, // Show the check icon conditionally
                   ),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 16),
+                const EdgeInsets.only(left: 20.0, right: 20.0, top: 16),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +240,7 @@ class EditProfile extends StatelessWidget {
                         "About Me",
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.grey.shade700,
+                          color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -230,18 +250,23 @@ class EditProfile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           color: const Color(0xfff7f7fa),
                         ),
-                        child: TextFormField(
-                          maxLines: 8,
-                          controller: aboutMeController,
-                          decoration: const InputDecoration(
-                            hintText: 'Write about yourself...',
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                            ),
-                            // fillColor: Colors.white54,
-                            // filled: true,
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: TextFormField(
+                            maxLines: 8,
+                            controller: aboutMeController,
+                            decoration: const InputDecoration(
+                              hintText: 'Write about yourself...',
+                              focusedBorder: InputBorder.none,
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                color: Colors.grey,
+                              ),
+                              // fillColor: Colors.white54,
+                              // filled: true,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
                             ),
                           ),
                         ),
@@ -252,13 +277,13 @@ class EditProfile extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 50),
                 child: Center(
                     child: RoundedButton(
-                  text: 'Get Started',
-                  press: () {},
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  width: 300,
-                  height: 70,
-                )),
+                      text: 'Get Started',
+                      press: () {},
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      width: 300,
+                      height: 70,
+                    )),
               ),
             ],
           ),
