@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../WidgetCommon/Button.dart';
@@ -7,7 +5,6 @@ import '../../../WidgetCommon/mainContainer.dart';
 import '../../../const/images.dart';
 import '../../SearchScreens/nearme_veterinary_screen.dart';
 import '../GroomingScreen.dart';
-import '../PetBoarding.dart';
 import '../PetDatingScreen.dart';
 import 'PetTaxiScreen.dart';
 import 'add_pet_detail.dart';
@@ -21,12 +18,6 @@ class home_nav extends StatefulWidget {
 
 class _home_nav extends State<home_nav> {
   // final AddPetDetail _addPetDetail = Get.put(const AddPetDetail());
-
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  FirebaseAuth auth = FirebaseAuth.instance;
-
-  String? userName;
-
 
   @override
   void initState() {
@@ -137,98 +128,94 @@ class _home_nav extends State<home_nav> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [
-              // add search icon on right side of appbar
-              Padding(
-                padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // add icon for search
-                    IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () {
-        
-                        Get.to(const NearVeterinaryScreen());
-                      },
-                    ),
-                  ],
-                ),
-              ),
-        
-              const Padding(
-                padding: EdgeInsets.only(top: 60, left: 25, right: 15),
-                child: Text('What are you looking for?',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      wordSpacing: 1.9,
-                      color: Colors.black,
-                      fontFamily: 'Encode Sans',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 45,
-                    )),
-              ),
-              // use gridview to display 3 row and 3 column of contianer inside icons and text
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  children: [
-                    CustomGridItem(
-                        title: 'Veterinary',
-                        assetImagePath: 'assets/images/vet.png',
-                        onPressed: () {}),
-                    CustomGridItem(
-                        title: 'Grooming',
-                        assetImagePath: 'assets/images/grooming.png',
-                        onPressed: () {
-                          Get.to(const GroomingScreen());
+      home: Scaffold(
+        body: Column(
+          children: [
+            // add search icon on right side of appbar
+            Padding(
+              padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // add icon for search
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
 
-                        }),
-                    CustomGridItem(
-                        title: 'Pet boarding',
-                        assetImagePath: 'assets/images/petboarding.png',
-                        onPressed: () {
-                          Get.to(PetBoardingScreen());
-                        }),
-                    CustomGridItem(
-                        title: 'Adoption',
-                        assetImagePath: 'assets/images/petadoption.png',
-                        onPressed: () {}),
-                    CustomGridItem(
-                        title: 'Dog walking',
-                        assetImagePath: 'assets/images/dogwalking.png',
-                        onPressed: () {}),
-                    CustomGridItem(
-                        title: 'Pet training',
-                        assetImagePath: 'assets/images/pettraining.png',
-                        onPressed: () {}),
-                    CustomGridItem(
-                        title: 'Pet Taxi',
-                        assetImagePath: 'assets/images/pettaxi.png',
-                        onPressed: () {
-                          Get.to( PetTaxiScreen());
-                        }),
-                    CustomGridItem(
-                        title: 'Pet Date',
-                        assetImagePath: 'assets/images/petdate.png',
-                        onPressed: () {
-                          Get.to(PetDating());
-                        }),
-                    CustomGridItem(
-                        title: 'Other',
-                        assetImagePath: 'assets/images/other.png',
-                        onPressed: () {}),
-                  ],
-                ),
+                      Get.to(const NearVeterinaryScreen());
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.only(top: 70, left: 25, right: 15),
+              child: Text('What are you looking for?',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    wordSpacing: 1.9,
+                    color: Colors.black,
+                    fontFamily: 'Encode Sans',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 48,
+                  )),
+            ),
+            // use gridview to display 3 row and 3 column of contianer inside icons and text
+            Padding(
+              padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+              child: GridView.count(
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                children: [
+                  CustomGridItem(
+                      title: 'Veterinary',
+                      assetImagePath: 'assets/images/vet.png',
+                      onPressed: () {}),
+                  CustomGridItem(
+                      title: 'Grooming',
+                      assetImagePath: 'assets/images/grooming.png',
+                      onPressed: () {
+                        Get.to(const GroomingScreen());
+                      }),
+                  CustomGridItem(
+                      title: 'Pet boarding',
+                      assetImagePath: 'assets/images/petboarding.png',
+                      onPressed: () {
+                        // Get.to(PetBoardingScreen());
+                      }),
+                  CustomGridItem(
+                      title: 'Adoption',
+                      assetImagePath: 'assets/images/petadoption.png',
+                      onPressed: () {}),
+                  CustomGridItem(
+                      title: 'Dog walking',
+                      assetImagePath: 'assets/images/dogwalking.png',
+                      onPressed: () {}),
+                  CustomGridItem(
+                      title: 'Pet training',
+                      assetImagePath: 'assets/images/pettraining.png',
+                      onPressed: () {}),
+                  CustomGridItem(
+                      title: 'Pet Taxi',
+                      assetImagePath: 'assets/images/pettaxi.png',
+                      onPressed: () {
+                        Get.to( PetTaxiScreen());
+                      }),
+                  CustomGridItem(
+                      title: 'Pet Date',
+                      assetImagePath: 'assets/images/petdate.png',
+                      onPressed: () {
+                        Get.to(PetDating());
+                      }),
+                  CustomGridItem(
+                      title: 'Other',
+                      assetImagePath: 'assets/images/other.png',
+                      onPressed: () {}),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

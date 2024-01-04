@@ -193,26 +193,32 @@ class _LoginScreenState extends State<LoginScreen> {
 
             Padding(
               padding: const EdgeInsets.only(top: 680.0, left: 50),
-              child: RichText(
-                  text: const TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Already have an account? ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+              child: InkWell(
+                onTap: () {
+                  Get.to(() => const Login());
+                  ToastMessage().showSnackBar('Login with Email and password');
+                },
+                child: RichText(
+                    text: const TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Already have an account? ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: 'Login',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18,
+                        TextSpan(
+                          text: 'Login',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                ),
               ),
             ),
           ],
