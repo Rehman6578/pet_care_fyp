@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../WidgetCommon/Button.dart';
 import '../../../WidgetCommon/mainContainer.dart';
 import '../../../const/images.dart';
+import '../../Boarding_Temp.dart';
 import '../../SearchScreens/nearme_veterinary_screen.dart';
 import '../GroomingScreen.dart';
 import '../PetDatingScreen.dart';
@@ -182,7 +183,7 @@ class _home_nav extends State<home_nav> {
                       title: 'Pet boarding',
                       assetImagePath: 'assets/images/petboarding.png',
                       onPressed: () {
-                        // Get.to(PetBoardingScreen());
+                        Get.to(BoardingTempFile());
                       }),
                   CustomGridItem(
                       title: 'Adoption',
