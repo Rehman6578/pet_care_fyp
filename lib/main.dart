@@ -1,4 +1,3 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,8 +11,8 @@ import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/AddPetServices.dart'
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/BoardingSerivce.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/TrainingSerivce.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/VeterinaryService.dart';
-import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/profile.dart';
 import 'package:pet_care_fyp/views/OnboardingPages/onBoardingScreenWidget.dart';
+
 import 'package:pet_care_fyp/views/SearchScreens/nearme_veterinary_screen.dart';
 import 'package:pet_care_fyp/views/SearchScreens/veterinarydoctor_card_screen.dart';
 import 'package:pet_care_fyp/views/SplashScreen/SplashScreen.dart';
@@ -84,10 +83,10 @@ class MyApp extends StatelessWidget {
           name: '/PetDatingScreen',
           page: () => PetDating(),
         ),
-        // GetPage(
-        //   name: '/PetBoarding',
-        //   // page: () => PetBoardingScreen(),
-        // ),
+        GetPage(
+          name: '/PetBoarding',
+          page: () => PetBoardingScreen(),
+        ),
         GetPage(
           name: '/AddPetServices',
           page: () => const AddPetServices(),

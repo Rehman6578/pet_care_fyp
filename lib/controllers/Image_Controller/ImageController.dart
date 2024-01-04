@@ -23,6 +23,7 @@ class ImagePickerController extends GetxController{
 
 
 
+
   Future<Uint8List?> getMyImage(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);

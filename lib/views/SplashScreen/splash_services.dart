@@ -15,11 +15,12 @@ class SplashServices {
     if (user != null) {
       Timer(const Duration(seconds: 3), () {
         Get.toNamed('/Dashboard');
+
+        Get.clearRouteTree();
+
       });
     } else {
-      Timer(const Duration(seconds: 3), () {
-        Get.toNamed('/LoginScreen');
-      });
+      Get.toNamed('/onboardingScreens');
     }
 
   }
