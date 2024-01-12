@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/WidgetCommon/GroomingContainer.dart';
@@ -13,8 +14,9 @@ class GroomingScreen extends StatefulWidget {
 
 class _GroomingScreenState extends State<GroomingScreen> {
   String? uid = FirebaseAuth.instance.currentUser!.uid;
-  final ref =
-      FirebaseDatabase.instance.ref('services').child('GroomingService');
+  final ref = FirebaseDatabase.instance.ref('services').child('GroomingService');
+
+  // C:\Users\ABDUL REHMAN\.android\debug.keystore keytool -list -v -keystore /path/to/debug.keystore -alias androiddebugkey -storepass android -keypass android
 
   @override
   Widget build(BuildContext context) {
@@ -91,45 +93,28 @@ class _GroomingScreenState extends State<GroomingScreen> {
                 height: 20,
               ),
               Expanded(
-                child: StreamBuilder<DatabaseEvent>(
-                  stream: ref.onValue,
-                  builder: (context, AsyncSnapshot<DatabaseEvent>snapshot) {
-                    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-                    print(snapshot.data.toString());
-                    if (!snapshot.hasData) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else {
-                      DataSnapshot dataSnapshot = snapshot.data!.snapshot;
-                      List<dynamic> dataList = [];
+                child: FirebaseAnimatedList(
+                    query: ref,
+                    itemBuilder: (context, snapshot, animation, index) {
+                      print('===============================================================');
+                      print(snapshot.value.toString());
+                      if(snapshot.value == null){
+                        return const Center(child: CircularProgressIndicator(),);
+                      }
+                      else{
 
-                      // Extract data from snapshot
-                      if (dataSnapshot.value != null) {
-                        dynamic snapshotValue = dataSnapshot.value; // Create a local variable
-                        dataList = snapshotValue.values.toList();
+                        return GroomingContainer(
+                          doctorName: snapshot.child('name').toString(),
+                          doctorAddress: snapshot.child('address').child('city').toString(),
+                          doctorFee: snapshot.child('price').toString(),
+                          doctorImage: Image.network(snapshot.child('profileImage').toString()),
+                          doctorlocation: snapshot.child('preferredLocation').toString(),
+                          doctorSpeciality: snapshot.child('name').toString(),
+
+                        );
                       }
 
-                      return ListView.builder(
-                        itemCount: dataList.length,
-                        itemBuilder: (context, index) {
-                          final data = dataList[index];
-
-                          print('===================================================================');
-                          print(data.toString());
-                          // ... build your list item using the data
-                          return GroomingContainer(
-                            doctorName: data[index]['name'],
-                            doctorAddress: data[index]['address']['city'],
-                            doctorFee: data[index]['price'],
-                            doctorImage: data[index]['profileImage'],
-                            doctorlocation: data[index]['preferredLocation'],
-                            doctorRatings: data[index]['price'],
-                            doctorSpeciality: data[index]['name'],
-                          );
-                           // Example using name field
-                        },
-                      );
                     }
-                  },
                 ),
               )
 

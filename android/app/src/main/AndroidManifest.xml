@@ -41,6 +41,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCPGGTzDcSDX77pcz00YnnpbHkoJTND3P0"/>
 
+<!--        <meta-data-->
+<!--            android:name="firebase_app_check_token"-->
+<!--            android:value="{$app_check_token_provider_factory}" />-->
 
     </application>
 </manifest>

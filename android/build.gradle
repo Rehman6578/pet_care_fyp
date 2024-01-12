@@ -29,3 +29,8 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+dependencies{
+//    implementation 'com.google.firebase:firebase-appcheck-playintegrity:17.0.0'
+
+}
