@@ -7,13 +7,11 @@ import '../../controllers/views_Controllers/OnboardingController.dart';
 class OnboardingScreen extends StatelessWidget {
   final OnboardingController controller = Get.put(OnboardingController());
 
-   OnboardingScreen({super.key});
+  OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    return 
-      Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
@@ -44,8 +42,8 @@ class OnboardingScreen extends StatelessWidget {
               left: 20.0,
               right: 20.0,
               child: Center(
-                child: Obx(()=>
-                   RoundedButton(
+                child: Obx(
+                  () => RoundedButton(
                       text: 'Next',
                       press: () {
                         controller.nextPage();
@@ -53,7 +51,7 @@ class OnboardingScreen extends StatelessWidget {
                       color: Colors.blueAccent,
                       textColor: Colors.white,
                       width: 280,
-                  height: 70,),
+                      height: 70),
                 ),
               ),
             ),

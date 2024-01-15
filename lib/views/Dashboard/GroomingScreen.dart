@@ -93,32 +93,36 @@ class _GroomingScreenState extends State<GroomingScreen> {
                 height: 20,
               ),
               Expanded(
-                child: FirebaseAnimatedList(
-                    query: ref,
-                    itemBuilder: (context, snapshot, animation, index) {
-                      print('===============================================================');
-                      print(snapshot.value.toString());
-                      if(snapshot.value == null){
-                        return const Center(child: CircularProgressIndicator(),);
-                      }
-                      else{
-
-                        return GroomingContainer(
-                          doctorName: snapshot.child('name').toString(),
-                          doctorAddress: snapshot.child('address').child('city').toString(),
-                          doctorFee: snapshot.child('price').toString(),
-                          doctorImage: Image.network(snapshot.child('profileImage').toString()),
-                          doctorlocation: snapshot.child('preferredLocation').toString(),
-                          doctorSpeciality: snapshot.child('name').toString(),
-
-                        );
-                      }
-
+                child: StreamBuilder(
+                  stream: ref.onValue,
+                  builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      Map<dynamic, dynamic> map =
+                          snapshot.data!.snapshot.value as dynamic;
+                      List<dynamic> list = [];
+                      list.clear();
+                      list = map.values.toList();
+                      return ListView.builder(
+                        itemCount: snapshot.data!.snapshot.children.length,
+                        itemBuilder: (context, index) {
+                          return GroomingContainer(
+                            doctorName: list[index]['name'],
+                            doctorAddress: list[index]['address']['city'],
+                            doctorFee: list[index]['price'],
+                            doctorImage: list[index]['profileImage'],
+                            doctorlocation: list[index]['preferredLocation'],
+                            doctorSpeciality: list[index]['name'],
+                          );
+                        },
+                      );
                     }
+                  },
                 ),
               )
-
-
             ],
           ),
         ),
@@ -126,34 +130,3 @@ class _GroomingScreenState extends State<GroomingScreen> {
     );
   }
 }
-// Expanded(
-// child: StreamBuilder(
-// stream: ref.onValue,
-// builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-// if(!snapshot.hasData){
-// return const Center(child: CircularProgressIndicator(),);
-// }
-// else{
-// Map<dynamic, dynamic> map = snapshot.data!.snapshot.value as dynamic;
-// List<dynamic> list = [];
-// list.clear();
-// list= map.values.toList();
-// return ListView.builder(
-// itemCount: snapshot.data!.snapshot.children.length,
-// itemBuilder: (context, index) {
-// return GroomingContainer(
-// doctorName: list[index]['name'],
-// doctorAddress: list[index]['address']['city'],
-// doctorFee: list[index]['price'],
-// doctorImage: list[index]['profileImage'],
-// doctorlocation: list[index]['preferredLocation'],
-// doctorRatings: list[index]['price'],
-// doctorSpeciality: list[index]['name'],
-// );
-// },
-// );
-// }
-//
-// },
-// ),
-// )
