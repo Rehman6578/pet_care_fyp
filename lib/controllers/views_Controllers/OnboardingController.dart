@@ -15,7 +15,8 @@ class OnboardingController extends GetxController {
       // Add your onboarding slides here
       OnboardingSlide(
         title: "Welcome to Pet Care",
-        description: "All types of services for your pet in one \n place, instantly searchable",
+        description:
+            "All types of services for your pet in one \n place, instantly searchable",
         imageAssetPath: onboardingImage1,
       ),
       OnboardingSlide(
@@ -25,7 +26,8 @@ class OnboardingController extends GetxController {
       ),
       OnboardingSlide(
         title: "Reliable reviews",
-        description: "A review can be left only by a user \n who used the service.",
+        description:
+            "A review can be left only by a user \n who used the service.",
         imageAssetPath: onboardingImage3,
       ),
     ];
@@ -35,17 +37,7 @@ class OnboardingController extends GetxController {
     if (currentPage.value < slides.length - 1) {
       currentPage.value++;
     }
-
-    // if (currentPage.value < slides.length - 1) {
-    //   currentPage.value++;
-    //   // Update the PageView using PageController
-    //   Get.find<PageController>().animateToPage(
-    //     currentPage.value,
-    //     duration: const Duration(milliseconds: 300),
-    //     curve: Curves.easeIn,
-    //   );
-    }
-
+  }
 
   void skipToLogin() {
     // Navigate to the login screen

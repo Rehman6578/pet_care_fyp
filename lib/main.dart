@@ -44,10 +44,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/Dashboard',
       getPages: [
-        GetPage(
-          name: '/onboardingScreens',
-          page: () => OnboardingScreen(),
-        ),
+        GetPage(name: '/onboardingScreens', page: () => OnboardingScreen()),
         GetPage(name: '/SplashScreen', page: () => const SplashScreen()),
         GetPage(name: '/Dashboard', page: () => const Dashboard()),
         GetPage(name: '/LoginScreen', page: () => const LoginScreen()),

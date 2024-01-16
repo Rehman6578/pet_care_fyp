@@ -58,7 +58,7 @@ class _GroomingContainerState extends State<GroomingContainer> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: widget.doctorImage.image,
+                    image: NetworkImage(widget.doctorImage.toString()),
                     fit: BoxFit.cover,
                   ),
                 ),
