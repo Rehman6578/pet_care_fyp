@@ -8,6 +8,7 @@ import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
 import '../../../../controllers/Image_Controller/ImageController.dart';
+import '../../../GoogleMap/AddLocationScreen.dart';
 
 class AddAdoptioniService extends StatefulWidget {
   const AddAdoptioniService({super.key});
@@ -43,8 +44,9 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
   final bool _goodWithOtherPets = false;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance.collection('users');
+  // final _firestore = FirebaseFirestore.instance.collection('users');
   final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -556,7 +558,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
                     setState(() {
                       _loading = true;
                     });
-                    // addAdoptionServices();
+                    addAdoptionServices();
                   }
                 },
                 color: Colors.lightBlue,
@@ -592,7 +594,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
     }
 
     // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-    String uid = _auth.currentUser!.uid;
+    String? uid = _auth.currentUser?.uid;
 
     _storage
         .ref()
@@ -658,10 +660,17 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
     _DiscriptionsController.clear();
 
     // add data to firebase
-    _firestore.doc(uid).collection('petTaxiServices').add(data).then((value) {
-      setState(() {
-        _loading = false;
-      });
+    _firestore
+        .collection('Services')
+        .doc('userId')
+        .collection('AdoptionServices')
+        .doc(uid).set(data).then((value) => {
+      Get.snackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+          'Success',
+          'Adoption Service Added Successfully'),
+      Get.to(const AddLocation()),
     }).catchError((error) {
       setState(() {
         _loading = false;

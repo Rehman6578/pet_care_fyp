@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/SplashScreen',
+      initialRoute: '/Dashboard',
       getPages: [
         GetPage(
           name: '/onboardingScreens',

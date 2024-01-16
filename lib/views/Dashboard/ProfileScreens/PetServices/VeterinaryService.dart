@@ -45,7 +45,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  // final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   final formkey = GlobalKey<FormState>();
   bool _loading = false;
@@ -717,7 +717,7 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     prefs.setString('key', '1');
 
     // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-    String uid = _auth.currentUser!.uid;
+    String? uid = _auth.currentUser?.uid;
 
     _storage
         .ref()
@@ -782,12 +782,15 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
 
 
     // add all the data in firebase database in services node and veterinary node by its user id
-    _database
-        .reference()
-        .child('services')
-        .child('veterinary')
-        .child(uid)
-        .set(data);
+
+    await
+    _firestore
+        .collection('Services')
+        .doc('userId')
+        .collection('Veterinary')
+        .doc(uid).set(data);
 
   }
 }
+
+// FirebaseFirestore.instance.collection('Services').doc('userId').collection('Boarding')

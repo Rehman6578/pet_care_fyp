@@ -33,8 +33,8 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
-
+  // final FirebaseDatabase _database = FirebaseDatabase.instance;
+ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 
   final _formKey = GlobalKey<FormState>();
@@ -570,7 +570,7 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '5');
 
-    String uid = _auth.currentUser!.uid;
+    String? uid = _auth.currentUser?.uid;
 
     // add images to firebase storage
     _storage
@@ -631,12 +631,11 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
     };
 
     // add data to firebase database
-    _database
-        .reference()
-        .child('services')
-        .child('WalkingSerivce')
-        .child(uid)
-        .set(map)
+    _firestore
+        .collection('Services')
+        .doc('userId')
+        .collection('PetWalking')
+        .doc(uid).set(map)
         .then((value) {
       setState(() {
         _loading = false;

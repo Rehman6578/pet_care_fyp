@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -35,7 +36,8 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  // final FirebaseDatabase _database = FirebaseDatabase.instance;
+ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String? selectedYear;
   String? selectedTrainingpets;
@@ -652,7 +654,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '6');
 
-    String uid= _auth.currentUser!.uid;
+    String? uid= _auth.currentUser?.uid;
 
     _storage
         .ref()
@@ -712,12 +714,12 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
       'petType': petType,
     };
 
-    _database
-        .reference()
-        .child('services')
-        .child('TrainingSerivce')
-        .child(uid)
-        .set(map)
+    await
+    _firestore
+        .collection('Services')
+        .doc('userId')
+        .collection('Veterinary')
+        .doc(uid).set(map)
         .then((value) {
       setState(() {
         _isloading = false;

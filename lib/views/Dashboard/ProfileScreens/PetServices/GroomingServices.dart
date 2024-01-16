@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -36,8 +37,8 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
-
+  // final FirebaseDatabase _database = FirebaseDatabase.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? selectedOption;
 
   String? profileImg;
@@ -685,7 +686,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     }
 
     // get user id
-    String uid = _auth.currentUser!.uid;
+    String? uid = _auth.currentUser?.uid;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '2');
@@ -752,27 +753,11 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     };
 
     // add data in firebase database
-    _database
-        .reference()
-        .child('services')
-        .child('GroomingSerivce')
-        .child(uid)
-        .set(map)
-        .then((value) {
-      setState(() {
-        _loading = false;
-      });
-      Get.snackbar(
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 3),
-          'Success',
-          'Grooming Service Added Successfully');
-      Get.to(const AddLocation());
-    }).catchError((error) {
-      setState(() {
-        _loading = false;
-      });
-      Get.snackbar('Error', error.toString());
-    });
+    await
+    _firestore
+        .collection('Services')
+        .doc('userId')
+        .collection('GroomingServices')
+        .doc(uid).set(map);
   }
 }

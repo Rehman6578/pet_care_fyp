@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,8 +34,7 @@ bool _loading = false;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseStorage _storage = FirebaseStorage.instance;
-FirebaseDatabase _database = FirebaseDatabase.instance;
-
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 String? selectedPets;
 String? selectedWalkingServic;
@@ -673,7 +673,7 @@ class _BoardingServiceState extends State<BoardingService> {
 
     // send images to firebase storage
 
-    String uid = _auth.currentUser!.uid;
+    String? uid = _auth.currentUser?.uid;
 
 
     // upload profile image
@@ -736,22 +736,17 @@ class _BoardingServiceState extends State<BoardingService> {
     };
 
     // store data in firebase database
-    _database
-        .reference()
-        .child('services')
-        .child('BoardingService')
-        .child(uid)
-        .set(map)
-        .then((value) {
-      setState(() {
-        _loading = false;
-      });
+    _firestore
+        .collection('Services')
+        .doc('userId')
+        .collection('BoardingService')
+        .doc(uid).set(map).then((value) => {
       Get.snackbar(
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(seconds: 3),
           'Success',
-          'Boarding Service Added Successfully');
-      Get.to(const AddLocation());
+          'Boarding Service Added Successfully'),
+      Get.to(const AddLocation()),
     }).catchError((error) {
       setState(() {
         _loading = false;

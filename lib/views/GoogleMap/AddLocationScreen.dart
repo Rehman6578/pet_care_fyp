@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/AddPetServices.dart';
+import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/BoardingSerivce.dart';
+import 'package:pet_care_fyp/views/Dashboard/ProfileScreens/PetServices/GroomingServices.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +32,8 @@ class _AddLocationState extends State<AddLocation> {
   TextEditingController state_Controller = TextEditingController();
   TextEditingController postalcode_Controller = TextEditingController();
 
-  final DatabaseReference _database = FirebaseDatabase.instance.reference().child('services');
+  // final DatabaseReference _database = FirebaseDatabase.instance.reference().child('services');
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   String? latitud;
@@ -455,7 +459,7 @@ class _AddLocationState extends State<AddLocation> {
                       'longitud': longitud,
                     };
 
-                    String uid = _auth.currentUser!.uid;
+                    String? uid = _auth.currentUser?.uid;
 
                     // get the key value from shared preferences
                     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -467,13 +471,10 @@ class _AddLocationState extends State<AddLocation> {
 
                     switch (key) {
                       case '1':
-                        _database
-                            .child('veterinary')
-                            .child(uid)
-                            .child('address')
-                            .set(addressData);
+                        _firestore
+                            .collection('Services')
+                            .doc('userId').collection('Veterinary').doc(uid).set(addressData);
                         setState(() {
-                          // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
                           Get.offAll(const AddPetServices());
@@ -481,62 +482,54 @@ class _AddLocationState extends State<AddLocation> {
 
                         break;
                       case '2':
-                        _database
-                            .child('GroomingSerivce')
-                            .child(uid)
-                            .child('address')
-                            .set(addressData);
-                        setState(() {
-                          // show snackbar for success
-                          Get.snackbar(
-                              'Success', 'Location Added Successfully');
-                          Get.offAll(const AddPetServices());
-                        });
+                      _firestore
+                          .collection('Services')
+                          .doc('userId').collection('GroomingServices').doc(uid).set(addressData);
+                      setState(() {
+                        Get.snackbar(
+                            'Success', 'Location Added Successfully');
+                        Get.offAll(const AddPetServices());
+                      });
                         break;
                       case '3':
-                        _database
-                            .child('BoardingService')
-                            .child(uid)
-                            .child('address')
-                            .set(addressData);
+                        _firestore
+                            .collection('Services')
+                            .doc('userId').collection('BoardingService').doc(uid).set(addressData);
                         setState(() {
-                          // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
                           Get.offAll(const AddPetServices());
                         });
                         break;
                       case '4':
-                        _database
-                            .child('petAdoption')
-                            .child(uid)
-                            .child('address')
-                            .set(addressData);
-                        setState(() {
-                          // show snackbar for success
-                          Get.snackbar(
-                              'Success', 'Location Added Successfully');
-                          Get.offAll(const AddPetServices());
-                        });
+                      _firestore
+                          .collection('Services')
+                          .doc('userId').collection('AdoptionServices').doc(uid).set(addressData);
+                      setState(() {
+                        Get.snackbar(
+                            'Success', 'Location Added Successfully');
+                        Get.offAll(const AddPetServices());
+                      });
                         break;
                         case '5':
-                        _database
-                            .child('WalkingSerivce')
-                            .child(uid)
-                            .child('address')
-                            .set(addressData);
-                        setState(() {
-                          // show snackbar for success
-                          Get.snackbar(
-                              'Success', 'Location Added Successfully');
-                          Get.offAll(const AddPetServices());
-                        });
+                          _firestore
+                              .collection('Services')
+                              .doc('userId').collection('PetWalking').doc(uid).set(addressData);
+                          setState(() {
+                            Get.snackbar(
+                                'Success', 'Location Added Successfully');
+                            Get.offAll(const AddPetServices());
+                          });
                         break;
                         case '6':
-                        _database
-                            .child('TrainingSerivce')
-                            .child(uid)
-                            .child('address')
+                        // _database
+                        //     .child('TrainingSerivce')
+                        //     .child(uid)
+                        //     .child('address')
+                        //     .set(addressData);
+                        _firestore
+                            .collection('TrainingSerivce')
+                            .doc(uid)
                             .set(addressData);
                         setState(() {
                           // show snackbar for success
@@ -546,10 +539,14 @@ class _AddLocationState extends State<AddLocation> {
                         });
                         break;
                         case '7':
-                        _database
-                            .child('TaxiSerivce')
-                            .child(uid)
-                            .child('address')
+                        // _database
+                        //     .child('TaxiSerivce')
+                        //     .child(uid)
+                        //     .child('address')
+                        //     .set(addressData);
+                        _firestore
+                            .collection('TaxiSerivce')
+                            .doc(uid)
                             .set(addressData);
                         setState(() {
                           // show snackbar for success
@@ -559,10 +556,14 @@ class _AddLocationState extends State<AddLocation> {
                         });
                         break;
                         case '8':
-                        _database
-                            .child('petDating')
-                            .child(uid)
-                            .child('address')
+                        // _database
+                        //     .child('petDating')
+                        //     .child(uid)
+                        //     .child('address')
+                        //     .set(addressData);
+                        _firestore
+                            .collection('petDating')
+                            .doc(uid)
                             .set(addressData);
                         setState(() {
                           // show snackbar for success
