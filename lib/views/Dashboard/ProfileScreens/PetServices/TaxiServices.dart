@@ -41,9 +41,8 @@ class _AddTaxiServiceState extends State<AddTaxiService> {
 
   String? profileImg, img1, img2, img3;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance.collection('users');
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  FirebaseDatabase _database = FirebaseDatabase.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -571,7 +570,7 @@ class _AddTaxiServiceState extends State<AddTaxiService> {
     prefs.setString('key', '7');
 
     // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-    String uid = _auth.currentUser!.uid;
+    String? uid = _auth.currentUser?.uid;
 
     _storage
         .ref()
@@ -640,12 +639,12 @@ class _AddTaxiServiceState extends State<AddTaxiService> {
     _DiscriptionsController.clear();
 
     // add data to firebase
-    _database
-        .reference()
-        .child('services')
-        .child('TaxiSerivce')
-        .child(uid)
-        .set(data)
+    await
+    _firestore
+        .collection('Services')
+        .doc('userId')
+        .collection('TaxiServices')
+        .doc(uid).set(data)
         .then((value) {
       setState(() {
         _loading = false;

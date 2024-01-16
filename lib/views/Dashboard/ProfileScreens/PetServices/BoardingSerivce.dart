@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,9 +22,9 @@ class BoardingService extends StatefulWidget {
 ImagePickerController imagePickerController = Get.put(ImagePickerController());
 MultiSelectionController petController = Get.put(MultiSelectionController());
 
-TextEditingController namecontroller = TextEditingController();
-TextEditingController descriptioncontroller = TextEditingController();
-TextEditingController pricecontroller = TextEditingController();
+final TextEditingController _nameController = TextEditingController();
+final TextEditingController _descriptionController = TextEditingController();
+final TextEditingController _priceController = TextEditingController();
 
 
 
@@ -34,7 +33,7 @@ bool _loading = false;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseStorage _storage = FirebaseStorage.instance;
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
 String? selectedPets;
 String? selectedWalkingServic;
@@ -305,7 +304,7 @@ class _BoardingServiceState extends State<BoardingService> {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: TextFormField(
-                      controller: namecontroller,
+                      controller: _nameController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter service name';
@@ -340,7 +339,7 @@ class _BoardingServiceState extends State<BoardingService> {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: TextFormField(
-                      controller: descriptioncontroller,
+                      controller: _descriptionController,
                       maxLines: 5,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -600,7 +599,7 @@ class _BoardingServiceState extends State<BoardingService> {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: TextFormField(
-                      controller: pricecontroller,
+                      controller: _priceController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter price per night';
@@ -655,17 +654,17 @@ class _BoardingServiceState extends State<BoardingService> {
   Future<void> AddBoardingService() async {
 
     //create variable for store data
-    String servicename= namecontroller.text;
-    String servicedescription= descriptioncontroller.text;
-    String price= pricecontroller.text;
-    String pettransport= selectedOption.toString();
-    String petwalking= selectedWalkingServic.toString();
-    String pethome= selectedHome.toString();
-    String petnumber= selectedPets.toString();
+    String serviceName= _nameController.text;
+    String serviceDescription= _descriptionController.text;
+    String price= _priceController.text;
+    String petTransport= selectedOption.toString();
+    String petWalking= selectedWalkingServic.toString();
+    String petHome= selectedHome.toString();
+    String petNumber= selectedPets.toString();
 
     // create lists variabels for store data
-    List<String> pettype= petController.selectedPetTypes.value;
-    List<String> petsize= petController.selectedPetSize1.value;
+    List<String> petType= petController.selectedPetTypes.value;
+    List<String> petSize= petController.selectedPetSize1.value;
 
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -720,23 +719,27 @@ class _BoardingServiceState extends State<BoardingService> {
 
     // store all the data in map
     Map<String, dynamic> map = {
-      'servicename': servicename,
-      'servicedescription': servicedescription,
+      'serviceName': serviceName,
+      'serviceDescription': serviceDescription,
       'price': price,
-      'pettransport': pettransport,
-      'petwalking': petwalking,
-      'pethome': pethome,
-      'petnumber': petnumber,
-      'pettype': pettype,
-      'petsize': petsize,
+      'petTransport': petTransport,
+      'petWalking': petWalking,
+      'petHome': petHome,
+      'petNumber': petNumber,
+      'petType': petType,
+      'petSize': petSize,
       'profileImg': profileImg,
       'img1': img1,
       'img2': img2,
       'img3': img3,
     };
 
+    _nameController.clear();
+    _descriptionController.clear();
+    _priceController.clear();
+
     // store data in firebase database
-    _firestore
+    _fireStore
         .collection('Services')
         .doc('userId')
         .collection('BoardingService')

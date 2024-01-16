@@ -29,7 +29,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
   final TextEditingController _nameServicesController = TextEditingController();
   final TextEditingController _listingSummaryController =
       TextEditingController();
-  final TextEditingController _DiscriptionsController = TextEditingController();
+  final TextEditingController _descriptionsController = TextEditingController();
   final TextEditingController _preferredLocationController =
       TextEditingController();
   final TextEditingController _priceController = TextEditingController();
@@ -39,14 +39,13 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
 
   String? profileImg, img1, img2, img3;
 
-  bool _housetrained = false;
+  bool _houseTrained = false;
   final bool _goodWithChildren = false;
   final bool _goodWithOtherPets = false;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  // final _firestore = FirebaseFirestore.instance.collection('users');
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -450,11 +449,11 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
               Row(
                 children: [
                   Checkbox(
-                    value: _housetrained,
+                    value: _houseTrained,
                     onChanged: (value) =>
-                        setState(() => _housetrained = value!),
+                        setState(() => _houseTrained = value!),
                   ),
-                  const Text('Housetrained'),
+                  const Text('HouseTrained'),
                 ],
               ),
 
@@ -533,7 +532,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    controller: _DiscriptionsController,
+                    controller: _descriptionsController,
                     validator: (value) {
                       return value!.isEmpty ? 'Enter Description' : null;
                     },
@@ -584,7 +583,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
     List<String> petSize = petController.selectedPetSize1;
     String preferredLocation = _preferredLocationController.text;
     String price = _priceController.text;
-    String description = _DiscriptionsController.text;
+    String description = _descriptionsController.text;
 
     if (_formKey.currentState!.validate()) {
       setState(() {
@@ -657,10 +656,10 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
     _listingSummaryController.clear();
     _preferredLocationController.clear();
     _priceController.clear();
-    _DiscriptionsController.clear();
+    _descriptionsController.clear();
 
     // add data to firebase
-    _firestore
+    _fireStore
         .collection('Services')
         .doc('userId')
         .collection('AdoptionServices')

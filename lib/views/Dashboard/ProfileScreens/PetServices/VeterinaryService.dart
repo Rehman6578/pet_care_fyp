@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -779,6 +778,15 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
       'img2': img2,
       'img3': img3,
     };
+
+    _doctorNameController.clear();
+    _experienceController.clear();
+    _specializationController.clear();
+    _personalInfoController.clear();
+    _educationController.clear();
+    _offeredServicesController.clear();
+    _priceController.clear();
+
 
 
     // add all the data in firebase database in services node and veterinary node by its user id

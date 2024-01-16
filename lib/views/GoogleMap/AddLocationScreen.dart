@@ -522,51 +522,30 @@ class _AddLocationState extends State<AddLocation> {
                           });
                         break;
                         case '6':
-                        // _database
-                        //     .child('TrainingSerivce')
-                        //     .child(uid)
-                        //     .child('address')
-                        //     .set(addressData);
                         _firestore
-                            .collection('TrainingSerivce')
-                            .doc(uid)
-                            .set(addressData);
+                            .collection('Services')
+                            .doc('userId').collection('TrainingSerivce').doc(uid).set(addressData);
                         setState(() {
-                          // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
                           Get.offAll(const AddPetServices());
                         });
                         break;
                         case '7':
-                        // _database
-                        //     .child('TaxiSerivce')
-                        //     .child(uid)
-                        //     .child('address')
-                        //     .set(addressData);
                         _firestore
-                            .collection('TaxiSerivce')
-                            .doc(uid)
-                            .set(addressData);
+                            .collection('Services')
+                            .doc('userId').collection('TaxiServices').doc(uid).set(addressData);
                         setState(() {
-                          // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
                           Get.offAll(const AddPetServices());
                         });
                         break;
                         case '8':
-                        // _database
-                        //     .child('petDating')
-                        //     .child(uid)
-                        //     .child('address')
-                        //     .set(addressData);
                         _firestore
-                            .collection('petDating')
-                            .doc(uid)
-                            .set(addressData);
+                            .collection('Services')
+                            .doc('userId').collection('petDating').doc(uid).set(addressData);
                         setState(() {
-                          // show snackbar for success
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
                           Get.offAll(const AddPetServices());

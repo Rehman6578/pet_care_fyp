@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -629,6 +628,13 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
       'img3': img3,
       'uid': uid,
     };
+
+    _nameServicesController.clear();
+    _listingSummaryController.clear();
+    _preferredLocationController.clear();
+    _priceController.clear();
+    _discriptionsController.clear();
+
 
     // add data to firebase database
     _firestore

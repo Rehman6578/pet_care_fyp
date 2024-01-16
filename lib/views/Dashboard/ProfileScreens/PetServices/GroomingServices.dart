@@ -22,22 +22,19 @@ class AddGroomingService extends StatefulWidget {
 class _AddGroomingServiceState extends State<AddGroomingService> {
   final _formKey = GlobalKey<FormState>();
 
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
+  ImagePickerController imagePickerController = Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
+
   final TextEditingController _nameServicesController = TextEditingController();
-  final TextEditingController _listingSummaryController =
-      TextEditingController();
+  final TextEditingController _listingSummaryController = TextEditingController();
   final TextEditingController _DiscriptionsController = TextEditingController();
-  final TextEditingController _preferredLocationController =
-      TextEditingController();
+  final TextEditingController _preferredLocationController = TextEditingController();
   final TextEditingController _SpapriceController = TextEditingController();
   final TextEditingController _BasicpriceController = TextEditingController();
   final TextEditingController _FullpriceController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  // final FirebaseDatabase _database = FirebaseDatabase.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? selectedOption;
 
@@ -751,6 +748,14 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
       'image2': img2,
       'image3': img3,
     };
+
+    _nameServicesController.clear();
+    _listingSummaryController.clear();
+    _preferredLocationController.clear();
+    _SpapriceController.clear();
+    _BasicpriceController.clear();
+    _FullpriceController.clear();
+    _DiscriptionsController.clear();
 
     // add data in firebase database
     await

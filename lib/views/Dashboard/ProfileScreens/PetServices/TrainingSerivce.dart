@@ -24,8 +24,7 @@ class TrainingSerivce extends StatefulWidget {
 class _TrainingSerivceState extends State<TrainingSerivce> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _serviceTitleController = TextEditingController();
-  final TextEditingController _serviceDescriptionController =
-      TextEditingController();
+  final TextEditingController _serviceDescriptionController = TextEditingController();
   final TextEditingController _resultExpectController = TextEditingController();
 
   MultiSelectionController petController = Get.put(MultiSelectionController());
@@ -36,7 +35,6 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  // final FirebaseDatabase _database = FirebaseDatabase.instance;
  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String? selectedYear;
@@ -713,6 +711,13 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
       'trainingClasses': trainingClasses,
       'petType': petType,
     };
+
+    _priceController.clear();
+    _serviceTitleController.clear();
+    _serviceDescriptionController.clear();
+    _resultExpectController.clear();
+
+
 
     await
     _firestore
