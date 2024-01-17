@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -716,7 +717,15 @@ class _AddVeterinaryServiceState extends State<AddVeterinaryService> {
     prefs.setString('key', '1');
 
     // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-    String? uid = _auth.currentUser?.uid;
+    // String? uid = _auth.currentUser?.uid;
+
+
+    //  generate random number upto 1999999999
+    String uid = Random().nextInt(1999999999).toString();
+
+    // store Uid in shared preferences
+    prefs.setString('uid', uid);
+
 
     _storage
         .ref()

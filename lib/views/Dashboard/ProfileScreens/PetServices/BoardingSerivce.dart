@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -672,8 +673,9 @@ class _BoardingServiceState extends State<BoardingService> {
 
     // send images to firebase storage
 
-    String? uid = _auth.currentUser?.uid;
-
+    String uid = Random().nextInt(1999999999).toString();
+    // store Uid in shared preferences
+    prefs.setString('uid', uid);
 
     // upload profile image
     _storage

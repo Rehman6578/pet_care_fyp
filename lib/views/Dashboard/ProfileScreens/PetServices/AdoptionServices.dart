@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../controllers/Image_Controller/ImageController.dart';
 import '../../../GoogleMap/AddLocationScreen.dart';
 
@@ -575,7 +577,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
 
   // Add Adoption Service Function
 
-  void addAdoptionServices() {
+  void addAdoptionServices() async {
     String nameServices = _nameServicesController.text;
     String listingSummary = _listingSummaryController.text;
     List<String> petVisit = petController.selectPetVisit;
@@ -592,8 +594,13 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
       });
     }
 
-    // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-    String? uid = _auth.currentUser?.uid;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('key', '4');
+
+    String uid = Random().nextInt(1999999999).toString();
+
+    // store Uid in shared preferences
+    prefs.setString('uid', uid);
 
     _storage
         .ref()

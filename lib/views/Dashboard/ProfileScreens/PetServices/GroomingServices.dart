@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -683,10 +684,14 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     }
 
     // get user id
-    String? uid = _auth.currentUser?.uid;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '2');
+
+    String uid = Random().nextInt(1999999999).toString();
+
+    // store Uid in shared preferences
+    prefs.setString('uid', uid);
 
     // store images in firebase storage
     _storage

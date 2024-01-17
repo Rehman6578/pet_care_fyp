@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pet_care_fyp/dummy.dart';
 import '../../../WidgetCommon/Button.dart';
 import '../../../WidgetCommon/mainContainer.dart';
 import '../../../const/images.dart';
@@ -178,7 +179,7 @@ class _home_nav extends State<home_nav> {
                       title: 'Grooming',
                       assetImagePath: 'assets/images/grooming.png',
                       onPressed: () {
-                        Get.to(const GroomingScreen());
+                        Get.to(const FeedScreen());
                       }),
                   CustomGridItem(
                       title: 'Pet boarding',

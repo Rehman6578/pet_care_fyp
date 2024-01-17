@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -569,7 +570,10 @@ class _AddPetWalkingServiceState extends State<AddPetWalkingService> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '5');
 
-    String? uid = _auth.currentUser?.uid;
+    String uid = Random().nextInt(1999999999).toString();
+    // store Uid in shared preferences
+    prefs.setString('uid', uid);
+
 
     // add images to firebase storage
     _storage

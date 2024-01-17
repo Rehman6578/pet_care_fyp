@@ -20,6 +20,8 @@ import 'package:pet_care_fyp/views/SplashScreen/SplashScreen.dart';
 import 'package:pet_care_fyp/views/auth_screens/LoginScreen.dart';
 import 'package:pet_care_fyp/views/auth_screens/RegisterScreen.dart';
 
+import 'dummy.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -60,6 +62,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/TrainingService', page: () => const TrainingSerivce()),
         GetPage(name: '/BoardingService', page: () => const BoardingService()),
         GetPage(name: '/AddLocation', page: () => const AddLocation()),
+        GetPage(name: '/Feedpage', page: ()=> const FeedScreen()),
       ],
     );
   }
