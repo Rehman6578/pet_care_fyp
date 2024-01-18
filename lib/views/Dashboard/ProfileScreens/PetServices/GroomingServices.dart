@@ -631,9 +631,15 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
                         setState(() {
                           _loading = true;
                         });
-                        addGroomingService();
+
                       }
+                      addGroomingService();
+                      setState(() {
+                        _loading = false;
+                      });
+                      Get.to(AddLocation());
                     },
+
                     color: Colors.lightBlue,
                     textColor: Colors.white,
                     width: 380,

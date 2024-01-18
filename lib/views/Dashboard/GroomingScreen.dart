@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -14,7 +15,7 @@ class GroomingScreen extends StatefulWidget {
 
 class _GroomingScreenState extends State<GroomingScreen> {
   String? uid = FirebaseAuth.instance.currentUser!.uid;
-  final ref = FirebaseDatabase.instance.ref('services').child('GroomingService');
+  FirebaseFirestore ref = FirebaseFirestore.instance.collection('Services').doc('userId').collection('Boarding') as FirebaseFirestore;
 
   // C:\Users\ABDUL REHMAN\.android\debug.keystore keytool -list -v -keystore /path/to/debug.keystore -alias androiddebugkey -storepass android -keypass android
 
@@ -92,36 +93,27 @@ class _GroomingScreenState extends State<GroomingScreen> {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: StreamBuilder(
-                  stream: ref.onValue,
-                  builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      Map<dynamic, dynamic> map =
-                          snapshot.data!.snapshot.value as dynamic;
-                      List<dynamic> list = [];
-                      list.clear();
-                      list = map.values.toList();
-                      return ListView.builder(
-                        itemCount: snapshot.data!.snapshot.children.length,
-                        itemBuilder: (context, index) {
-                          return GroomingContainer(
-                            doctorName: list[index]['name'],
-                            doctorAddress: list[index]['address']['city'],
-                            doctorFee: list[index]['price'],
-                            doctorImage: list[index]['profileImage'],
-                            doctorlocation: list[index]['preferredLocation'],
-                            doctorSpeciality: list[index]['name'],
-                          );
-                        },
-                      );
-                    }
-                  },
-                ),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('Services').doc('userId').collection('GroomingServices').snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (ctx, index) => GroomingContainer(
+                        doctorName: snapshot.data!.docs[index]['name'],
+                        doctorAddress: snapshot.data!.docs[index]['address']['city'],
+                        doctorFee: snapshot.data!.docs[index]['price'],
+                        doctorImage: snapshot.data!.docs[index]['profileImage'],
+                        doctorlocation: snapshot.data!.docs[index]['preferredLocation'],
+                        doctorSpeciality:snapshot.data!.docs[index]['name'],
+                      )
+                  );
+                },
               )
             ],
           ),
