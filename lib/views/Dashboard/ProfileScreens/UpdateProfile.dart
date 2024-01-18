@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -26,6 +27,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController aboutMeController = TextEditingController();
+  // final FirebaseFirestore _fireStore = FirebaseFirestore.instance.collection('users') as FirebaseFirestore;
+  final CollectionReference _collectionReference = FirebaseFirestore.instance.collection('users');
+
 
   Uint8List? profileImg;
 
@@ -69,226 +73,244 @@ class _UpdateProfileState extends State<UpdateProfile> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.only(top: 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      height: 112,
-                      width: 112,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 0,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.1),
-                          ),
-                        ],
-                        shape: BoxShape.circle,
-                        image: profileImg == null
-                            ? const DecorationImage(
-                            image: AssetImage('assets/images/doctor.png'))
-                            : DecorationImage(
-                          image: MemoryImage(
-                              profileImg!),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-
-                    Positioned(
-                      bottom: 10,
-                      right: 0,
-                      child: InkWell(
-                        onTap: () async {
-                          profileImg =
-                          await imagePickerController
-                              .getMyImage(ImageSource.gallery);
-
-                          setState(() {});
-
-                        },
-                        child: Container(
-                          width: 29,
-                          height: 29,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.blue,
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextFormField(
-                  controller: fullNameController,
-                  decoration: InputDecoration(
-                    hintText: 'Full Name',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                      fontSize: 14,
-                    ),
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    suffixIcon: fullNameController.text.isNotEmpty
-                        ? const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    )
-                        : null, // Show the check icon conditionally
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 16),
-                child: Text(
-                  "Gender",
-                  style: TextStyle(
-                    fontSize: 18,
-                    // use grey color for light theme
-
-                    color: Colors.grey.shade500,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    buildToggleButton('Male', Icons.male),
-                    buildToggleButton('Female', Icons.female),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    hintText: 'joh@gmail.com',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                      fontSize: 14,
-                    ),
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    suffixIcon: emailController.text.isNotEmpty
-                        ? const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    )
-                        : null, // Show the check icon conditionally
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextFormField(
-                  // controller: phoneNumberController,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    hintText: '123-456-7890',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                      fontSize: 14,
-                    ),
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    suffixIcon: phoneNumberController.text.isNotEmpty
-                        ? const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    )
-                        : null, // Show the check icon conditionally
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                const EdgeInsets.only(left: 20.0, right: 20.0, top: 16),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+        child: StreamBuilder(
+            stream: _collectionReference.doc().snapshots(),
+            builder: (context, AsyncSnapshot snapshot){
+              if(!snapshot.hasData){
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }else if(snapshot.hasData){
+                Map<dynamic, dynamic> documentFields = snapshot.data!.data().snapshot.value;
+                return Container(
+                  padding: const EdgeInsets.only(top: 32),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "About Me",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Container(
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: const Color(0xfff7f7fa),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: TextFormField(
-                            maxLines: 8,
-                            controller: aboutMeController,
-                            decoration: const InputDecoration(
-                              hintText: 'Write about yourself...',
-                              focusedBorder: InputBorder.none,
-                              border: InputBorder.none,
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
-                              ),
-                              // fillColor: Colors.white54,
-                              // filled: true,
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
+                      Center(
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 112,
+                              width: 112,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 0,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    color: Colors.black.withOpacity(0.1),
+                                  ),
+                                ],
+                                shape: BoxShape.circle,
+                                image: profileImg == null
+                                    ? const DecorationImage(
+                                    image: AssetImage('assets/images/doctor.png'))
+                                    : DecorationImage(
+                                  image: MemoryImage(
+                                      profileImg!),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
+
+                            Positioned(
+                              bottom: 10,
+                              right: 0,
+                              child: InkWell(
+                                onTap: () async {
+                                  profileImg =
+                                  await imagePickerController
+                                      .getMyImage(ImageSource.gallery);
+
+                                  setState(() {});
+
+                                },
+                                child: Container(
+                                  width: 29,
+                                  height: 29,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.blue,
+                                  ),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller:  documentFields['fullName'] as TextEditingController,
+                          decoration: InputDecoration(
+                            hintText: 'Full Name',
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 14,
+                            ),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            suffixIcon: fullNameController.text.isNotEmpty
+                                ? const Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            )
+                                : null, // Show the check icon conditionally
                           ),
                         ),
-                      )
-                    ]),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: Center(
-                    child: RoundedButton(
-                      text: 'Get Started',
-                      press: () {},
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      width: 300,
-                      height: 70,
-                    )),
-              ),
-            ],
-          ),
-        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 16),
+                        child: Text(
+                          "Gender",
+                          style: TextStyle(
+                            fontSize: 18,
+// use grey color for light theme
+
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buildToggleButton('Male', Icons.male),
+                            buildToggleButton('Female', Icons.female),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            hintText: 'joh@gmail.com',
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 14,
+                            ),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            suffixIcon: emailController.text.isNotEmpty
+                                ? const Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            )
+                                : null, // Show the check icon conditionally
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+// controller: phoneNumberController,
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            hintText: '123-456-7890',
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 14,
+                            ),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                            ),
+                            suffixIcon: phoneNumberController.text.isNotEmpty
+                                ? const Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            )
+                                : null, // Show the check icon conditionally
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(left: 20.0, right: 20.0, top: 16),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "About Me",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey.shade500,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Container(
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: const Color(0xfff7f7fa),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: TextFormField(
+                                    maxLines: 8,
+                                    controller: aboutMeController,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Write about yourself...',
+                                      focusedBorder: InputBorder.none,
+                                      border: InputBorder.none,
+                                      hintStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+// fillColor: Colors.white54,
+// filled: true,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.grey),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ]),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Center(
+                            child: RoundedButton(
+                              text: 'Get Started',
+                              press: () {},
+                              color: Colors.blue,
+                              textColor: Colors.white,
+                              width: 300,
+                              height: 70,
+                            )),
+                      ),
+                    ],
+                  ),
+                );
+              }else{
+                return const Center(child: Text('No Data', style: TextStyle(fontSize: 20)));
+              }
+            }
+        )
       ),
     );
   }
 }
+
+
+
+
