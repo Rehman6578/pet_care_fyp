@@ -191,33 +191,35 @@ class _LoginScreenState extends State<LoginScreen> {
 
             // add text 'Already have an account? Login' at the bottom of the screen
 
-            Padding(
-              padding: const EdgeInsets.only(top: 680.0, left: 50),
-              child: InkWell(
-                onTap: () {
-                  Get.to(() => const Login());
-                  ToastMessage().showSnackBar('Login with Email and password');
-                },
-                child: RichText(
-                    text: const TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Already have an account? ',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 680.0),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(() => const Login());
+                    ToastMessage().showSnackBar('Login with Email and password');
+                  },
+                  child: RichText(
+                      text: const TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Already have an account? ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: 'Login',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 18,
+                          TextSpan(
+                            text: 'Login',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                  ),
                 ),
               ),
             ),

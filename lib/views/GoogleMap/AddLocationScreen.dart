@@ -465,15 +465,30 @@ class _AddLocationState extends State<AddLocation> {
                     SharedPreferences prefs = await SharedPreferences.getInstance();
                     String? key = prefs.getString('key');
 
+                    //get uid from shared preferences
+                    String? Uid = prefs.getString('uid');
+
+                    print(
+                        '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+                    print(Uid);
+
                     print(
                         '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
                     print(key);
 
                     switch (key) {
                       case '1':
-                        _firestore
-                            .collection('Services')
-                            .doc('userId').collection('Veterinary').doc(uid).set(addressData);
+                        // _firestore
+                        //     .collection('Services')
+                        //     .doc('userId').collection('Veterinary').doc(uid).set(addressData);
+
+                      // get the document reference of Veterinary collection
+                      DocumentReference documentReference = _firestore
+                          .collection('Services')
+                          .doc('userId').collection('Veterinary').doc(uid);
+
+                      documentReference.update({'address': addressData,});
+
                         setState(() {
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
@@ -482,19 +497,28 @@ class _AddLocationState extends State<AddLocation> {
 
                         break;
                       case '2':
-                      _firestore
-                          .collection('Services')
-                          .doc('userId').collection('GroomingServices').doc(uid).set(addressData);
-                      setState(() {
+
+                        DocumentReference documentReference = _firestore
+                            .collection('Services')
+                            .doc('userId').collection('GroomingServices').doc(Uid);
+
+                        documentReference.update({'address': addressData,});
+
+
+                        setState(() {
+
                         Get.snackbar(
                             'Success', 'Location Added Successfully');
                         Get.offAll(const AddPetServices());
                       });
                         break;
                       case '3':
-                        _firestore
+                        DocumentReference documentReference = _firestore
                             .collection('Services')
-                            .doc('userId').collection('BoardingService').doc(uid).set(addressData);
+                            .doc('userId').collection('BoardingService').doc(Uid);
+
+                        documentReference.update({'address': addressData,});
+
                         setState(() {
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
@@ -502,9 +526,12 @@ class _AddLocationState extends State<AddLocation> {
                         });
                         break;
                       case '4':
-                      _firestore
-                          .collection('Services')
-                          .doc('userId').collection('AdoptionServices').doc(uid).set(addressData);
+
+                        DocumentReference documentReference = _firestore
+                            .collection('Services')
+                            .doc('userId').collection('AdoptionServices').doc(Uid);
+
+                        documentReference.update({'address': addressData,});
                       setState(() {
                         Get.snackbar(
                             'Success', 'Location Added Successfully');
@@ -512,9 +539,13 @@ class _AddLocationState extends State<AddLocation> {
                       });
                         break;
                         case '5':
-                          _firestore
+                          DocumentReference documentReference = _firestore
                               .collection('Services')
-                              .doc('userId').collection('PetWalking').doc(uid).set(addressData);
+                              .doc('userId').collection('PetWalking').doc(Uid);
+
+                          documentReference.update({'address': addressData,});
+
+
                           setState(() {
                             Get.snackbar(
                                 'Success', 'Location Added Successfully');
@@ -522,9 +553,12 @@ class _AddLocationState extends State<AddLocation> {
                           });
                         break;
                         case '6':
-                        _firestore
-                            .collection('Services')
-                            .doc('userId').collection('TrainingSerivce').doc(uid).set(addressData);
+                          DocumentReference documentReference = _firestore
+                              .collection('Services')
+                              .doc('userId').collection('TrainingService').doc(Uid);
+
+                          documentReference.update({'address': addressData,});
+
                         setState(() {
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
@@ -532,9 +566,13 @@ class _AddLocationState extends State<AddLocation> {
                         });
                         break;
                         case '7':
-                        _firestore
-                            .collection('Services')
-                            .doc('userId').collection('TaxiServices').doc(uid).set(addressData);
+
+                          DocumentReference documentReference = _firestore
+                              .collection('Services')
+                              .doc('userId').collection('TaxiServices').doc(Uid);
+
+                          documentReference.update({'address': addressData,});
+
                         setState(() {
                           Get.snackbar(
                               'Success', 'Location Added Successfully');
@@ -542,9 +580,14 @@ class _AddLocationState extends State<AddLocation> {
                         });
                         break;
                         case '8':
-                        _firestore
-                            .collection('Services')
-                            .doc('userId').collection('petDating').doc(uid).set(addressData);
+
+                          DocumentReference documentReference = _firestore
+                              .collection('Services')
+                              .doc('userId').collection('petDating').doc(Uid);
+
+                          documentReference.update({'address': addressData,});
+
+
                         setState(() {
                           Get.snackbar(
                               'Success', 'Location Added Successfully');

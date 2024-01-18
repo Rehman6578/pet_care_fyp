@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -652,8 +653,10 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '6');
 
-    String? uid= _auth.currentUser?.uid;
+    String uid = Random().nextInt(1999999999).toString();
 
+    // store Uid in shared preferences
+    prefs.setString('uid', uid);
     _storage
         .ref()
         .child('TrainingService/$uid/profileImg')
@@ -723,7 +726,7 @@ class _TrainingSerivceState extends State<TrainingSerivce> {
     _firestore
         .collection('Services')
         .doc('userId')
-        .collection('Veterinary')
+        .collection('TrainingService')
         .doc(uid).set(map)
         .then((value) {
       setState(() {

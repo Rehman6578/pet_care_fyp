@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:pet_care_fyp/WidgetCommon/Button.dart';
 import 'package:pet_care_fyp/controllers/Pets_Services/PetController.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../controllers/Image_Controller/ImageController.dart';
 import '../../../GoogleMap/AddLocationScreen.dart';
 
@@ -18,34 +20,26 @@ class AddAdoptioniService extends StatefulWidget {
 }
 
 class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
 
-  final _formKey = GlobalKey<FormState>();
-  bool _loading = false;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
+
+  ImagePickerController imagePickerController = Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
-
   final TextEditingController _nameServicesController = TextEditingController();
-  final TextEditingController _listingSummaryController =
-      TextEditingController();
+  final TextEditingController _listingSummaryController = TextEditingController();
   final TextEditingController _descriptionsController = TextEditingController();
-  final TextEditingController _preferredLocationController =
-      TextEditingController();
+  final TextEditingController _preferredLocationController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _PetAdoptionController = TextEditingController();
 
   String? selectedOption;
-
   String? profileImg, img1, img2, img3;
-
   bool _houseTrained = false;
-  final bool _goodWithChildren = false;
-  final bool _goodWithOtherPets = false;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+  final _formKey = GlobalKey<FormState>();
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -575,7 +569,7 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
 
   // Add Adoption Service Function
 
-  void addAdoptionServices() {
+  void addAdoptionServices() async {
     String nameServices = _nameServicesController.text;
     String listingSummary = _listingSummaryController.text;
     List<String> petVisit = petController.selectPetVisit;
@@ -592,8 +586,13 @@ class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
       });
     }
 
-    // String uid = DateTime.now().microsecondsSinceEpoch.toString();
-    String? uid = _auth.currentUser?.uid;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('key', '4');
+
+    String uid = Random().nextInt(1999999999).toString();
+
+    // store Uid in shared preferences
+    prefs.setString('uid', uid);
 
     _storage
         .ref()
