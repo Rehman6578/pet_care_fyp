@@ -20,6 +20,7 @@ import 'package:pet_care_fyp/views/SplashScreen/SplashScreen.dart';
 import 'package:pet_care_fyp/views/auth_screens/LoginScreen.dart';
 import 'package:pet_care_fyp/views/auth_screens/RegisterScreen.dart';
 
+import 'controllers/views_Controllers/OnboardingController.dart';
 import 'dummy.dart';
 
 void main() async {
@@ -44,10 +45,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/Dashboard',
+      initialRoute: '/SplashScreen',
       getPages: [
-        GetPage(name: '/onboardingScreens', page: () => OnboardingScreen()),
         GetPage(name: '/SplashScreen', page: () => const SplashScreen()),
+        GetPage(name: '/onboardingScreen', page: () =>  OnboardingScreen()),
         GetPage(name: '/Dashboard', page: () => const Dashboard()),
         GetPage(name: '/LoginScreen', page: () => const LoginScreen()),
         GetPage(name: '/RegisterScreen', page: () => const RegisterScreen()),

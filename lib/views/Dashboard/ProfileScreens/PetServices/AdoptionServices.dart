@@ -20,34 +20,26 @@ class AddAdoptioniService extends StatefulWidget {
 }
 
 class _AddAdoptioniServiceState extends State<AddAdoptioniService> {
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
 
-  final _formKey = GlobalKey<FormState>();
-  bool _loading = false;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
+
+  ImagePickerController imagePickerController = Get.put(ImagePickerController());
   MultiSelectionController petController = Get.put(MultiSelectionController());
-
   final TextEditingController _nameServicesController = TextEditingController();
-  final TextEditingController _listingSummaryController =
-      TextEditingController();
+  final TextEditingController _listingSummaryController = TextEditingController();
   final TextEditingController _descriptionsController = TextEditingController();
-  final TextEditingController _preferredLocationController =
-      TextEditingController();
+  final TextEditingController _preferredLocationController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _PetAdoptionController = TextEditingController();
 
   String? selectedOption;
-
   String? profileImg, img1, img2, img3;
-
   bool _houseTrained = false;
-  final bool _goodWithChildren = false;
-  final bool _goodWithOtherPets = false;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+  final _formKey = GlobalKey<FormState>();
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {

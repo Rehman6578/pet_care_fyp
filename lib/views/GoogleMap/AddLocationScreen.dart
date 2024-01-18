@@ -485,7 +485,7 @@ class _AddLocationState extends State<AddLocation> {
                       // get the document reference of Veterinary collection
                       DocumentReference documentReference = _firestore
                           .collection('Services')
-                          .doc('userId').collection('Veterinary').doc(Uid);
+                          .doc('userId').collection('Veterinary').doc(uid);
 
                       documentReference.update({'address': addressData,});
 
