@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/Utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Services/google_Services.dart';
 import '../../WidgetCommon/Button.dart';
 import '../../WidgetCommon/My_Text_Field.dart';
@@ -97,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       const Padding(
                           padding:
-                          EdgeInsets.only(top: 130, left: 10, right: 10),
+                              EdgeInsets.only(top: 130, left: 10, right: 10),
                           child: Row(
                             children: [
                               Expanded(
@@ -157,7 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               padding: const EdgeInsets.only(left: 20),
                               child: ElevatedButton(
                                 onPressed: () {
-                                      () => AuthServices().signInWithGoogle();
+                                  () => AuthServices().signInWithGoogle();
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red,
@@ -367,9 +370,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-
-
-
             ],
           ),
         ),
@@ -377,7 +377,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _Registration() {
+  void _Registration()  {
     if (formkey.currentState!.validate()) {
       setState(() {
         _loading = true;
@@ -392,8 +392,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: emailController.text.toString(),
         password: passwordController.text.toString(),
       )
-          .then((value) {
-        String uid = DateTime.now().microsecondsSinceEpoch.toString();
+          .then((value) async {
+        // String uid = DateTime.now().microsecondsSinceEpoch.toString();
+
+        // generate a random number for uid
+        Random random = Random();
+        int randomNumber = random.nextInt(1000000);
+        String uid = randomNumber.toString();
+
+        // save uid in shared preference
+        SharedPreferences pref= await SharedPreferences.getInstance();
+        pref.setString('uid', uid);
+
+
         _firestore.doc(uid).set({
           'name': usernameController.text.toString(),
           'email': emailController.text.toString(),
