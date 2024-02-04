@@ -1,17 +1,19 @@
+import 'dart:ui';
+
 class GroomingService {
-  final String name;
-  final String description;
-  final String imageUrl;
-  final double rating;
-  final String duration;
-  final double price;
+  var doctorName;
+  var doctorSpeciality;
+  final Image doctorImage;
+  var doctorFee;
+  var doctorAddress;
+  var doctorlocation;
 
   GroomingService({
-    required this.name,
-    required this.description,
-    required this.imageUrl,
-    required this.rating,
-    required this.duration,
-    required this.price,
-  });
+     required this.doctorName,
+      required this.doctorSpeciality,
+      required this.doctorImage,
+      required this.doctorFee,
+      required this.doctorAddress,
+      required this.doctorlocation,
+      });
 }

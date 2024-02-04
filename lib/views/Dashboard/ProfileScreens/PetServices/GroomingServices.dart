@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -703,7 +702,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     _storage
         .ref()
         .child('GroomingServices/$uid/profileImg')
-        .putFile(File(profileImg.toString()))
+        .putString(profileImg.toString())
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         profileImg = value;
@@ -713,7 +712,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     _storage
         .ref()
         .child('GroomingServices/$uid/image1')
-        .putFile(File(img1.toString()))
+        .putString(img1.toString())
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         img1 = value;
@@ -723,7 +722,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     _storage
         .ref()
         .child('GroomingServices/$uid/image2')
-        .putFile(File(img2.toString()))
+        .putString(img2.toString())
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         img2 = value;
@@ -733,7 +732,7 @@ class _AddGroomingServiceState extends State<AddGroomingService> {
     _storage
         .ref()
         .child('GroomingServices/$uid/image3')
-        .putFile(File(img3.toString()))
+        .putString(img3.toString())
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         img3 = value;

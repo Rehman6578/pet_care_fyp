@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/EditProfile', page: () => const UpdateProfile()),
         GetPage(name: '/AddPetDetails', page: () => const AddPetDetail()),
         GetPage(name: '/NearVeterinaryScreen', page: () => const NearVeterinaryScreen()),
-        GetPage(name: '/VeterinaryDocScreen', page: () => const VeterinaryDocScreen()),
+        GetPage(name: '/VeterinaryDocScreen', page: () =>  VeterinaryDocScreen()),
         GetPage(name: '/GroomingScreen', page: () => const GroomingScreen()),
         GetPage(name: '/PetDatingScreen', page: () => PetDating()),
         GetPage(name: '/AddPetServices', page: () => const AddPetServices()),

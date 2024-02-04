@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       InkWell(
                           onTap:(){
                             //Navigator.of(context).pop();
-                            Get.off(const VeterinaryDocScreen());
+                            Get.off( VeterinaryDocScreen());
                           },
                           child: const Image(image: AssetImage(close))),
                       const SizedBox(width: 100,),

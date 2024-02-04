@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class iconContainer extends StatefulWidget {
 
-  IconData iconData;
+  final Image iconData;
   final String text;
 
   iconContainer({super.key, required this.iconData,required this.text});
@@ -25,9 +25,11 @@ class _iconContainerState extends State<iconContainer> {
             color: Colors.grey.withOpacity(0.2),
 
           ),
-          child: Icon(
-            widget.iconData,
-            color: Colors.black,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Image(
+              color: Colors.black, image: widget.iconData.image,
+            ),
           ),
         ),
         const SizedBox(

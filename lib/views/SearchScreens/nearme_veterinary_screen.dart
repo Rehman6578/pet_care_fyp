@@ -20,26 +20,6 @@ class NearVeterinaryScreen extends StatefulWidget {
 class _NearVeterinaryScreenState extends State<NearVeterinaryScreen> {
   int selectedSegment = 0; // Default selected segment index
 
-  // Widget specialistWidgets() {
-  //   // Define the widgets you want to show when "Specialist" is selected
-  //   return const Column(
-  //     children: [
-  //       Text('Specialist Widgets'),
-  //       // Add more widgets as needed
-  //     ],
-  //   );
-  // }
-
-  // Widget clinicsWidgets() {
-  //   // Define the widgets you want to show when "Clinics" is selected
-  //   return const Column(
-  //     children: [
-  //       Text('Clinics Widgets'),
-  //       // Add more widgets as needed
-  //     ],
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,7 +103,7 @@ class _NearVeterinaryScreenState extends State<NearVeterinaryScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.off(const VeterinaryDocScreen());
+                              Get.off( VeterinaryDocScreen());
                             },
                             child: Card(
                               elevation: 5, // Adjust the card's shadow

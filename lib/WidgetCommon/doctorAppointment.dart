@@ -116,15 +116,17 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           iconContainer(
-                            iconData: Icons.pin_drop_outlined,
+                            iconData: Image.asset('assets/images/pin.png'),
                             text: widget.doctorAddress,
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: iconContainer(
-                                  iconData:
-                                      Icons.account_balance_wallet_outlined,
-                                  text: widget.doctorFee))
+                          SizedBox(
+                            width: 15,
+                          ),
+
+                          iconContainer(
+                              iconData:
+                                  Image.asset('assets/images/wallet.png'),
+                              text: widget.doctorFee)
                         ],
                       )
                     ],
@@ -145,12 +147,12 @@ class _DocterAppointmentState extends State<DocterAppointment> {
                 child: Column(
                   children: [
                     iconContainer(
-                      iconData: Icons.cases_outlined,
+                      iconData: Image.asset('assets/images/briefcase.png'),
                       text: widget.doctorlocation,
                     ),
                     const SizedBox(height: 15),
                     iconContainer(
-                      iconData: Icons.access_time_outlined,
+                      iconData: Image.asset('assets/images/clock.png'),
                       text: widget.doctorAvailableTime,
                     ),
 

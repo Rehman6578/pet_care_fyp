@@ -1,12 +1,12 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pet_care_fyp/controllers/Gender_Controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../WidgetCommon/Button.dart';
 import '../../../WidgetCommon/gender_Button.dart';
 import '../../../controllers/Image_Controller/ImageController.dart';
@@ -19,9 +19,8 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
-
   ImagePickerController imagePickerController =
-  Get.put(ImagePickerController());
+      Get.put(ImagePickerController());
 
   // String? profileImg;
   TextEditingController fullNameController = TextEditingController();
@@ -30,9 +29,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
   TextEditingController aboutMeController = TextEditingController();
 
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
   Uint8List? profileImg;
 
+  GenderController genderController = Get.put(GenderController());
 
   @override
   void initState() {
@@ -79,8 +80,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child:
-        Column(crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: Stack(
@@ -103,36 +104,34 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       shape: BoxShape.circle,
                       image: profileImg == null
                           ? const DecorationImage(
-                          image: AssetImage('assets/images/doctor.png'))
+                              image: AssetImage('assets/images/doctor.png'))
                           : DecorationImage(
-                        image: MemoryImage(
-                            profileImg!),
-                        fit: BoxFit.cover,
-                      ),
+                              image: MemoryImage(profileImg!),
+                          fit: BoxFit.cover,
+                            ),
                     ),
-                  ),
+                    child: Positioned(
+                      bottom: 10,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () async {
+                          profileImg =
+                          await imagePickerController
+                              .getMyImage(ImageSource.gallery);
 
-                  Positioned(
-                    bottom: 10,
-                    right: 0,
-                    child: InkWell(
-                      onTap: () async {
-                        profileImg =
-                        await imagePickerController
-                            .getMyImage(ImageSource.gallery);
-
-                        setState(() {});
-                      },
-                      child: Container(
-                        width: 29,
-                        height: 29,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.blue,
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
+                          setState(() {});
+                        },
+                        child: Container(
+                          width: 29,
+                          height: 29,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.blue,
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -140,7 +139,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
@@ -156,9 +154,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ),
                   suffixIcon: fullNameController.text.isNotEmpty
                       ? const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  )
+                          Icons.check,
+                          color: Colors.green,
+                        )
                       : null, // Show the check icon conditionally
                 ),
               ),
@@ -170,7 +168,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 style: TextStyle(
                   fontSize: 18,
 // use grey color for light theme
-
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.w600,
                 ),
@@ -203,16 +200,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ),
                   suffixIcon: emailController.text.isNotEmpty
                       ? const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  )
+                          Icons.check,
+                          color: Colors.green,
+                        )
                       : null, // Show the check icon conditionally
                 ),
               ),
             ),
-
             const SizedBox(height: 16),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
@@ -229,16 +224,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ),
                   suffixIcon: phoneNumberController.text.isNotEmpty
                       ? const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  )
+                          Icons.check,
+                          color: Colors.green,
+                        )
                       : null, // Show the check icon conditionally
                 ),
               ),
             ),
             Padding(
-              padding:
-              const EdgeInsets.only(left: 20.0, right: 20.0, top: 16),
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 16),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,20 +278,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
               padding: const EdgeInsets.only(top: 50),
               child: Center(
                   child: RoundedButton(
-                    text: 'Get Started',
-                    press: () {
-
-                      UpdateProfileData();
-                    },
-                    color: Colors.blue,
-                    textColor: Colors.white,
-                    width: 300,
-                    height: 70,
-                  )),
+                text: 'Get Started',
+                press: () {
+                  UpdateProfileData();
+                },
+                color: Colors.blue,
+                textColor: Colors.white,
+                width: 300,
+                height: 70,
+              )),
             ),
           ],
         ),
-
       ),
     );
   }
@@ -306,24 +298,52 @@ class _UpdateProfileState extends State<UpdateProfile> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? uid = prefs.getString('uid');
 
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection('users').doc(uid).get();
 
-    DocumentSnapshot documentSnapshot = await _firestore.collection('users')
-        .doc(uid)
-        .get();
-
-    print('==============================================================================');
+    print(
+        '==============================================================================');
     print(documentSnapshot['name']);
     print(documentSnapshot['email']);
     // set data to textfield
     fullNameController.text = documentSnapshot['name'];
     emailController.text = documentSnapshot['email'];
   }
+
+  void UpdateProfileData() async {
+    // upload image to firebase storage
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? uid = prefs.getString('uid');
+
+    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n User id : ');
+    print(uid);
+
+    var profileImage = profileImg.toString();
+
+    storage
+        .ref()
+        .child('UsersProfile/$uid/profileImg')
+        .putString(profileImage)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        profileImg = value as Uint8List?;
+      });
+    });
+
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    _firestore.collection('users').doc(uid).update({
+      'name': fullNameController.text,
+      'email': emailController.text,
+      'profileImg': profileImg,
+      'phoneNumber': phoneNumberController.text,
+      'Gender': genderController.selectedGender.value,
+      'aboutMe': aboutMeController.text
+    }).then((value) {
+      Get.snackbar('Success', 'Profile Updated Successfully',
+          snackPosition: SnackPosition.BOTTOM);
+      Get.back();
+    });
+  }
 }
-
-class UpdateProfileData {
-
-
-}
-
-
-

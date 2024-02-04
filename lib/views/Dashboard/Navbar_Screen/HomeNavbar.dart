@@ -179,7 +179,7 @@ class _home_nav extends State<home_nav> {
                       title: 'Grooming',
                       assetImagePath: 'assets/images/grooming.png',
                       onPressed: () {
-                        Get.to(const FeedScreen());
+                        Get.to(const GroomingScreen());
                       }),
                   CustomGridItem(
                       title: 'Pet boarding',

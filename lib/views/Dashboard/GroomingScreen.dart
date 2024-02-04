@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pet_care_fyp/Utils/Models/GroomingService.dart';
 import 'package:pet_care_fyp/WidgetCommon/GroomingContainer.dart';
+import 'package:pet_care_fyp/const/images.dart';
+import 'package:pet_care_fyp/controllers/Pets_Services/GroomingController.dart';
+import 'package:pet_care_fyp/views/SearchScreens/veterinarydoctor_card_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GroomingScreen extends StatefulWidget {
   const GroomingScreen({super.key});
@@ -15,9 +19,17 @@ class GroomingScreen extends StatefulWidget {
 
 class _GroomingScreenState extends State<GroomingScreen> {
   String? uid = FirebaseAuth.instance.currentUser!.uid;
-  FirebaseFirestore ref = FirebaseFirestore.instance.collection('Services').doc('userId').collection('Boarding') as FirebaseFirestore;
 
-  // C:\Users\ABDUL REHMAN\.android\debug.keystore keytool -list -v -keystore /path/to/debug.keystore -alias androiddebugkey -storepass android -keypass android
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  CollectionReference collectionReference = FirebaseFirestore.instance
+      .collection('Services')
+      .doc('userId')
+      .collection('GroomingServices');
+
+  GroomingController groomingController = Get.put(GroomingController());
+
+  FirebaseStorage storage = FirebaseStorage.instance;
+  String profileImg = '';
 
   @override
   Widget build(BuildContext context) {
@@ -93,28 +105,49 @@ class _GroomingScreenState extends State<GroomingScreen> {
               const SizedBox(
                 height: 20,
               ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('Services').doc('userId').collection('GroomingServices').snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return ListView.builder(
+              // show the data from database
+              Expanded(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Services')
+                      .doc('userId')
+                      .collection('GroomingServices')
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    print(
+                        '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+                    print('doctor image is: ');
+                    print(profileImg);
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return ListView.builder(
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (ctx, index) => GroomingContainer(
                         doctorName: snapshot.data!.docs[index]['name'],
-                        doctorAddress: snapshot.data!.docs[index]['address']['city'],
-                        doctorFee: snapshot.data!.docs[index]['price'],
-                        doctorImage: snapshot.data!.docs[index]['profileImage'],
-                        doctorlocation: snapshot.data!.docs[index]['preferredLocation'],
-                        doctorSpeciality:snapshot.data!.docs[index]['name'],
-                      )
-                  );
-                },
-              )
+                        doctorSpeciality: snapshot.data!.docs[index]
+                            ['discription'],
+                        doctorImage: snapshot.data!.docs[index]['profileImg'],
+                        doctorFee: snapshot.data!.docs[index]['basicprice'],
+                        doctorAddress: snapshot.data!.docs[index]['address']
+                            ['city'],
+                        doctorlocation: snapshot.data!.docs[index]['address']
+                            ['state'],
+                        onTap: () {
+                          final selectedIndex = index;
+                          final selectedSnapshotData = snapshot.data!.docs[selectedIndex];
+                          groomingController.selectedData.value = selectedSnapshotData as Map<String, dynamic>; // Store in controller
+                          Get.to(VeterinaryDocScreen());
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
