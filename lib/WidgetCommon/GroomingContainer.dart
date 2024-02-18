@@ -1,10 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
-import '../controllers/Pets_Services/GroomingController.dart';
 import 'IconContainer.dart';
 
 class GroomingContainer extends StatefulWidget {
@@ -16,17 +12,17 @@ class GroomingContainer extends StatefulWidget {
   var doctorAddress;
   var doctorlocation;
   // add click function for doctor appointment
-   Function()? onTap;
+  Function()? onTap;
 
-   GroomingContainer({
-    required this.doctorName,
-    required this.doctorSpeciality,
-    required this.doctorImage,
-    required this.doctorFee,
-    required this.doctorAddress,
-    required this.doctorlocation,
-    this.onTap,
-    super.key});
+  GroomingContainer(
+      {required this.doctorName,
+      required this.doctorSpeciality,
+      required this.doctorImage,
+      required this.doctorFee,
+      required this.doctorAddress,
+      required this.doctorlocation,
+      this.onTap,
+      super.key});
 
   @override
   State<GroomingContainer> createState() => _GroomingContainerState();
@@ -35,24 +31,25 @@ class GroomingContainer extends StatefulWidget {
 class _GroomingContainerState extends State<GroomingContainer> {
   @override
   Widget build(BuildContext context) {
+    print(widget.doctorImage);
     return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10, top: 8),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 8),
       child: GestureDetector(
-        onTap: (){
-          GroomingController groomingController = Get.find();
-          groomingController.setSelectedData({
-            'name': widget.doctorName,
-            'discription': widget.doctorSpeciality,
-            'profileImg': widget.doctorImage,
-            'basicprice': widget.doctorFee,
-            'city': widget.doctorAddress,
-            'state': widget.doctorlocation,
-          });
+        onTap: () {
+          // GroomingController groomingController = Get.find();
+          // groomingController.setSelectedData({
+          //   'name': widget.doctorName,
+          //   'discription': widget.doctorSpeciality,
+          //   'profileImg': widget.doctorImage,
+          //   'basicprice': widget.doctorFee,
+          //   'city': widget.doctorAddress,
+          //   'state': widget.doctorlocation,
+          // });
           widget.onTap!();
         },
         child: Container(
           width: Get.width,
-          height: Get.height * 0.14,
+          height: Get.height * 0.16,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
@@ -70,10 +67,10 @@ class _GroomingContainerState extends State<GroomingContainer> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 15, top: 15),
+                padding: const EdgeInsets.only(left: 10, top: 15),
                 child: Container(
                   height: Get.height * 0.11,
-                  width: Get.width  * 0.20,
+                  width: Get.width * 0.2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
@@ -84,7 +81,7 @@ class _GroomingContainerState extends State<GroomingContainer> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 20),
+                padding: const EdgeInsets.only(top: 15, left: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +106,7 @@ class _GroomingContainerState extends State<GroomingContainer> {
                     ),
                     Row(
                       children: [
-                        const SizedBox(height:10),
+                        const SizedBox(height: 10),
                         _buildStarRating(5),
                         const SizedBox(width: 8.0),
                         const Text(
@@ -133,7 +130,7 @@ class _GroomingContainerState extends State<GroomingContainer> {
                             padding: const EdgeInsets.only(left: 20),
                             child: iconContainer(
                                 iconData:
-                                Image.asset('assets/images/wallet.png'),
+                                    Image.asset('assets/images/wallet.png'),
                                 text: widget.doctorFee))
                       ],
                     )
@@ -151,7 +148,7 @@ class _GroomingContainerState extends State<GroomingContainer> {
     return Row(
       children: List.generate(
         5,
-            (index) => Icon(
+        (index) => Icon(
           index < doctorRatings ? Icons.star : Icons.star_border,
           color: Colors.orange,
           size: 18.0,

@@ -1,4 +1,5 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,25 +46,32 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/SplashScreen',
+      initialRoute: FirebaseAuth.instance.currentUser == null
+          ? '/SplashScreen'
+          : '/Dashboard',
       getPages: [
         GetPage(name: '/SplashScreen', page: () => const SplashScreen()),
-        GetPage(name: '/onboardingScreen', page: () =>  OnboardingScreen()),
+        GetPage(name: '/onboardingScreen', page: () => OnboardingScreen()),
         GetPage(name: '/Dashboard', page: () => const Dashboard()),
         GetPage(name: '/LoginScreen', page: () => const LoginScreen()),
         GetPage(name: '/RegisterScreen', page: () => const RegisterScreen()),
         GetPage(name: '/EditProfile', page: () => const UpdateProfile()),
         GetPage(name: '/AddPetDetails', page: () => const AddPetDetail()),
-        GetPage(name: '/NearVeterinaryScreen', page: () => const NearVeterinaryScreen()),
-        GetPage(name: '/VeterinaryDocScreen', page: () =>  VeterinaryDocScreen()),
+        GetPage(
+            name: '/NearVeterinaryScreen',
+            page: () => const NearVeterinaryScreen()),
+        // GetPage(
+        //     name: '/VeterinaryDocScreen', page: () => VeterinaryDocScreen()),
         GetPage(name: '/GroomingScreen', page: () => const GroomingScreen()),
         GetPage(name: '/PetDatingScreen', page: () => PetDating()),
         GetPage(name: '/AddPetServices', page: () => const AddPetServices()),
-        GetPage(name: '/AddVeterinaryService', page: () => const AddVeterinaryService()),
+        GetPage(
+            name: '/AddVeterinaryService',
+            page: () => const AddVeterinaryService()),
         GetPage(name: '/TrainingService', page: () => const TrainingSerivce()),
         GetPage(name: '/BoardingService', page: () => const BoardingService()),
         GetPage(name: '/AddLocation', page: () => const AddLocation()),
-        GetPage(name: '/Feedpage', page: ()=> const FeedScreen()),
+        GetPage(name: '/Feedpage', page: () => const FeedScreen()),
       ],
     );
   }

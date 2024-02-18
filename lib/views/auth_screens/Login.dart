@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_fyp/Utils/utils.dart';
+import 'package:pet_care_fyp/views/Dashboard/MainDashboard.dart';
 import '../../Services/google_Services.dart';
 import '../../WidgetCommon/Button.dart';
 import '../../WidgetCommon/My_Text_Field.dart';
@@ -17,10 +18,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   bool _isSecurePassword = true;
 
-   bool _loading = false;
+  bool _loading = false;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -40,33 +40,33 @@ class _LoginState extends State<Login> {
   }
 
   void login() async {
-
     setState(() {
       _loading = true;
     });
-    if(!emailController.text.toString().contains('@') || !emailController.text.toString().contains('.')){
+    if (!emailController.text.toString().contains('@') ||
+        !emailController.text.toString().contains('.')) {
       Get.snackbar('Error', 'Please enter a valid email address');
       return null;
     }
-    auth.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text).then((value) {
-          emailController.clear();
-          passwordController.clear();
-          ToastMessage().showSnackBar('Login Successfully');
-      Get.to(const home_nav());
+    auth
+        .signInWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((value) {
+      emailController.clear();
+      passwordController.clear();
+      ToastMessage().showSnackBar('Login Successfully');
+      Get.to(()=>const Dashboard());
       setState(() {
         _loading = false;
       });
     }).onError((error, stackTrace) {
-
       ToastMessage().showSnackBar('Email or Password is incorrect');
       setState(() {
         _loading = false;
       });
-
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -112,8 +112,8 @@ class _LoginState extends State<Login> {
                       child: Column(
                         children: [
                           const Padding(
-                              padding: EdgeInsets.only(
-                                  top: 60, left: 20, right: 20),
+                              padding:
+                                  EdgeInsets.only(top: 60, left: 20, right: 20),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -160,8 +160,7 @@ class _LoginState extends State<Login> {
                                       backgroundColor: Colors.blue,
                                       minimumSize: const Size(60, 60),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30),
+                                        borderRadius: BorderRadius.circular(30),
                                       ),
                                     ),
                                     child: const Icon(
@@ -182,8 +181,7 @@ class _LoginState extends State<Login> {
                                       backgroundColor: Colors.red,
                                       minimumSize: const Size(60, 60),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30),
+                                        borderRadius: BorderRadius.circular(30),
                                       ),
                                     ),
                                     child: const Icon(
@@ -256,33 +254,35 @@ class _LoginState extends State<Login> {
                       child: Column(
                         children: [
                           MyTextFormField(
-                              myController: emailController,
-                              focusNode: emailFocusNode,
-                              onFieldSubmittedValue: (value) {
-                                // Utils.fieldFocusChange(context, emailFocusNode, passwordFocusNode);
-                              },
-                              onValidator: (value) {
-                                return value!.isEmpty
-                                    ? 'Please enter your email'
-                                    : null;
-                              },
-                              keyBoardType: TextInputType.emailAddress,
-                              hintText: 'Email Address',
-                              hintStyle: const TextStyle(color: Colors.grey),
-                              labelText: 'Email ',
-                              labelStyle: const TextStyle(color: Colors.grey),
-                              obscureText: false,
-                              suffixIcon: false,
+                            myController: emailController,
+                            focusNode: emailFocusNode,
+                            onFieldSubmittedValue: (value) {
+                              // Utils.fieldFocusChange(context, emailFocusNode, passwordFocusNode);
+                            },
+                            onValidator: (value) {
+                              return value!.isEmpty
+                                  ? 'Please enter your email'
+                                  : null;
+                            },
+                            keyBoardType: TextInputType.emailAddress,
+                            hintText: 'Email Address',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            labelText: 'Email ',
+                            labelStyle: const TextStyle(color: Colors.grey),
+                            obscureText: false,
+                            suffixIcon: false,
                           ),
                           const SizedBox(height: 10),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: TextFormField(
                               controller: passwordController,
                               obscureText: _isSecurePassword,
                               decoration: InputDecoration(
                                 labelText: 'Password',
-                                labelStyle: const TextStyle(color: Colors.blueAccent),
+                                labelStyle:
+                                    const TextStyle(color: Colors.blueAccent),
                                 hintText: 'Enter your Password',
                                 hintStyle: const TextStyle(color: Colors.black),
                                 suffixIcon: toggleButton(),
@@ -295,7 +295,6 @@ class _LoginState extends State<Login> {
                               },
                             ),
                           ),
-
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: Align(
@@ -321,17 +320,18 @@ class _LoginState extends State<Login> {
                           ),
                           const SizedBox(height: 40),
                           RoundedButton(
-                              text: "Sign in ",
-                              isloading: _loading,
-                              press: () {
-                                if(_formKey.currentState!.validate()){
-                                  login();
-                                }
-                              },
-                              color: Colors.blue,
-                              textColor: Colors.white,
-                              height: Get.height * 0.08,
-                              width: Get.width * 0.8,),
+                            text: "Sign in ",
+                            isloading: _loading,
+                            press: () {
+                              if (_formKey.currentState!.validate()) {
+                                login();
+                              }
+                            },
+                            color: Colors.blue,
+                            textColor: Colors.white,
+                            height: Get.height * 0.08,
+                            width: Get.width * 0.8,
+                          ),
                         ],
                       ),
                     ),
@@ -346,13 +346,20 @@ class _LoginState extends State<Login> {
   }
 
   Widget toggleButton() {
-
-    return IconButton(onPressed: (){
-      setState(() {
-        _isSecurePassword = !_isSecurePassword;
-      });
-    }, icon: _isSecurePassword ? const Icon(Icons.visibility_off,color: Colors.grey,)
-        : const Icon(Icons.visibility, color: Colors.grey,));
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            _isSecurePassword = !_isSecurePassword;
+          });
+        },
+        icon: _isSecurePassword
+            ? const Icon(
+                Icons.visibility_off,
+                color: Colors.grey,
+              )
+            : const Icon(
+                Icons.visibility,
+                color: Colors.grey,
+              ));
   }
-
 }

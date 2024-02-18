@@ -8,6 +8,7 @@ import '../../Boarding_Temp.dart';
 import '../../SearchScreens/nearme_veterinary_screen.dart';
 import '../GroomingScreen.dart';
 import '../PetDatingScreen.dart';
+import '../ProfileScreens/UpdateProfile.dart';
 import 'PetTaxiScreen.dart';
 import 'add_pet_detail.dart';
 
@@ -58,10 +59,9 @@ class _home_nav extends State<home_nav> {
                               Get.back();
                             },
                             child: const Image(image: AssetImage(close))),
-
                         SizedBox(
-                          width: Get.width * 0.2,),
-
+                          width: Get.width * 0.2,
+                        ),
                         const Text(
                           'Add Pet Details',
                           style: TextStyle(
@@ -111,10 +111,9 @@ class _home_nav extends State<home_nav> {
                             color: Colors.grey.withOpacity(0.2),
                             textColor: Colors.black,
                             width: Get.width * 0.35),
-
                         SizedBox(
-                        height: Get.height * 0.1,)
-
+                          height: Get.height * 0.1,
+                        )
                       ],
                     ),
                   )
@@ -126,7 +125,6 @@ class _home_nav extends State<home_nav> {
       );
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +142,6 @@ class _home_nav extends State<home_nav> {
                   IconButton(
                     icon: const Icon(Icons.search),
                     onPressed: () {
-
                       Get.to(const NearVeterinaryScreen());
                     },
                   ),
@@ -203,7 +200,7 @@ class _home_nav extends State<home_nav> {
                       title: 'Pet Taxi',
                       assetImagePath: 'assets/images/pettaxi.png',
                       onPressed: () {
-                        Get.to( PetTaxiScreen());
+                        Get.to(PetTaxiScreen());
                       }),
                   CustomGridItem(
                       title: 'Pet Date',

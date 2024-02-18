@@ -103,7 +103,7 @@ class _NearVeterinaryScreenState extends State<NearVeterinaryScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.off( VeterinaryDocScreen());
+                              // Get.off( VeterinaryDocScreen());
                             },
                             child: Card(
                               elevation: 5, // Adjust the card's shadow

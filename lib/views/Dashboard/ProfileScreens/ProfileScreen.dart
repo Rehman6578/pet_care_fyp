@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,7 @@ import '../../auth_screens/LoginScreen.dart';
 import 'AddPetServices.dart';
 
 class ProfileScreen extends StatefulWidget {
-   const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -16,6 +17,42 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
+  String name = '';
+  String image = '';
+  String email = '';
+
+  Future<void> fetchData() async {
+    String? uid = auth.currentUser?.uid;
+    print(uid);
+    try {
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
+
+      DocumentSnapshot documentSnapshot = await users.doc(uid).get();
+
+      Map<String, dynamic>? userData =
+          documentSnapshot.data() as Map<String, dynamic>?;
+      if (userData != null) {
+        setState(() {
+          name = userData['name'];
+          image = userData['image'];
+          email = userData['email'];
+        });
+      } else {
+        print('User data not found.');
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+      // Handle error
+    }
+  }
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,30 +60,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+        automaticallyImplyLeading: false,
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+        //   onPressed: () {
+        //     Get.back();
+        //   },
+        // ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
               onTap: () {
-                Get.to(const ProfileScreen());
+                Get.to(() => const UpdateProfile());
               },
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              child: const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 // Align icon and text vertically
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: () {
-                        Get.to(const UpdateProfile());
-                      }),
-                  const Padding(
+                  Icon(
+                    Icons.edit,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Padding(
                     padding: EdgeInsets.only(bottom: 10, right: 10.0),
                     child: Text(
                       'Edit',
@@ -116,21 +155,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                               shape: BoxShape.circle,
-                              image: const DecorationImage(
-                                image: AssetImage('assets/images/Ellipse.png'),
-                                fit: BoxFit.cover,
-                              ),
+                              image: image.isNotEmpty
+                                  ? DecorationImage(
+                                      image: NetworkImage(image),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/Ellipse.png'),
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
                     child: Text(
-                      'Maria Martinez',
-                      style: TextStyle(
+                      name.isNotEmpty ? name : 'Maria Martinez',
+                      style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'Encode Sans',
                         fontWeight: FontWeight.w700,
@@ -138,11 +183,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
-                      'Kiev', // Add your text content
-                      style: TextStyle(
+                      email.isNotEmpty
+                          ? email
+                          : 'Kiev', // Add your text content
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontFamily: 'Encode Sans',
                         fontWeight: FontWeight.w400,
@@ -211,7 +258,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
               child: profile_list(
                 onTap: () {
-                  
                   // show here logout dialog
                   Dialog dialog = Dialog(
                     shape: RoundedRectangleBorder(
@@ -221,16 +267,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Column(
                         children: [
                           Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Image.asset(
-                                'assets/images/love.png',
-                                height: Get.height * 0.1,
-                                width: Get.width * 0.2,
-                              ),
-                            )
-                          ),
-
+                              child: Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Image.asset(
+                              'assets/images/love.png',
+                              height: Get.height * 0.1,
+                              width: Get.width * 0.2,
+                            ),
+                          )),
                           const Padding(
                             padding: EdgeInsets.only(top: 15.0),
                             child: Text(
@@ -266,14 +310,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   },
                                   child: const Text(
                                     'Cancel',
-                                    style:   TextStyle(
+                                    style: TextStyle(
                                       color: Colors.blueAccent,
                                       fontFamily: 'Encode Sans',
                                       fontWeight: FontWeight.w700,
                                       fontSize: 16,
                                     ),
                                   ),
-
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -302,7 +345,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     context: context,
                     builder: (BuildContext context) => dialog,
                   );
-
                 },
                 image: Image.asset('assets/images/logout1.png'),
                 name: 'LogOut',

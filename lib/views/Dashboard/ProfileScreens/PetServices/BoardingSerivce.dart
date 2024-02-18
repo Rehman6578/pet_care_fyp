@@ -27,8 +27,6 @@ final TextEditingController _nameController = TextEditingController();
 final TextEditingController _descriptionController = TextEditingController();
 final TextEditingController _priceController = TextEditingController();
 
-
-
 final _formKey = GlobalKey<FormState>();
 bool _loading = false;
 
@@ -91,7 +89,8 @@ class _BoardingServiceState extends State<BoardingService> {
                                     image: AssetImage(
                                         'assets/images/trainingprofile.png'))
                                 : DecorationImage(
-                                    image: FileImage(File(profileImg.toString())),
+                                    image:
+                                        FileImage(File(profileImg.toString())),
                                     fit: BoxFit.cover,
                                   ),
                           ),
@@ -632,7 +631,6 @@ class _BoardingServiceState extends State<BoardingService> {
                           _loading = true;
                         });
                         AddBoardingService();
-
                       }
                     },
                     color: Colors.blueAccent,
@@ -653,20 +651,18 @@ class _BoardingServiceState extends State<BoardingService> {
   }
 
   Future<void> AddBoardingService() async {
-
     //create variable for store data
-    String serviceName= _nameController.text;
-    String serviceDescription= _descriptionController.text;
-    String price= _priceController.text;
-    String petTransport= selectedOption.toString();
-    String petWalking= selectedWalkingServic.toString();
-    String petHome= selectedHome.toString();
-    String petNumber= selectedPets.toString();
+    String serviceName = _nameController.text;
+    String serviceDescription = _descriptionController.text;
+    String price = _priceController.text;
+    String petTransport = selectedOption.toString();
+    String petWalking = selectedWalkingServic.toString();
+    String petHome = selectedHome.toString();
+    String petNumber = selectedPets.toString();
 
     // create lists variabels for store data
-    List<String> petType= petController.selectedPetTypes.value;
-    List<String> petSize= petController.selectedPetSize1.value;
-
+    List<String> petType = petController.selectedPetTypes.value;
+    List<String> petSize = petController.selectedPetSize1.value;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('key', '3');
@@ -718,7 +714,6 @@ class _BoardingServiceState extends State<BoardingService> {
       });
     });
 
-
     // store all the data in map
     Map<String, dynamic> map = {
       'serviceName': serviceName,
@@ -745,22 +740,21 @@ class _BoardingServiceState extends State<BoardingService> {
         .collection('Services')
         .doc('userId')
         .collection('BoardingService')
-        .doc(uid).set(map).then((value) => {
-      Get.snackbar(
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 3),
-          'Success',
-          'Boarding Service Added Successfully'),
-      Get.to(const AddLocation()),
-    }).catchError((error) {
+        .doc(uid)
+        .set(map)
+        .then((value) => {
+              Get.snackbar(
+                  snackPosition: SnackPosition.BOTTOM,
+                  duration: const Duration(seconds: 3),
+                  'Success',
+                  'Boarding Service Added Successfully'),
+              Get.to(const AddLocation()),
+            })
+        .catchError((error) {
       setState(() {
         _loading = false;
       });
       Get.snackbar('Error', error.toString());
     });
-
-
-
-
   }
 }

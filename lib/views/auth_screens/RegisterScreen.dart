@@ -377,7 +377,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _Registration()  {
+  void _Registration() {
     if (formkey.currentState!.validate()) {
       setState(() {
         _loading = true;
@@ -396,19 +396,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // String uid = DateTime.now().microsecondsSinceEpoch.toString();
 
         // generate a random number for uid
-        Random random = Random();
-        int randomNumber = random.nextInt(1000000);
-        String uid = randomNumber.toString();
+        // Random random = Random();
+        // int randomNumber = random.nextInt(1000000);
+        // String uid = randomNumber.toString();
+
+        ///No need to generate a random UID for every user
+        ///We can use the firebase current's UID and we can access this anytime anywhere
+        String? uid = FirebaseAuth.instance.currentUser?.uid;
 
         // save uid in shared preference
-        SharedPreferences pref= await SharedPreferences.getInstance();
-        pref.setString('uid', uid);
-
+        // SharedPreferences pref = await SharedPreferences.getInstance();
+        // pref.setString('uid', uid);
 
         _firestore.doc(uid).set({
           'name': usernameController.text.toString(),
           'email': emailController.text.toString(),
           'password': passwordController.text.toString(),
+          'image': '',
+          'Gender': 'Male',
+          'aboutMe': 'Male',
+          'phoneNumber': 'Male',
           'uid': uid,
         });
         emailController.clear();
